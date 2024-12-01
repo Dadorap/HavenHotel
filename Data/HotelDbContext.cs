@@ -15,14 +15,20 @@ namespace HavenHotel.Data
     {
         public HotelDbContext(DbContextOptions<HotelDbContext> options) : base(options) { }
 
+        // Parameterless constructor for design-time tools
+        public HotelDbContext() { }
+
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Guest> Guests { get; set; }
         public DbSet<Room> Rooms { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=Dado;Integrated Security=True;TrustServerCertificate=True;");
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=HavenDatabase;Integrated Security=True;TrustServerCertificate=True;");
+            }
         }
-
     }
+
 }

@@ -6,11 +6,9 @@ using HavenHotel.InterfaceFolder;
 using HavenHotel.Interfaces;
 using HavenHotel.MenuFolder;
 using HavenHotel.RoomsFolder;
+using HavenHotel.Data; 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using HavenHotel.Repositories;
 
 namespace HavenHotel.Configuration
 {
@@ -25,12 +23,15 @@ namespace HavenHotel.Configuration
             containerBuilder.RegisterType<RoomMenu>().AsSelf();
 
             containerBuilder.RegisterType<Exit>().As<IExit>();
-            containerBuilder.RegisterType<Header>().As<IHeader>();           
+            containerBuilder.RegisterType<Header>().As<IHeader>();
             containerBuilder.RegisterType<MainMenu>().As<IMainMenu>();
             containerBuilder.RegisterType<Menu>().As<IMenu>();
 
+            containerBuilder.RegisterType<HotelDbContext>().AsSelf().InstancePerLifetimeScope();
+
+            containerBuilder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
+
             return containerBuilder.Build();
         }
-
     }
 }
