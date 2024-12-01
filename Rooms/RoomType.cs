@@ -8,10 +8,10 @@ namespace HavenHotel.Rooms
 {
     public enum RoomType
     {
-        Single, // 1 guests
-        Double, // 2 guests
-        Suite, // 4 guests
-        Family // 6 guests
+        SINGLE, // 1 guests
+        DOUBLE, // 2 guests
+        SUITE, // 4 guests
+        FAMILY // 6 guests
     }
 
 }
