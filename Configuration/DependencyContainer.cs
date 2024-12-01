@@ -11,6 +11,7 @@ using HavenHotel.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using HavenHotel.Guests;
+using HavenHotel.SeedingData;
 
 namespace HavenHotel.Configuration
 {
@@ -20,13 +21,11 @@ namespace HavenHotel.Configuration
         {
             var containerBuilder = new ContainerBuilder();
 
-            // Load configuration from appsettings.json
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
 
-            // Register DbContext with options from configuration
             containerBuilder.Register(c =>
             {
                 var optionsBuilder = new DbContextOptionsBuilder<HotelDbContext>();
@@ -40,6 +39,7 @@ namespace HavenHotel.Configuration
             containerBuilder.RegisterType<RoomMenu>().AsSelf();
             containerBuilder.RegisterType<BookingMenu>().AsSelf();
             containerBuilder.RegisterType<GuestMenu>().AsSelf();
+            containerBuilder.RegisterType<Seedings>().AsSelf();
 
             containerBuilder.RegisterType<Exit>().As<IExit>();
             containerBuilder.RegisterType<Header>().As<IHeader>();

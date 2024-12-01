@@ -9,9 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HavenHotel
+namespace HavenHotel.SeedingData
 {
-    public class SeedingGuestAndRooms
+    public class Seedings
     {
         public void Seed()
         {

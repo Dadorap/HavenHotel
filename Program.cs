@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using HavenHotel.Configuration;
 using HavenHotel.Interfaces;
+using HavenHotel.SeedingData;
 
 namespace HavenHotel
 {
@@ -8,12 +9,15 @@ namespace HavenHotel
     {
         static void Main(string[] args)
         {
-            //var container = DependencyContainer.Configure();
+            var container = DependencyContainer.Configure();
 
             //var menu = container.Resolve<IMainMenu>();
 
             //menu.DisplayMenu();
-            SeedingGuestAndRooms x = new SeedingGuestAndRooms();
+
+            var x = container.Resolve<Seedings>();
+
+
             x.Seed();
         }
     }
