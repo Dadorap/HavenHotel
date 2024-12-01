@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HavenHotel
+namespace HavenHotel.HeaderFolder
 {
     public class Header : IHeader
     {
@@ -28,7 +28,7 @@ namespace HavenHotel
 ";
 
             string[] havenLines = haven.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
-           
+
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             foreach (string line in havenLines)

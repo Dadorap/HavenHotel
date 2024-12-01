@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HavenHotel.Interfaces
+namespace HavenHotel.GuestsFolder.GuestServices
 {
-    public interface IMenu
+    internal class UnDeleteGuest
     {
-        void DisplayMenu();
     }
 }

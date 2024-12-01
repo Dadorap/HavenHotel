@@ -2,14 +2,17 @@
 using HavenHotel.Interfaces;
 
 
-namespace HavenHotel
+namespace HavenHotel.MenuFolder
 {
-    public class Menu : IMenu
+    public class MainMenu : IMainMenu
     {
         private readonly IHeader _header;
-        public Menu(IHeader header)
+        private readonly IExit _exit;
+
+        public MainMenu(IHeader header, IExit exit)
         {
             _header = header;
+            _exit = exit;
         }
         public void DisplayMenu()
         {
@@ -33,7 +36,7 @@ namespace HavenHotel
                 int verticalOffset = (consoleHeight - menu.Count) / 2 + headerHeight;
 
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
-                string instruction = "Choose a language and press Enter:";
+                string instruction = "Main Menu";
                 int instructionX = (consoleWidth - instruction.Length) / 2;
                 Console.SetCursorPosition(instructionX, verticalOffset - 2);
                 Console.Write(instruction);
@@ -79,12 +82,19 @@ namespace HavenHotel
                 }
                 else if (keyPressed == ConsoleKey.Enter)
                 {
-                    for (int i = 0; i < menu.Count; i++)
+                    switch (currentSelect)
                     {
-                        if (currentSelect == i)
-                        {
-                            Console.WriteLine(menu[i]);
-                        }
+                        case 0:
+                          
+                            break;
+                        case 1:
+                           
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            _exit.ExitConsole();
+                            return;
                     }
 
                 }

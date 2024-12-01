@@ -10,7 +10,7 @@ namespace HavenHotel
         {
             var container = DependencyContainer.Configure();
 
-            var menu = container.Resolve<IMenu>();
+            var menu = container.Resolve<IMainMenu>();
 
             menu.DisplayMenu();
         }
