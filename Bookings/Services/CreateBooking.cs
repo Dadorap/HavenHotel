@@ -1,12 +1,17 @@
-﻿using System;
+﻿using HavenHotel.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HavenHotel.BookingsFolder.BookingServices
+namespace HavenHotel.Bookings.BookingServices
 {
-    internal class CreateBooking
+    public class CreateBooking : ICreate
     {
+        public void Create()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

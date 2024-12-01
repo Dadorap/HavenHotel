@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HavenHotel.BookingsFolder.BookingServices
+namespace HavenHotel.Bookings.BookingServices
 {
-    internal class DeleteBooking
+    public class DeleteBooking
     {
     }
 }

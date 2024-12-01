@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HavenHotel.Bookings.BookingServices
+namespace HavenHotel.Interfaces
 {
-    public class DisplayAllBookings
+    public interface ICreate
     {
+        void Create();
     }
 }

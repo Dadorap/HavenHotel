@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HavenHotel.RoomsFolder.RoomServices
+namespace HavenHotel.Rooms.RoomServices
 {
-    internal class DisplayAllRooms
+    public class DisplayAllRooms
     {
     }
 }

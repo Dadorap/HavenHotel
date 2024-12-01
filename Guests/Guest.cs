@@ -1,4 +1,4 @@
-﻿namespace HavenHotel.GuestsFolder
+﻿namespace HavenHotel.Guests
 {
     public class Guest
     {

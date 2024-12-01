@@ -1,4 +1,4 @@
-﻿using HavenHotel.BookingsFolder;
+﻿using HavenHotel.Bookings;
 using System;
 using System.Collections.Generic;
 using System.Linq;

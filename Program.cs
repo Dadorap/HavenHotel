@@ -8,11 +8,14 @@ namespace HavenHotel
     {
         static void Main(string[] args)
         {
-            var container = DependencyContainer.Configure();
+            //var container = DependencyContainer.Configure();
 
-            var menu = container.Resolve<IMainMenu>();
+            //var menu = container.Resolve<IMainMenu>();
 
-            menu.DisplayMenu();
+            //menu.DisplayMenu();
+            SeedingGuestAndRooms x = new SeedingGuestAndRooms();
+            x.Seed();
         }
     }
 }
+

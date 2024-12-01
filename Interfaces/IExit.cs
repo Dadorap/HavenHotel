@@ -1,4 +1,4 @@
-﻿namespace HavenHotel.InterfaceFolder
+﻿namespace HavenHotel.Interfaces
 {
     public interface IExit
     {

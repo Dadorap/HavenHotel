@@ -1,16 +1,16 @@
-﻿using HavenHotel.BookingsFolder;
-using HavenHotel.GuestsFolder;
-using HavenHotel.RoomsFolder;
+﻿using HavenHotel.Bookings;
+using HavenHotel.Guests;
+using HavenHotel.Rooms;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;  
+using System.Threading.Tasks;
+
 
 namespace HavenHotel.Data
 {
-
     public class HotelDbContext : DbContext
     {
         public HotelDbContext(DbContextOptions<HotelDbContext> options) : base(options) { }
@@ -26,9 +26,9 @@ namespace HavenHotel.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
+                // Fallback to a hardcoded connection string
                 optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=HavenDatabase;Integrated Security=True;TrustServerCertificate=True;");
             }
         }
     }
-
 }

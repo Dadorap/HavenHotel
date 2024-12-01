@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HavenHotel.GuestsFolder.GuestServices
+namespace HavenHotel.Guests.GuestServices
 {
-    internal class UnDeleteGuest
+    public class UnDeleteGuest
     {
     }
 }

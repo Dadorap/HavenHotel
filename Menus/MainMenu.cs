@@ -1,8 +1,8 @@
-﻿using HavenHotel.InterfaceFolder;
+﻿using HavenHotel.Interfaces;
 using HavenHotel.Interfaces;
 
 
-namespace HavenHotel.MenuFolder
+namespace HavenHotel.Menus
 {
     public class MainMenu : IMainMenu
     {
