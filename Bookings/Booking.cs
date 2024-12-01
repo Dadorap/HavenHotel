@@ -16,7 +16,6 @@ namespace HavenHotel.Bookings
         public int GuestId { get; set; } 
         public Guest Guest { get; set; } 
 
-        public decimal Price { get; set; }
     }
 
 }

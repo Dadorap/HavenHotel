@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HavenHotel.Migrations
 {
     /// <inheritdoc />
-    public partial class initDatabase : Migration
+    public partial class initdatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -54,8 +54,7 @@ namespace HavenHotel.Migrations
                     StartDate = table.Column<DateOnly>(type: "date", nullable: false),
                     EndDate = table.Column<DateOnly>(type: "date", nullable: false),
                     RoomId = table.Column<int>(type: "int", nullable: false),
-                    GuestId = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    GuestId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -36,9 +36,6 @@ namespace HavenHotel.Migrations
                     b.Property<int>("GuestId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
 

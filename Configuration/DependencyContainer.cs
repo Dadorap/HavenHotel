@@ -12,6 +12,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using HavenHotel.Guests;
 using HavenHotel.SeedingData;
+using HavenHotel.Guests.GuestServices;
+using HavenHotel.Bookings.BookingServices;
+using HavenHotel.Rooms.RoomServices;
 
 namespace HavenHotel.Configuration
 {
@@ -33,8 +36,20 @@ namespace HavenHotel.Configuration
 
                 return new HotelDbContext(optionsBuilder.Options);
             }).AsSelf().InstancePerLifetimeScope();
-
             containerBuilder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
+
+            //guest
+            containerBuilder.RegisterType<Guest>().As<IGuest>();
+
+            //Create
+            containerBuilder.RegisterType<CreateGuest>().Named<ICreate>("CreateGuest");
+            containerBuilder.RegisterType<CreateRoom>().Named<ICreate>("CreateRoom");
+            containerBuilder.RegisterType<CreateBooking>().Named<ICreate>("CreateBooking");
+
+
+
+
+
 
             containerBuilder.RegisterType<RoomMenu>().AsSelf();
             containerBuilder.RegisterType<BookingMenu>().AsSelf();

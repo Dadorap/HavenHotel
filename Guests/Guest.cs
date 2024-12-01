@@ -1,11 +1,13 @@
-﻿namespace HavenHotel.Guests
+﻿using HavenHotel.Interfaces;
+
+namespace HavenHotel.Guests
 {
-    public class Guest
+    public class Guest : IGuest
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 }

@@ -11,7 +11,7 @@ namespace HavenHotel.Bookings.BookingServices
     {
         public void Create()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

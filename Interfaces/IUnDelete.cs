@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace HavenHotel.Interfaces
 {
-    public interface IDisplay
+    public interface IUnDelete
     {
-        void DisplayById();
-        
+        void UnDelete();
     }
 }

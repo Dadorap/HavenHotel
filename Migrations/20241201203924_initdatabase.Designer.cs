@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HavenHotel.Migrations
 {
     [DbContext(typeof(HotelDbContext))]
-    [Migration("20241201153437_initDatabase")]
-    partial class initDatabase
+    [Migration("20241201203924_initdatabase")]
+    partial class initdatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,9 +38,6 @@ namespace HavenHotel.Migrations
 
                     b.Property<int>("GuestId")
                         .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("RoomId")
                         .HasColumnType("int");

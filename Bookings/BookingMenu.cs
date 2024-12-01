@@ -17,7 +17,7 @@ namespace HavenHotel.Bookings
         }
         public void BookingsMenu()
         {
-            var guestOperations = new List<string>
+            var guestMenuList = new List<string>
             {
                 "Create New Booking",
                 "Show All Bookings",
@@ -29,7 +29,7 @@ namespace HavenHotel.Bookings
                 "Back to Main Menu"
             };
 
-
+            //_menu.DisplayMenu(guestMenuList, )
 
         }
     }

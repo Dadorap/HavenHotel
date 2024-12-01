@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using HavenHotel.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,9 @@ namespace HavenHotel.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        protected readonly DbContext _dbContext;
+        protected readonly HotelDbContext _dbContext;
 
-        public Repository(DbContext dbContext)
+        public Repository(HotelDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -63,6 +64,11 @@ namespace HavenHotel.Repositories
             {
                 Console.WriteLine($"No {typeof(T).Name.ToLower()} found with ID {id}.");
             }
+        }
+
+        public void SaveChanges()
+        {
+            _dbContext.SaveChanges();
         }
     }
 

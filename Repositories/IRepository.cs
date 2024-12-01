@@ -15,6 +15,7 @@ namespace HavenHotel.Repositories
         IEnumerable<T> GetAllItems();
         void Update(T item);
         void RemoveItemById(int id);
+        void SaveChanges();
     }
 
 }

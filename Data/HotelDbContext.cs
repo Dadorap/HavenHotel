@@ -26,7 +26,6 @@ namespace HavenHotel.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                // Fallback to a hardcoded connection string
                 optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=HavenDatabase;Integrated Security=True;TrustServerCertificate=True;");
             }
         }
