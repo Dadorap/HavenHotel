@@ -4,20 +4,23 @@ using System.Linq;
 using HavenHotel.Repositories;
 using HavenHotel.Rooms;
 using System.Threading.Channels;
+using HavenHotel.Guests;
 
 namespace HavenHotel.Rooms.RoomServices
 {
     public class CreateRoom : ICreate
     {
         private readonly IRepository<Room> _repository;
+        private readonly INavigationHelper _navigationHelper; 
         private readonly IErrorHandler _errorHandler;
-        private readonly IMainMenu _mainMenu;
 
-        public CreateRoom(IRepository<Room> repository, IErrorHandler errorHandler, IMainMenu mainMenu)
+
+        public CreateRoom(IRepository<Room> repository, INavigationHelper navigationHelper, IErrorHandler errorHandler)
         {
             _repository = repository;
+            _navigationHelper = navigationHelper;
             _errorHandler = errorHandler;
-            _mainMenu = mainMenu;
+
         }
 
         public void Create()
@@ -30,12 +33,16 @@ namespace HavenHotel.Rooms.RoomServices
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("CREATE NEW ROOM");
                     Console.ResetColor();
-                    Console.WriteLine("Enter 'cancel' at any time to return to the main menu.");
-
+                    Console.Write("Enter ");
+                    Console.ForegroundColor= ConsoleColor.DarkRed;
+                    Console.Write("'cancel' ");
+                    Console.ResetColor();
+                    Console.WriteLine("at any time to return to the main menu.");
+                    Console.ForegroundColor= ConsoleColor.DarkCyan;
 
                     Console.WriteLine("Enter room type (Single, Double, Suite, Family):");
                     string roomTypeInput = Console.ReadLine();
-                    ReturnToMenu(roomTypeInput);
+                    _navigationHelper.ReturnToMenu(roomTypeInput);
                     if (!Enum.TryParse(roomTypeInput, true, out RoomType roomType) || !Enum.IsDefined(typeof(RoomType), roomType))
                     {
                         _errorHandler.DisplayError("Invalid input. Please enter a valid room type.");
@@ -52,7 +59,7 @@ namespace HavenHotel.Rooms.RoomServices
 
                     Console.WriteLine($"Enter room size {minSize}-{maxSize}:");
                     string roomSize = Console.ReadLine(); ;
-                    ReturnToMenu(roomSize);
+                    _navigationHelper.ReturnToMenu(roomSize);
                     if (!int.TryParse(roomSize, out int size) || size < 12 || size > 50)
                     {
                         _errorHandler.DisplayError("Invalid room size. Please enter a value between 12 and 50.");
@@ -79,7 +86,7 @@ namespace HavenHotel.Rooms.RoomServices
 
                     Console.WriteLine("Enter price per day (100 - 999):");
                     string roomPrice = Console.ReadLine();
-                    ReturnToMenu(roomPrice);
+                    _navigationHelper.ReturnToMenu(roomPrice);
                     if (!decimal.TryParse(roomPrice, out decimal price) || price < 100 || price > 999)
                     {
                         _errorHandler.DisplayError("Invalid price. Please enter a value between 100 and 999.");
@@ -98,7 +105,7 @@ namespace HavenHotel.Rooms.RoomServices
                     {
                         Console.WriteLine($"How many extra beds are allowed in the room (0-{maxExtraBeds}):");
                         string extraBed = Console.ReadLine();
-                        ReturnToMenu(extraBed);
+                        _navigationHelper.ReturnToMenu(extraBed);
                         if (!int.TryParse(extraBed, out extraBeds) || extraBeds < 0 || extraBeds > maxExtraBeds)
                         {
                             _errorHandler.DisplayError($"Invalid input for extra beds. Please enter a value between 0 and {maxExtraBeds}.");
@@ -121,7 +128,7 @@ namespace HavenHotel.Rooms.RoomServices
                     int totalCapacity = Math.Min(maxGuests + extraBeds, maxGuestsBySize);
                     Console.WriteLine($"How many guests are allowed in the room (1-{totalCapacity}):");
                     string guestTotal = Console.ReadLine();
-                    ReturnToMenu(guestTotal);
+                    _navigationHelper.ReturnToMenu(guestTotal);
                     if (!int.TryParse(guestTotal, out int totalGuests) || totalGuests < 1 || totalGuests > totalCapacity)
                     {
                         _errorHandler.DisplayError($"Invalid input for total guests. Please enter a value between 1 and {totalCapacity}.");
@@ -164,16 +171,6 @@ namespace HavenHotel.Rooms.RoomServices
                 }
             }
         }
-        private void ReturnToMenu(string input)
-        {
-            if (input.ToLower() == "cancel")
-            {
-                _mainMenu.DisplayMenu();
-                return;
-            }
-        }
-
-
 
     }
 }

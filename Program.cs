@@ -16,6 +16,7 @@ namespace HavenHotel
             //var menu = container.Resolve<IMainMenu>();
             x.Seed();
             //menu.DisplayMenu();
+            //var createGuest = container.ResolveNamed<ICreate>("CreateGuest");
             var createGuest = container.ResolveNamed<ICreate>("CreateRoom");
             createGuest.Create();
 

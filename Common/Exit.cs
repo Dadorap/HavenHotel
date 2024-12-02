@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HavenHotel.Interfaces;
 
-namespace HavenHotel.ExitFolder
+namespace HavenHotel.Common
 {
     public class Exit : IExit
     {
@@ -15,8 +15,8 @@ namespace HavenHotel.ExitFolder
             Console.Clear();
             var currentTime = DateTime.Now;
             var time = currentTime.ToString("HH");
-            var dayTime = 
-                currentTime.Hour >= 6 && currentTime.Hour < 18 ? 
+            var dayTime =
+                currentTime.Hour >= 6 && currentTime.Hour < 18 ?
                 "day" : "evening";
 
             Console.ForegroundColor = ConsoleColor.Green;

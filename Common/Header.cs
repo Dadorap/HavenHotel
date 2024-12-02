@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HavenHotel.HeaderFolder
+namespace HavenHotel.Common
 {
     public class Header : IHeader
     {

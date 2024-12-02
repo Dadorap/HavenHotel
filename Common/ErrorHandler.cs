@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HavenHotel.ErrorHandlers
+namespace HavenHotel.Common
 {
     public class ErrorHandler : IErrorHandler
     {

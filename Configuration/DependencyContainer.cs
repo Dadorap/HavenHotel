@@ -1,11 +1,10 @@
 ﻿using Autofac;
 using HavenHotel.Bookings;
-using HavenHotel.ExitFolder;
-using HavenHotel.HeaderFolder;
+using HavenHotel.Common;
 using HavenHotel.Interfaces;
 using HavenHotel.Menus;
 using HavenHotel.Rooms;
-using HavenHotel.Data; 
+using HavenHotel.Data;
 using System;
 using HavenHotel.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +14,6 @@ using HavenHotel.SeedingData;
 using HavenHotel.Guests.GuestServices;
 using HavenHotel.Bookings.BookingServices;
 using HavenHotel.Rooms.RoomServices;
-using HavenHotel.ErrorHandlers;
 
 namespace HavenHotel.Configuration
 {
@@ -48,6 +46,7 @@ namespace HavenHotel.Configuration
             containerBuilder.RegisterType<CreateBooking>().Named<ICreate>("CreateBooking");
 
             containerBuilder.RegisterType<ErrorHandler>().As<IErrorHandler>();
+            containerBuilder.RegisterType<NavigationHelper>().As<INavigationHelper>();
 
 
 

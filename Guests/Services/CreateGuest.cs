@@ -3,16 +3,21 @@ using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using HavenHotel.Repositories;
+using HavenHotel.Common;
 
 namespace HavenHotel.Guests.GuestServices
 {
     public class CreateGuest : ICreate
     {
         private readonly IRepository<Guest> _repository;
+        private readonly INavigationHelper _navigationHelper;
 
-        public CreateGuest(IRepository<Guest> repository)
+
+        public CreateGuest(IRepository<Guest> repository, INavigationHelper navigationHelper)
         {
             _repository = repository;
+            _navigationHelper = navigationHelper;
+           
         }
 
         public void Create()
@@ -26,10 +31,16 @@ namespace HavenHotel.Guests.GuestServices
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("CREATE NEW GUEST");
                     Console.ResetColor();
+                    Console.Write("Enter ");
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.Write("'cancel' ");
+                    Console.ResetColor();
+                    Console.WriteLine("at any time to return to the main menu.");
+                    Console.ForegroundColor = ConsoleColor.Blue;
 
                     Console.WriteLine("Enter guest's name:");
                     var guestName = Console.ReadLine()?.Trim();
-
+                    _navigationHelper.ReturnToMenu(guestName);
                     if (string.IsNullOrWhiteSpace(guestName))
                     {
                         Console.Clear();
@@ -43,7 +54,7 @@ namespace HavenHotel.Guests.GuestServices
 
                     Console.WriteLine("Enter phone number:");
                     string phoneNumber = Console.ReadLine();
-
+                    _navigationHelper.ReturnToMenu(phoneNumber);
                     if (string.IsNullOrWhiteSpace(phoneNumber)
                         || phoneNumber.Length < 3
                         || phoneNumber.Length > 15
@@ -61,6 +72,7 @@ namespace HavenHotel.Guests.GuestServices
 
                     Console.WriteLine("Enter email address:");
                     var email = Console.ReadLine()?.Trim();
+                    _navigationHelper.ReturnToMenu(email);
 
                     if (string.IsNullOrWhiteSpace(email) || !IsValidEmail(email))
                     {
@@ -107,5 +119,6 @@ namespace HavenHotel.Guests.GuestServices
             var emailRegex = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
             return Regex.IsMatch(email, emailRegex);
         }
+
     }
 }
