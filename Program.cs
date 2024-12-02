@@ -15,7 +15,8 @@ namespace HavenHotel
             var container = DependencyContainer.Configure();
             var x = container.Resolve<Seed>();
             x.Seedings();
-            var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayAllBookings");
+            var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayAllGuests");
+            //var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayAllBookings");
             //var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayAllRooms");
 
             displayAllRooms.DisplayAll();
