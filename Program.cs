@@ -2,6 +2,8 @@
 using HavenHotel.Configuration;
 using HavenHotel.Guests.GuestServices;
 using HavenHotel.Interfaces;
+using HavenHotel.Repositories;
+using HavenHotel.Rooms;
 using HavenHotel.SeedingData;
 
 namespace HavenHotel
@@ -11,14 +13,20 @@ namespace HavenHotel
         static void Main(string[] args)
         {
             var container = DependencyContainer.Configure();
-            var x = container.Resolve<Seedings>();
+            var x = container.Resolve<Seed>();
+            x.Seedings();
+            var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayAllBookings");
+            //var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayAllRooms");
+
+            displayAllRooms.DisplayAll();
+          
+
 
             //var menu = container.Resolve<IMainMenu>();
-            x.Seed();
             //menu.DisplayMenu();
             //var createGuest = container.ResolveNamed<ICreate>("CreateGuest");
             var createGuest = container.ResolveNamed<ICreate>("CreateRoom");
-            createGuest.Create();
+            //createGuest.Create();
 
 
 

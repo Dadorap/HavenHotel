@@ -1,4 +1,5 @@
 ﻿using HavenHotel.Interfaces;
+using HavenHotel.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,14 @@ namespace HavenHotel.Rooms.RoomServices
 {
     public class DisplayAllDeletedRooms : IDisplayAll
     {
+        private IRepository<Room> _roomsRepository;
+        public DisplayAllDeletedRooms(IRepository<Room> repository)
+        {
+            _roomsRepository = repository;
+        }
         public void DisplayAll()
         {
-            throw new NotImplementedException();
+            _roomsRepository.GetAllItems();
         }
     }
 }

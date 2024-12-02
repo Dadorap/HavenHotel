@@ -9,11 +9,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HavenHotel.SeedingData
+namespace HavenHotel.SeedingData    
 {
-    public class Seedings
+    public class Seed
     {
-        public void Seed()
+        public void Seedings()
         {
             var container = DependencyContainer.Configure();
 
@@ -21,14 +21,13 @@ namespace HavenHotel.SeedingData
             {
                 var dbContext = scope.Resolve<HotelDbContext>();
 
-                // Seed Guests
                 var guestsToAdd = new List<Guests.Guest>
-            {
-                new Guests.Guest { Name = "JOHN DOE", PhoneNumber = "1234567890", Email = "john.doe@example.com", IsActive = true },
-                new Guests.Guest { Name = "JANE SMITH", PhoneNumber = "9876543210", Email = "jane.smith@example.com", IsActive = true },
-                new Guests.Guest { Name = "MIKE JOHANNSON", PhoneNumber = "5556667777", Email = "michael.johnson@example.com", IsActive = true },
-                new Guests.Guest { Name = "EMILY BROWN", PhoneNumber = "4443332222", Email = "emily.brown@example.com", IsActive = true }
-            };
+                {
+                    new Guests.Guest { Name = "John Doe", PhoneNumber = "1234567890", Email = "john.doe@example.com", IsActive = true },
+                    new Guests.Guest { Name = "Jane Smith", PhoneNumber = "9876543210", Email = "jane.smith@example.com", IsActive = true },
+                    new Guests.Guest { Name = "Michael Johnson", PhoneNumber = "5556667777", Email = "michael.johnson@example.com", IsActive = true },
+                    new Guests.Guest { Name = "Emily Brown", PhoneNumber = "4443332222", Email = "emily.brown@example.com", IsActive = true }
+                };
 
                 foreach (var guest in guestsToAdd)
                 {
@@ -36,14 +35,13 @@ namespace HavenHotel.SeedingData
                     dbContext.Guests.Add(guest);
                 }
 
-                // Seed Rooms
                 var roomsToAdd = new List<Room>
-            {
-                new Room { Price = 120.50m, RoomType = RoomType.SINGLE, ExtraBed = 0, Size = 15, TotalGuests = 1, IsAvailable = false },
-                new Room { Price = 200.00m, RoomType = RoomType.DOUBLE, ExtraBed = 1, Size = 25, TotalGuests = 2, IsAvailable = false },
-                new Room { Price = 350.00m, RoomType = RoomType.SUITE, ExtraBed = 2, Size = 40, TotalGuests = 4, IsAvailable = false },
-                new Room { Price = 450.00m, RoomType = RoomType.FAMILY, ExtraBed = 2, Size = 50, TotalGuests = 6, IsAvailable = false }
-            };
+                {
+                    new Room { Price = 120.50m, RoomType = RoomType.SINGLE, ExtraBed = 0, Size = 15, TotalGuests = 1, IsAvailable = false },
+                    new Room { Price = 200.00m, RoomType = RoomType.DOUBLE, ExtraBed = 1, Size = 25, TotalGuests = 2, IsAvailable = false },
+                    new Room { Price = 350.00m, RoomType = RoomType.SUITE, ExtraBed = 2, Size = 40, TotalGuests = 4, IsAvailable = false },
+                    new Room { Price = 450.00m, RoomType = RoomType.FAMILY, ExtraBed = 2, Size = 50, TotalGuests = 6, IsAvailable = false }
+                };
 
                 foreach (var room in roomsToAdd)
                 {
@@ -53,41 +51,42 @@ namespace HavenHotel.SeedingData
 
                 dbContext.SaveChanges();
 
-                // Add Bookings
                 var roomIds = dbContext.Rooms.ToList();
                 var guestIds = dbContext.Guests.ToList();
                 var bookingsToAdd = new List<Booking>
-            {
-                new Booking
                 {
-                    StartDate = new DateOnly(2024, 11, 1),
-                    EndDate = new DateOnly(2024, 12, 20),
-                    RoomId = roomIds.FirstOrDefault(r => r.RoomType == RoomType.SINGLE)?.Id ?? 0,
-                    GuestId = guestIds.FirstOrDefault(g => g.Name == "John Doe")?.Id ?? 0
-                },
-                new Booking
-                {
-                    StartDate = new DateOnly(2024, 12, 1),
-                    EndDate = new DateOnly(2025, 01, 30),
-                    RoomId = roomIds.FirstOrDefault(r => r.RoomType == RoomType.DOUBLE)?.Id ?? 0,
-                    GuestId = guestIds.FirstOrDefault(g => g.Name == "Jane Smith")?.Id ?? 0
-                },
-                new Booking
-                {
-                    StartDate = new DateOnly(2024, 11, 1),
-                    EndDate = new DateOnly(2024, 12, 15),
-                    RoomId = roomIds.FirstOrDefault(r => r.RoomType == RoomType.SUITE)?.Id ?? 0,
-                    GuestId = guestIds.FirstOrDefault(g => g.Name == "Michael Johnson")?.Id ?? 0
-                },
-                new Booking
-                {
-                    StartDate = new DateOnly(2024, 10, 1),
-                    EndDate = new DateOnly(2024, 12, 20),
-                    RoomId = roomIds.FirstOrDefault(r => r.RoomType == RoomType.FAMILY)?.Id ?? 0,
-                    GuestId = guestIds.FirstOrDefault(g => g.Name == "Emily Brown")?.Id ?? 0
-                }
+                    new Booking
+                    {
+                        StartDate = new DateOnly(2024, 11, 1),
+                        EndDate = new DateOnly(2024, 12, 20),
+                        RoomId = roomIds.FirstOrDefault(r => r.RoomType == RoomType.SUITE)?.Id ?? 0,
+                        GuestId = guestIds.FirstOrDefault(g => g.Name == "John Doe")?.Id ?? 0,
+                    
+                    },
+                    new Booking
+                    {
+                        StartDate = new DateOnly(2024, 12, 1),
+                        EndDate = new DateOnly(2025, 01, 30),
+                        RoomId = roomIds.FirstOrDefault(r => r.RoomType == RoomType.DOUBLE)?.Id ?? 0,
+                        GuestId = guestIds.FirstOrDefault(g => g.Name == "Jane Smith")?.Id ?? 0,
+                    },
+                    new Booking
+                    {
+                        StartDate = new DateOnly(2024, 11, 1),
+                        EndDate = new DateOnly(2024, 12, 15),
+                        RoomId = roomIds.FirstOrDefault(r => r.RoomType == RoomType.SUITE)?.Id ?? 0,
+                        GuestId = guestIds.FirstOrDefault(g => g.Name == "Michael Johnson")?.Id ?? 0,
+                    },
+                    new Booking
+                    {
+                        StartDate = new DateOnly(2024, 10, 1),
+                        EndDate = new DateOnly(2024, 12, 20),
+                        RoomId = roomIds.FirstOrDefault(r => r.RoomType == RoomType.FAMILY)?.Id ?? 0,
+                        GuestId = guestIds.FirstOrDefault(g => g.Name == "Emily Brown")?.Id ?? 0,
 
-            };
+                    }
+
+                };
 
                 foreach (var booking in bookingsToAdd)
                 {

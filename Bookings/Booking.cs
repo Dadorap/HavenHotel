@@ -1,9 +1,10 @@
 ﻿using HavenHotel.Guests;
+using HavenHotel.Interfaces;
 using HavenHotel.Rooms;
 
 namespace HavenHotel.Bookings
 {
-    public class Booking
+    public class Booking : IBooking
     {
         public int Id { get; set; }
         public DateOnly StartDate { get; set; }

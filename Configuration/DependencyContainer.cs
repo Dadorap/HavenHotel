@@ -37,13 +37,20 @@ namespace HavenHotel.Configuration
             }).AsSelf().InstancePerLifetimeScope();
             containerBuilder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
 
-            //guest
+            
+            containerBuilder.RegisterType<Room>().As<IRoom>();
             containerBuilder.RegisterType<Guest>().As<IGuest>();
+            containerBuilder.RegisterType<Booking>().As<IBooking>();
 
             //Create
             containerBuilder.RegisterType<CreateGuest>().Named<ICreate>("CreateGuest");
             containerBuilder.RegisterType<CreateRoom>().Named<ICreate>("CreateRoom");
-            containerBuilder.RegisterType<CreateBooking>().Named<ICreate>("CreateBooking");
+            containerBuilder.RegisterType<CreateBooking>().Named<ICreate>("CreateBooking");  
+            //DisplayAll
+            containerBuilder.RegisterType<DisplayAllRooms>().Named<IDisplayAll>("DisplayAllRooms");
+            containerBuilder.RegisterType<DisplayAllGuests>().Named<IDisplayAll>("DisplayAllGuests");
+            containerBuilder.RegisterType<DisplayAllBookings>().Named<IDisplayAll>("DisplayAllBookings");
+
 
             containerBuilder.RegisterType<ErrorHandler>().As<IErrorHandler>();
             containerBuilder.RegisterType<NavigationHelper>().As<INavigationHelper>();
@@ -54,7 +61,7 @@ namespace HavenHotel.Configuration
             containerBuilder.RegisterType<RoomMenu>().AsSelf();
             containerBuilder.RegisterType<BookingMenu>().AsSelf();
             containerBuilder.RegisterType<GuestMenu>().AsSelf();
-            containerBuilder.RegisterType<Seedings>().AsSelf();
+            containerBuilder.RegisterType<Seed>().AsSelf();
 
             containerBuilder.RegisterType<Exit>().As<IExit>();
             containerBuilder.RegisterType<Header>().As<IHeader>();

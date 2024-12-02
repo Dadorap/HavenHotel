@@ -8,6 +8,6 @@ namespace HavenHotel.Interfaces
 {
     public interface IDisplayAll
     {
-        void DisplayAll();
+       void DisplayAll();
     }
 }
