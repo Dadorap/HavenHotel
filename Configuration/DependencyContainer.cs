@@ -14,6 +14,7 @@ using HavenHotel.SeedingData;
 using HavenHotel.Guests.GuestServices;
 using HavenHotel.Bookings.BookingServices;
 using HavenHotel.Rooms.RoomServices;
+using Autofac.Features.AttributeFilters;
 
 namespace HavenHotel.Configuration
 {
@@ -50,6 +51,15 @@ namespace HavenHotel.Configuration
             containerBuilder.RegisterType<DisplayAllRooms>().Named<IDisplayAll>("DisplayAllRooms");
             containerBuilder.RegisterType<DisplayAllGuests>().Named<IDisplayAll>("DisplayAllGuests");
             containerBuilder.RegisterType<DisplayAllBookings>().Named<IDisplayAll>("DisplayAllBookings");
+            //display
+            containerBuilder.RegisterType<DisplayAGuest>()
+                .Named<IDisplay>("DisplayAGuest")
+                .WithAttributeFiltering();
+
+            containerBuilder.RegisterType<DisplayGuestsRight>()
+                .Named<IDisplayRight>("DisplayGuestsRight");
+
+
 
 
             containerBuilder.RegisterType<ErrorHandler>().As<IErrorHandler>();

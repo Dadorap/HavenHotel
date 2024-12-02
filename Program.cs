@@ -13,13 +13,14 @@ namespace HavenHotel
         static void Main(string[] args)
         {
             var container = DependencyContainer.Configure();
-            var x = container.Resolve<Seed>();
-            x.Seedings();
-            var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayAllGuests");
+            //var x = container.Resolve<Seed>();
+            //x.Seedings();
+            //var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayAllGuests");
             //var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayAllBookings");
             //var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayAllRooms");
+            var displayAllRooms = container.ResolveNamed<IDisplay>("DisplayAGuest");
 
-            displayAllRooms.DisplayAll();
+            displayAllRooms.DisplayById();
           
 
 
