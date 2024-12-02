@@ -1,21 +1,22 @@
 ﻿using HavenHotel.Interfaces;
 using System;
 using System.Linq;
-using System.Text.RegularExpressions;
 using HavenHotel.Repositories;
 using HavenHotel.Rooms;
-using System.Threading.Channels;
 
 namespace HavenHotel.Rooms.RoomServices
 {
     public class CreateRoom : ICreate
     {
         private readonly IRepository<Room> _repository;
+        private readonly IErrorHandler _errorHandler;
 
-        public CreateRoom(IRepository<Room> repository)
+        public CreateRoom(IRepository<Room> repository, IErrorHandler errorHandler)
         {
             _repository = repository;
+            _errorHandler = errorHandler;
         }
+
         public void Create()
         {
             while (true)
@@ -32,12 +33,30 @@ namespace HavenHotel.Rooms.RoomServices
 
                     if (!Enum.TryParse(roomTypeInput, true, out RoomType roomType) || !Enum.IsDefined(typeof(RoomType), roomType))
                     {
-                        Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Invalid input. Please enter a valid room type.");
-                        Console.ResetColor();
-                        Console.Write("Press any key to return...");
-                        Console.ReadKey();
+                        _errorHandler.DisplayError("Invalid input. Please enter a valid room type.");
+                        continue;
+                    }
+                    // Validate size based on room type
+                    (int minSize, int maxSize) = roomType switch
+                    {
+                        RoomType.SINGLE => (12, 15),
+                        RoomType.DOUBLE => (15, 25),
+                        RoomType.SUITE => (25, 30),
+                        RoomType.FAMILY => (30, 50),
+                        _ => throw new ArgumentException("Invalid room type")
+                    };
+
+                    Console.WriteLine($"Enter room size {minSize}-{maxSize}:");
+                    if (!int.TryParse(Console.ReadLine(), out int size) || size < 12 || size > 50)
+                    {
+                        _errorHandler.DisplayError("Invalid room size. Please enter a value between 12 and 50.");
+                        continue;
+                    }
+
+
+                    if (size < minSize || size > maxSize)
+                    {
+                        _errorHandler.DisplayError($"Invalid room size. A {roomType} must be between {minSize} and {maxSize} m².");
                         continue;
                     }
 
@@ -55,63 +74,52 @@ namespace HavenHotel.Rooms.RoomServices
                     Console.WriteLine("Enter price per day (100 - 999):");
                     if (!decimal.TryParse(Console.ReadLine(), out decimal price) || price < 100 || price > 999)
                     {
-                        Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Invalid price. Please enter a value between 100 and 999.");
-                        Console.ResetColor();
-                        Console.Write("Press any key to return...");
-                        Console.ReadKey();
+                        _errorHandler.DisplayError("Invalid price. Please enter a value between 100 and 999.");
                         continue;
                     }
 
-                    Console.WriteLine("Enter room size (12-50 m²):");
-                    if (!int.TryParse(Console.ReadLine(), out int size) || size < 12 || size > 50)
+                    int maxExtraBeds = size switch
                     {
-                        Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Invalid room size. " +
-                            "\nPlease enter a value between 12 and 50.");
-                        Console.ResetColor();
-                        Console.Write("Press any key to return...");
-                        Console.ReadKey();
-                        continue;
-                    }
+                        <= 15 => 1, // Smaller rooms
+                        <= 25 => 2, // Medium-sized rooms
+                        _ => 3      // Larger rooms
+                    };
 
                     int extraBeds = 0;
                     if (allowExtraBeds)
                     {
-                        Console.WriteLine($"How many extra beds are allowed in the room (0-{maxGuests}):");
-                        if (!int.TryParse(Console.ReadLine(), out extraBeds) 
-                            || extraBeds < 0 
-                            || extraBeds > maxGuests)
+                        Console.WriteLine($"How many extra beds are allowed in the room (0-{maxExtraBeds}):");
+                        if (!int.TryParse(Console.ReadLine(), out extraBeds) || extraBeds < 0 || extraBeds > maxExtraBeds)
                         {
-                            Console.Clear();
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine($"Invalid input for extra beds. " +
-                                $"\nPlease enter a value between 0 and {maxGuests}.");
-                            Console.ResetColor();
-                            Console.Write("Press any key to return...");
-                            Console.ReadKey();
+                            _errorHandler.DisplayError($"Invalid input for extra beds. Please enter a value between 0 and {maxExtraBeds}.");
                             continue;
                         }
                     }
                     else
                     {
-                        Console.WriteLine("Extra beds are not allowed for Single rooms.");
+                        Console.WriteLine("Extra beds are not allowed for Single rooms. Skipping this step.");
                     }
 
-                    Console.WriteLine($"How many guests are allowed in the room (1-{maxGuests + extraBeds}):");
-                    if (!int.TryParse(Console.ReadLine(), out int totalGuests) 
-                        || totalGuests < 1 
-                        || totalGuests > (maxGuests + extraBeds))
+                    int maxGuestsBySize = size switch
                     {
-                        Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"Invalid input for total guests. " +
-                            $"\nPlease enter a value between 1 and {maxGuests}.");
-                        Console.ResetColor();
-                        Console.Write("Press any key to return...");
-                        Console.ReadKey();
+                        <= 12 => 2,
+                        <= 20 => 3,
+                        <= 30 => 4,
+                        _ => 6 // Larger rooms
+                    };
+
+                    int totalCapacity = Math.Min(maxGuests + extraBeds, maxGuestsBySize);
+                    Console.WriteLine($"How many guests are allowed in the room (1-{totalCapacity}):");
+                    if (!int.TryParse(Console.ReadLine(), out int totalGuests) || totalGuests < 1 || totalGuests > totalCapacity)
+                    {
+                        _errorHandler.DisplayError($"Invalid input for total guests. Please enter a value between 1 and {totalCapacity}.");
+                        continue;
+                    }
+
+                    // Ensure suites have at least 2 guests
+                    if (roomType == RoomType.SUITE && totalGuests < 2)
+                    {
+                        _errorHandler.DisplayError("A Suite must have at least 2 guests.");
                         continue;
                     }
 
@@ -141,12 +149,7 @@ namespace HavenHotel.Rooms.RoomServices
                 }
                 catch (Exception ex)
                 {
-                    Console.Clear();
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"An error occurred: {ex.Message}");
-                    Console.ResetColor();
-                    Console.Write("Press any key to return...");
-                    Console.ReadKey();
+                    _errorHandler.DisplayError($"An error occurred: {ex.Message}");
                 }
             }
         }

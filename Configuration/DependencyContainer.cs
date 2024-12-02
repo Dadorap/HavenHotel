@@ -15,6 +15,7 @@ using HavenHotel.SeedingData;
 using HavenHotel.Guests.GuestServices;
 using HavenHotel.Bookings.BookingServices;
 using HavenHotel.Rooms.RoomServices;
+using HavenHotel.ErrorHandlers;
 
 namespace HavenHotel.Configuration
 {
@@ -46,7 +47,7 @@ namespace HavenHotel.Configuration
             containerBuilder.RegisterType<CreateRoom>().Named<ICreate>("CreateRoom");
             containerBuilder.RegisterType<CreateBooking>().Named<ICreate>("CreateBooking");
 
-
+            containerBuilder.RegisterType<ErrorHandler>().As<IErrorHandler>();
 
 
 
