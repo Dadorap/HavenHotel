@@ -20,7 +20,7 @@ namespace HavenHotel.Rooms.RoomServices
         public void DisplayAll()
         {
             int count = 0;
-            var rooms = _roomsRepository.GetAllItems().OrderByDescending(r => r.IsAvailable).ToList();
+            var rooms = _roomsRepository.GetAllItems().OrderByDescending(r => r.IsActive).ToList();
 
             Console.WriteLine("╔════════════╦═════════════╦════════════╦══════════════╦════════════╗");
             Console.WriteLine("║ Room Type  ║ Room Size   ║ Extra Beds ║ Total Guests ║ IsAvailable║");
@@ -30,7 +30,7 @@ namespace HavenHotel.Rooms.RoomServices
             {
                 Console.ForegroundColor = (count % 2 == 0) ? ConsoleColor.Cyan : ConsoleColor.DarkYellow;
 
-                Console.WriteLine($"║ {room.RoomType,-10} ║ {room.Size,-9}m² ║ {room.ExtraBed,-10} ║ {room.TotalGuests,-12} ║ {room.IsAvailable,-10} ║");
+                Console.WriteLine($"║ {room.RoomType,-10} ║ {room.Size,-9}m² ║ {room.ExtraBed,-10} ║ {room.TotalGuests,-12} ║ {room.IsActive,-10} ║");
 
                 Console.ResetColor();
                 if (count < rooms.Count - 1)

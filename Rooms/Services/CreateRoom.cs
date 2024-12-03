@@ -13,14 +13,15 @@ namespace HavenHotel.Rooms.RoomServices
         private readonly IRepository<Room> _repository;
         private readonly INavigationHelper _navigationHelper; 
         private readonly IErrorHandler _errorHandler;
+        private readonly IUserMessages _userMessages;
 
 
-        public CreateRoom(IRepository<Room> repository, INavigationHelper navigationHelper, IErrorHandler errorHandler)
+        public CreateRoom(IRepository<Room> repository, INavigationHelper navigationHelper, IErrorHandler errorHandler, IUserMessages userMessages)
         {
             _repository = repository;
             _navigationHelper = navigationHelper;
             _errorHandler = errorHandler;
-
+            _userMessages = userMessages;
         }
 
         public void Create()
@@ -33,11 +34,7 @@ namespace HavenHotel.Rooms.RoomServices
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("CREATE NEW ROOM");
                     Console.ResetColor();
-                    Console.Write("Enter ");
-                    Console.ForegroundColor= ConsoleColor.DarkRed;
-                    Console.Write("'cancel' ");
-                    Console.ResetColor();
-                    Console.WriteLine("at any time to return to the main menu.");
+                    _userMessages.ShowCancelMessage();
                     Console.ForegroundColor= ConsoleColor.DarkCyan;
 
                     Console.WriteLine("Enter room type (Single, Double, Suite, Family):");
@@ -148,7 +145,7 @@ namespace HavenHotel.Rooms.RoomServices
                         Size = size,
                         ExtraBed = extraBeds,
                         TotalGuests = totalGuests,
-                        IsAvailable = true
+                        IsActive = true
                     };
 
                     _repository.Add(room);

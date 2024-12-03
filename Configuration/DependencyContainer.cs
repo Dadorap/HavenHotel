@@ -15,6 +15,7 @@ using HavenHotel.Guests.GuestServices;
 using HavenHotel.Bookings.BookingServices;
 using HavenHotel.Rooms.RoomServices;
 using Autofac.Features.AttributeFilters;
+using HavenHotel.Bookings.Services;
 
 namespace HavenHotel.Configuration
 {
@@ -35,48 +36,84 @@ namespace HavenHotel.Configuration
                 optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
 
                 return new HotelDbContext(optionsBuilder.Options);
-            }).AsSelf().InstancePerLifetimeScope();
-            containerBuilder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
+            }).AsSelf()
+            .InstancePerLifetimeScope();
 
-            
-            containerBuilder.RegisterType<Room>().As<IRoom>();
-            containerBuilder.RegisterType<Guest>().As<IGuest>();
-            containerBuilder.RegisterType<Booking>().As<IBooking>();
+            containerBuilder.RegisterGeneric(typeof(Repository<>))
+                .As(typeof(IRepository<>))
+                .InstancePerLifetimeScope();
+
+
+            containerBuilder.RegisterType<Room>()
+                .As<IRoom>();
+            containerBuilder.RegisterType<Guest>()
+                .As<IGuest>();
+            containerBuilder.RegisterType<Booking>()
+                .As<IBooking>();
 
             //Create
-            containerBuilder.RegisterType<CreateGuest>().Named<ICreate>("CreateGuest");
-            containerBuilder.RegisterType<CreateRoom>().Named<ICreate>("CreateRoom");
-            containerBuilder.RegisterType<CreateBooking>().Named<ICreate>("CreateBooking");  
+            containerBuilder.RegisterType<CreateGuest>()
+                .Named<ICreate>("CreateGuest");
+            containerBuilder.RegisterType<CreateRoom>()
+                .Named<ICreate>("CreateRoom");
+            containerBuilder.RegisterType<CreateBooking>()
+                .Named<ICreate>("CreateBooking");
             //DisplayAll
-            containerBuilder.RegisterType<DisplayAllRooms>().Named<IDisplayAll>("DisplayAllRooms");
-            containerBuilder.RegisterType<DisplayAllGuests>().Named<IDisplayAll>("DisplayAllGuests");
-            containerBuilder.RegisterType<DisplayAllBookings>().Named<IDisplayAll>("DisplayAllBookings");
-            //display
-            containerBuilder.RegisterType<DisplayAGuest>()
-                .Named<IDisplay>("DisplayAGuest")
+            containerBuilder.RegisterType<DisplayAllRooms>()
+                .Named<IDisplayAll>("DisplayAllRooms");
+            containerBuilder.RegisterType<DisplayAllGuests>()
+                .Named<IDisplayAll>("DisplayAllGuests");
+            containerBuilder.RegisterType<DisplayAllBookings>()
+                .Named<IDisplayAll>("DisplayAllBookings");
+
+            //Display
+            containerBuilder.RegisterType<DisplayGuestDetails>()
+                .Named<IDisplay>("DisplayRoomDetails")
+                .WithAttributeFiltering();
+            containerBuilder.RegisterType<DisplayRoomDetails>()
+                .Named<IDisplay>("DisplayRoomDetails")
+                .WithAttributeFiltering();
+            containerBuilder.RegisterType<DisplayBookingDetails>()
+                .Named<IDisplay>("DisplayBookingDetails")
                 .WithAttributeFiltering();
 
-            containerBuilder.RegisterType<DisplayGuestsRight>()
-                .Named<IDisplayRight>("DisplayGuestsRight");
+            containerBuilder.RegisterType<DisplayIDRight>().As<IDisplayRight>();
+          
+
+
+            //Delete
+            containerBuilder.RegisterType<DeleteBooking>()
+                .Named<IDelete>("DeleteBooking")
+                .WithAttributeFiltering();
+
+
+            //Common
+            containerBuilder.RegisterType<Exit>()
+                .As<IExit>();
+            containerBuilder.RegisterType<Header>()
+                .As<IHeader>();
+            containerBuilder.RegisterType<UserMessages>()
+                .As<IUserMessages>();
+            containerBuilder.RegisterType<ErrorHandler>()
+                .As<IErrorHandler>();
+            containerBuilder.RegisterType<NavigationHelper>()
+                .As<INavigationHelper>();
+            containerBuilder.RegisterType<DisplayIDRight>().AsSelf();
 
 
 
-
-            containerBuilder.RegisterType<ErrorHandler>().As<IErrorHandler>();
-            containerBuilder.RegisterType<NavigationHelper>().As<INavigationHelper>();
-
-
-
-
-            containerBuilder.RegisterType<RoomMenu>().AsSelf();
-            containerBuilder.RegisterType<BookingMenu>().AsSelf();
-            containerBuilder.RegisterType<GuestMenu>().AsSelf();
-            containerBuilder.RegisterType<Seed>().AsSelf();
-
-            containerBuilder.RegisterType<Exit>().As<IExit>();
-            containerBuilder.RegisterType<Header>().As<IHeader>();
-            containerBuilder.RegisterType<MainMenu>().As<IMainMenu>();
-            containerBuilder.RegisterType<Menu>().As<IMenu>();
+            containerBuilder.RegisterType<RoomMenu>()
+                .AsSelf();
+            containerBuilder.RegisterType<BookingMenu>()
+                .AsSelf();
+            containerBuilder.RegisterType<GuestMenu>()
+                .AsSelf();
+            containerBuilder.RegisterType<Seed>()
+                .AsSelf();
+            containerBuilder.RegisterType<MainMenu>()
+                .As<IMainMenu>();
+            containerBuilder.RegisterType<Menu>()
+                .As<IMenu>();
 
 
             return containerBuilder.Build();

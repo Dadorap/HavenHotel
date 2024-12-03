@@ -56,7 +56,7 @@ namespace HavenHotel.Repositories
             var item = _dbContext.Set<T>().Find(id);
 
             if (item != null)
-            {
+            {              
                 _dbContext.Set<T>().Remove(item);
                 _dbContext.SaveChanges(); 
             }

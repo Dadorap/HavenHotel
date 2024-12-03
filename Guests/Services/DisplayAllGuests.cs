@@ -32,7 +32,7 @@ namespace HavenHotel.Guests.GuestServices
             {
                 Console.ForegroundColor = (count % 2 == 0) ? ConsoleColor.Cyan : ConsoleColor.DarkYellow;
 
-                Console.WriteLine($"║ {guest.Name,-16} ║ {guest.PhoneNumber,-11}m² ║ {guest.Email,-29} ║  {guest.IsActive,-8} ║");
+                Console.WriteLine($"║ {guest.Name,-16} ║ {guest.PhoneNumber,-13} ║ {guest.Email,-29} ║  {guest.IsActive,-8} ║");
 
                 Console.ResetColor();
                 if (count < guestsList.Count - 1)

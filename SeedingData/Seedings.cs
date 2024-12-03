@@ -37,10 +37,10 @@ namespace HavenHotel.SeedingData
 
                 var roomsToAdd = new List<Room>
                 {
-                    new Room { Price = 120.50m, RoomType = RoomType.SINGLE, ExtraBed = 0, Size = 15, TotalGuests = 1, IsAvailable = false },
-                    new Room { Price = 200.00m, RoomType = RoomType.DOUBLE, ExtraBed = 1, Size = 25, TotalGuests = 2, IsAvailable = false },
-                    new Room { Price = 350.00m, RoomType = RoomType.SUITE, ExtraBed = 2, Size = 40, TotalGuests = 4, IsAvailable = false },
-                    new Room { Price = 450.00m, RoomType = RoomType.FAMILY, ExtraBed = 2, Size = 50, TotalGuests = 6, IsAvailable = false }
+                    new Room { Price = 120.50m, RoomType = RoomType.SINGLE, ExtraBed = 0, Size = 15, TotalGuests = 1, IsActive = false },
+                    new Room { Price = 200.00m, RoomType = RoomType.DOUBLE, ExtraBed = 1, Size = 25, TotalGuests = 2, IsActive = false },
+                    new Room { Price = 350.00m, RoomType = RoomType.SUITE, ExtraBed = 2, Size = 40, TotalGuests = 4, IsActive = false },
+                    new Room { Price = 450.00m, RoomType = RoomType.FAMILY, ExtraBed = 2, Size = 50, TotalGuests = 6, IsActive = false }
                 };
 
                 foreach (var room in roomsToAdd)
@@ -61,6 +61,7 @@ namespace HavenHotel.SeedingData
                         EndDate = new DateOnly(2024, 12, 20),
                         RoomId = roomIds.FirstOrDefault(r => r.RoomType == RoomType.SUITE)?.Id ?? 0,
                         GuestId = guestIds.FirstOrDefault(g => g.Name == "John Doe")?.Id ?? 0,
+                        IsActive = true,
                     
                     },
                     new Booking
@@ -69,6 +70,7 @@ namespace HavenHotel.SeedingData
                         EndDate = new DateOnly(2025, 01, 30),
                         RoomId = roomIds.FirstOrDefault(r => r.RoomType == RoomType.DOUBLE)?.Id ?? 0,
                         GuestId = guestIds.FirstOrDefault(g => g.Name == "Jane Smith")?.Id ?? 0,
+                        IsActive = true,
                     },
                     new Booking
                     {
@@ -76,6 +78,7 @@ namespace HavenHotel.SeedingData
                         EndDate = new DateOnly(2024, 12, 15),
                         RoomId = roomIds.FirstOrDefault(r => r.RoomType == RoomType.SUITE)?.Id ?? 0,
                         GuestId = guestIds.FirstOrDefault(g => g.Name == "Michael Johnson")?.Id ?? 0,
+                        IsActive = true,
                     },
                     new Booking
                     {
@@ -83,6 +86,7 @@ namespace HavenHotel.SeedingData
                         EndDate = new DateOnly(2024, 12, 20),
                         RoomId = roomIds.FirstOrDefault(r => r.RoomType == RoomType.FAMILY)?.Id ?? 0,
                         GuestId = guestIds.FirstOrDefault(g => g.Name == "Emily Brown")?.Id ?? 0,
+                        IsActive = true,
 
                     }
 

@@ -9,23 +9,26 @@ namespace HavenHotel.Bookings.BookingServices
 {
     public class DisplayAllBookings : IDisplayAll
     {
-        private readonly IRepository<Booking> _bookingRepository;
-        private readonly IRepository<Room> _roomsRepository;
-        private readonly IRepository<Guest> _guestsRepository;
+        private readonly IRepository<Booking> _bookingRepo;
+        private readonly IRepository<Room> _roomsRepo;
+        private readonly IRepository<Guest> _guestsRepo;
 
-        public DisplayAllBookings(IRepository<Booking> bookingRepo, IRepository<Room> roomsRepo, IRepository<Guest> guestRepo)
+        public DisplayAllBookings(
+            IRepository<Booking> bookingRepo,
+            IRepository<Room> roomsRepo,
+            IRepository<Guest> guestRepo)
         {
-            _bookingRepository = bookingRepo;
-            _roomsRepository = roomsRepo;
-            _guestsRepository = guestRepo;
+            _bookingRepo = bookingRepo;
+            _roomsRepo = roomsRepo;
+            _guestsRepo = guestRepo;
         }
 
         public void DisplayAll()
         {
             int count = 0;
-            var bookings = _bookingRepository.GetAllItems();
-            var rooms = _roomsRepository.GetAllItems();
-            var guests = _guestsRepository.GetAllItems();
+            var bookings = _bookingRepo.GetAllItems();
+            var rooms = _roomsRepo.GetAllItems();
+            var guests = _guestsRepo.GetAllItems();
 
 
             var bookingDetails = from booking in bookings
@@ -38,37 +41,39 @@ namespace HavenHotel.Bookings.BookingServices
                                      StartDate = booking.StartDate,
                                      EndDate = booking.EndDate,
                                      Price = room.Price,
+                                     IsActiveBooking = booking.IsActive,
                                  };
 
-            // Display table headers
-            Console.WriteLine("╔═════════════════╦═════════════╦════════════╦══════════════╦══════════════╗");
-            Console.WriteLine("║ Customer Name   ║ Room Type   ║ Start Date ║  End Date    ║ Total price  ║");
-            Console.WriteLine("╠═════════════════╬═════════════╬════════════╬══════════════╬══════════════╣");
+            Console.WriteLine("╔═════════════════╦═════════════╦════════════╦══════════════╦═══════════════╗");
+            Console.WriteLine("║ Customer Name   ║ Room Type   ║ Start Date ║  End Date    ║ Total price   ║");
+            Console.WriteLine("╠═════════════════╬═════════════╬════════════╬══════════════╬═══════════════╣");
 
-            // Display each booking in the table
             foreach (var detail in bookingDetails)
             {
-            int totalDays = (detail.EndDate.ToDateTime(TimeOnly.MinValue) - detail.StartDate.ToDateTime(TimeOnly.MinValue)).Days;
-            var totalPrice = totalDays * detail.Price;
-                // Alternate row colors
-                Console.ForegroundColor = (count % 2 == 0) ? ConsoleColor.Cyan : ConsoleColor.DarkYellow;
-
-                // Display booking details
-                Console.WriteLine($"║ {detail.CustomerName,-15} ║  {detail.RoomType,-10} ║ {detail.StartDate:yyyy-MM-dd} ║ {detail.EndDate:yyyy-MM-dd}   ║ {totalPrice,-10:C} ║");
-
-                Console.ResetColor();
-
-                // Add separator for all rows except the last one
-                if (count < bookingDetails.Count() - 1)
+                if (detail.IsActiveBooking == true)
                 {
-                    Console.WriteLine("╠═════════════════╬═════════════╬════════════╬══════════════╬══════════════╣");
-                }
 
-                count++;
+                    int totalDays = (detail.EndDate.ToDateTime(TimeOnly.MinValue) -
+                        detail.StartDate.ToDateTime(TimeOnly.MinValue)).Days;
+                    var totalPrice = totalDays * detail.Price;
+
+                    Console.ForegroundColor = (count % 2 == 0) ? ConsoleColor.Cyan : ConsoleColor.DarkYellow;
+
+                    Console.WriteLine($"║ {detail.CustomerName,-15} ║  {detail.RoomType,-10} ║ {detail.StartDate:yyyy-MM-dd} ║ {detail.EndDate:yyyy-MM-dd}   ║ {totalPrice,-13:C} ║");
+
+                    Console.ResetColor();
+
+                    if (count < bookingDetails.Count() - 1)
+                    {
+                        Console.WriteLine("╠═════════════════╬═════════════╬════════════╬══════════════╬═══════════════╣");
+                    }
+
+                    count++;
+                }
             }
 
-            // Footer
-            Console.WriteLine("╚═════════════════╩═════════════╩════════════╩══════════════╩══════════════╝");
+
+            Console.WriteLine("╚═════════════════╩═════════════╩════════════╩══════════════╩═══════════════╝");
             Console.Write("Press any key to return to the menu...");
             Console.ReadKey();
         }

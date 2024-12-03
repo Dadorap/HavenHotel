@@ -17,6 +17,8 @@ namespace HavenHotel.Bookings
         public int GuestId { get; set; } 
         public Guest Guest { get; set; } 
 
+        public bool IsActive { get; set; } = true;
+
     }
 
 }

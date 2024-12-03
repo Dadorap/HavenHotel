@@ -10,7 +10,7 @@ namespace HavenHotel.Rooms
         public int ExtraBed { get; set; }
         public int Size { get; set; }
         public int TotalGuests { get; set; }
-        public bool IsAvailable { get; set; } = true;
+        public bool IsActive { get; set; } = true;
 
     }
 
