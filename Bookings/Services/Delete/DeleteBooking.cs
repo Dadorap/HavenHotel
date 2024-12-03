@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HavenHotel.Bookings.BookingServices
+namespace HavenHotel.Bookings.Services.Delete
 {
     public class DeleteBooking : IDelete
     {
@@ -18,13 +18,10 @@ namespace HavenHotel.Bookings.BookingServices
         private readonly IErrorHandler _errorHandler;
         private readonly IUserMessages _userMessages;
         private readonly INavigationHelper _navigationHelper;
-        private readonly IRepository<Room> _roomsRepo;
-        private readonly IRepository<Guest> _guestsRepo;
+
         public DeleteBooking
             (
             IRepository<Booking> bookingRepo,
-            IRepository<Room> roomsRepo,
-            IRepository<Guest> guestRepo,
             [KeyFilter("DisplayBookingsIDRight")] IDisplayRight displayRight,
             IErrorHandler errorHandler,
             IUserMessages userMessages,
@@ -32,8 +29,6 @@ namespace HavenHotel.Bookings.BookingServices
             )
         {
             _bookingRepo = bookingRepo;
-            _roomsRepo = roomsRepo;
-            _guestsRepo = guestRepo;
             _displayRight = displayRight;
             _errorHandler = errorHandler;
             _userMessages = userMessages;
@@ -41,7 +36,7 @@ namespace HavenHotel.Bookings.BookingServices
         }
         public void Delete()
         {
-            while(true)
+            while (true)
             {
                 try
                 {
@@ -61,22 +56,25 @@ namespace HavenHotel.Bookings.BookingServices
                     _navigationHelper.ReturnToMenu(idInput);
                     if (int.TryParse(idInput, out int id) && id >= 0 && id < bookingsLength)
                     {
-                        var booking = _bookingRepo.GetItemById(id);
-                        var room = _roomsRepo.GetItemById(booking.Id);
-                        var guest = _guestsRepo.GetItemById(booking.Id);
 
-                        booking.IsActive = false;
+                        _bookingRepo.RemoveItemById(id);
                         _bookingRepo.SaveChanges();
 
                         Console.Write("Press any key to return to menu...");
                         Console.ReadKey();
                         return;
                     }
+                    else
+                    {
+                        _errorHandler.DisplayError("Invalid ID. Please try again.");
+
+                    }
                 }
                 catch (Exception)
                 {
 
-                    throw;
+                    _errorHandler.DisplayError("Invalid ID. Please try again.");
+
                 }
             }
 

@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HavenHotel.Bookings.BookingServices
+namespace HavenHotel.Guests.Services.Delete
 {
-    public class UnDeleteBooking : IUnDelete
+    public class DeleteGuest : IDelete
     {
-        public void UnDelete()
+        public void Delete()
         {
             throw new NotImplementedException();
         }

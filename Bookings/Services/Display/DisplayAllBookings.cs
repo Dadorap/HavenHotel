@@ -5,7 +5,7 @@ using HavenHotel.Rooms;
 using System;
 using System.Linq;
 
-namespace HavenHotel.Bookings.BookingServices
+namespace HavenHotel.Bookings.Services.Display
 {
     public class DisplayAllBookings : IDisplayAll
     {
@@ -37,10 +37,10 @@ namespace HavenHotel.Bookings.BookingServices
                                  select new
                                  {
                                      CustomerName = guest.Name,
-                                     RoomType = room.RoomType,
-                                     StartDate = booking.StartDate,
-                                     EndDate = booking.EndDate,
-                                     Price = room.Price,
+                                     room.RoomType,
+                                     booking.StartDate,
+                                     booking.EndDate,
+                                     room.Price,
                                      IsActiveBooking = booking.IsActive,
                                  };
 
@@ -57,7 +57,7 @@ namespace HavenHotel.Bookings.BookingServices
                         detail.StartDate.ToDateTime(TimeOnly.MinValue)).Days;
                     var totalPrice = totalDays * detail.Price;
 
-                    Console.ForegroundColor = (count % 2 == 0) ? ConsoleColor.Cyan : ConsoleColor.DarkYellow;
+                    Console.ForegroundColor = count % 2 == 0 ? ConsoleColor.Cyan : ConsoleColor.DarkYellow;
 
                     Console.WriteLine($"║ {detail.CustomerName,-15} ║  {detail.RoomType,-10} ║ {detail.StartDate:yyyy-MM-dd} ║ {detail.EndDate:yyyy-MM-dd}   ║ {totalPrice,-13:C} ║");
 

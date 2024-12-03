@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HavenHotel.Rooms.RoomServices
+namespace HavenHotel.Rooms.Services.Display
 {
     public class DisplayAllRooms : IDisplayAll
     {
@@ -28,7 +28,7 @@ namespace HavenHotel.Rooms.RoomServices
 
             foreach (var room in rooms)
             {
-                Console.ForegroundColor = (count % 2 == 0) ? ConsoleColor.Cyan : ConsoleColor.DarkYellow;
+                Console.ForegroundColor = count % 2 == 0 ? ConsoleColor.Cyan : ConsoleColor.DarkYellow;
 
                 Console.WriteLine($"║ {room.RoomType,-10} ║ {room.Size,-9}m² ║ {room.ExtraBed,-10} ║ {room.TotalGuests,-12} ║ {room.IsActive,-10} ║");
 

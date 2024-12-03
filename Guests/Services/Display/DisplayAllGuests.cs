@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HavenHotel.Guests.GuestServices
+namespace HavenHotel.Guests.Services.Display
 {
 
     public class DisplayAllGuests : IDisplayAll
@@ -30,7 +30,7 @@ namespace HavenHotel.Guests.GuestServices
 
             foreach (var guest in guestsList)
             {
-                Console.ForegroundColor = (count % 2 == 0) ? ConsoleColor.Cyan : ConsoleColor.DarkYellow;
+                Console.ForegroundColor = count % 2 == 0 ? ConsoleColor.Cyan : ConsoleColor.DarkYellow;
 
                 Console.WriteLine($"║ {guest.Name,-16} ║ {guest.PhoneNumber,-13} ║ {guest.Email,-29} ║  {guest.IsActive,-8} ║");
 

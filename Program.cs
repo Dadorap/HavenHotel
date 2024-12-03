@@ -22,13 +22,13 @@ namespace HavenHotel
             //var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayAllRooms");
             //var displayAllRooms = container.ResolveNamed<IDisplay>("DisplayRoomDetails");
             //var displayAllRooms = container.ResolveNamed<IDisplay>("DisplayGuestDetails");
-            var displayAllRooms = container.ResolveNamed<IDisplay>("DisplayBookingDetails");
-            //var delete = container.ResolveNamed<IDelete>("DeleteBooking");
+            //var displayAllRooms = container.ResolveNamed<IDisplay>("DisplayBookingDetails");
+            var delete = container.ResolveNamed<IDelete>("DeleteBooking");
 
             //create.Create();
             //displayAllRooms.DisplayAll();
-            displayAllRooms.DisplayById();
-            //delete.Delete();
+            //displayAllRooms.DisplayById();
+            delete.Delete();
 
 
 

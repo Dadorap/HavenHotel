@@ -15,7 +15,12 @@ using HavenHotel.Guests.GuestServices;
 using HavenHotel.Bookings.BookingServices;
 using HavenHotel.Rooms.RoomServices;
 using Autofac.Features.AttributeFilters;
-using HavenHotel.Bookings.Services;
+using HavenHotel.Bookings.Services.Delete;
+using HavenHotel.Bookings.Services.Display;
+using HavenHotel.Guests.Services.Display;
+using HavenHotel.Rooms.Services.Display;
+using HavenHotel.Guests.Services.Delete;
+using HavenHotel.Rooms.Services.Delete;
 
 namespace HavenHotel.Configuration
 {
@@ -84,7 +89,25 @@ namespace HavenHotel.Configuration
             //Delete
             containerBuilder.RegisterType<DeleteBooking>()
                 .Named<IDelete>("DeleteBooking")
+                .WithAttributeFiltering();            
+            containerBuilder.RegisterType<DeleteGuest>()
+                .Named<IDelete>("DeleteGuest")
+                .WithAttributeFiltering();            
+            containerBuilder.RegisterType<DeleteRoom>()
+                .Named<IDelete>("DeleteRoom")
+                .WithAttributeFiltering();            
+            //SoftDelete
+            containerBuilder.RegisterType<SoftDeleteBooking>()
+                .Named<ISoftDelete>("SoftDeleteBooking")
+                .WithAttributeFiltering();            
+            containerBuilder.RegisterType<SoftDeleteGuest>()
+                .Named<ISoftDelete>("SoftDeleteGuest")
+                .WithAttributeFiltering();            
+            containerBuilder.RegisterType<SoftDeleteRoom>()
+                .Named<ISoftDelete>("SoftDeleteRoom")
                 .WithAttributeFiltering();
+            //UnDelete
+
 
 
             //Common
@@ -98,7 +121,10 @@ namespace HavenHotel.Configuration
                 .As<IErrorHandler>();
             containerBuilder.RegisterType<NavigationHelper>()
                 .As<INavigationHelper>();
-            containerBuilder.RegisterType<DisplayIDRight>().AsSelf();
+            containerBuilder.RegisterType<DisplayIDRight>()
+                .As<IDisplayRight>();
+            containerBuilder.RegisterType<SoftDeleteItem>()
+                .As<ISoftDeleteItem>();
 
 
 

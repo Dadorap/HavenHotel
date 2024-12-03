@@ -5,7 +5,7 @@ using HavenHotel.Interfaces;
 using HavenHotel.Repositories;
 using HavenHotel.Rooms;
 
-namespace HavenHotel.Bookings.Services
+namespace HavenHotel.Bookings.Services.Display
 {
     public class DisplayBookingDetails : IDisplay
     {
@@ -16,7 +16,7 @@ namespace HavenHotel.Bookings.Services
         private readonly INavigationHelper _navigationHelper;
         private readonly IRepository<Room> _roomsRepo;
         private readonly IRepository<Guest> _guestsRepo;
-       
+
         public DisplayBookingDetails
             (
             IRepository<Booking> bookingRepo,
@@ -26,7 +26,7 @@ namespace HavenHotel.Bookings.Services
             INavigationHelper navigationHelper,
             IRepository<Room> roomsRepo,
             IRepository<Guest> guestRepo
-           
+
             )
         {
             _bookingRepo = bookingRepo;
@@ -36,7 +36,7 @@ namespace HavenHotel.Bookings.Services
             _navigationHelper = navigationHelper;
             _roomsRepo = roomsRepo;
             _guestsRepo = guestRepo;
-            
+
         }
         public void DisplayById()
         {
@@ -45,7 +45,7 @@ namespace HavenHotel.Bookings.Services
             {
                 try
                 {
-                    Console.Clear();               
+                    Console.Clear();
                     _displayRight.DisplayRightAligned("booking");
                     var bookingsLength = _bookingRepo.GetAllItems().ToList().Count + 1;
 

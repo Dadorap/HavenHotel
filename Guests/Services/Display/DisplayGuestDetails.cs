@@ -1,75 +1,76 @@
 ﻿using Autofac.Features.AttributeFilters;
-using HavenHotel.Common;
 using HavenHotel.Interfaces;
 using HavenHotel.Repositories;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HavenHotel.Rooms.RoomServices
+namespace HavenHotel.Guests.Services.Display
 {
-    public class DisplayRoomDetails : IDisplay
+
+    public class DisplayGuestDetails : IDisplay
     {
-        private readonly IRepository<Room> _roomRepo;
+        private readonly IRepository<Guest> _guestRepo;
         private readonly IDisplayRight _displayRight;
         private readonly IErrorHandler _errorHandler;
-        private readonly IUserMessages _userMessages;
         private readonly INavigationHelper _navigationHelper;
-        public DisplayRoomDetails(IRepository<Room> roomRepo,
+        private readonly IUserMessages _userMessages;
+
+
+        public DisplayGuestDetails(IRepository<Guest> guestRepo,
             [KeyFilter("DisplayGuestsRight")] IDisplayRight displayRight,
-            IErrorHandler errorHandler,
-            IUserMessages userMessages,
-            INavigationHelper navigationHelper)
+            IErrorHandler errorHandler, INavigationHelper navigationHelper, IUserMessages userMessages)
         {
-            _roomRepo = roomRepo;
+            _guestRepo = guestRepo;
             _displayRight = displayRight;
             _errorHandler = errorHandler;
-            _userMessages = userMessages;
             _navigationHelper = navigationHelper;
+            _userMessages = userMessages;
         }
+
         public void DisplayById()
         {
             int invalidCounter = 0;
             while (true)
             {
+
                 try
                 {
                     Console.Clear();
-                    _displayRight.DisplayRightAligned("room");
-                    var roomsLength = _roomRepo.GetAllItems().ToList().Count + 1;
+                    _displayRight.DisplayRightAligned("guest");
+                    var roomsLength = _guestRepo.GetAllItems().ToList().Count + 1;
 
 
                     Console.SetCursorPosition(0, 0);
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("===== DISPLAY A ROOM =====");
+                    Console.WriteLine("===== DISPLAY A GUEST =====");
                     _userMessages.ShowCancelMessage();
                     Console.ForegroundColor = ConsoleColor.Green;
 
-                    Console.Write("Please enter the Room's ID: ");
+                    Console.Write("Please enter the Guest's ID: ");
                     string idInput = Console.ReadLine();
                     _navigationHelper.ReturnToMenu(idInput);
                     if (int.TryParse(idInput, out int id) && id >= 0 && id < roomsLength)
                     {
-                        var room = _roomRepo.GetItemById(id);
-                        var roomAvailability = room.IsActive ? "available" : "occupied";
+                        var guest = _guestRepo.GetItemById(id);
+
 
                         Console.Clear();
-                        Console.WriteLine("╔════════════╦═════════════╦════════════╦══════════════╦═════════════╗");
-                        Console.WriteLine("║ Room Type  ║ Room Size   ║ Extra Beds ║ Total Guests ║ Availability║");
-                        Console.WriteLine("╠════════════╬═════════════╬════════════╬══════════════╣═════════════╣");
+                        Console.WriteLine("╔══════════════════╦═══════════════╦═══════════════════════════════╦═══════════╗");
+                        Console.WriteLine("║ Customer Name    ║ Phone Number  ║ Email                         ║ IsActive  ║");
+                        Console.WriteLine("╠══════════════════╬═══════════════╬═══════════════════════════════╣═══════════╣");
                         Console.ForegroundColor = ConsoleColor.Gray;
 
-                        Console.WriteLine($"║ {room.RoomType,-10} ║ {room.Size + "m²",-11} ║ {room.ExtraBed,-10} ║ {room.TotalGuests,-12} ║ {roomAvailability,-11} ║");
+                        Console.WriteLine($"║ {guest.Name,-16} ║ {guest.PhoneNumber,-13} ║ {guest.Email,-29} ║  {guest.IsActive,-8} ║");
                         Console.ResetColor();
                         Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("╚══════════════════╩═══════════════╩═══════════════════════════════╩═══════════╝");
 
-                        Console.WriteLine("╚════════════╩═════════════╩════════════╩══════════════╩═════════════╝");
                         Console.ResetColor();
 
-                        Console.Write("Press any key to return to menu...");                     
+                        Console.Write("Press any key to return to menu...");
                         Console.ReadKey();
                         return;
 
