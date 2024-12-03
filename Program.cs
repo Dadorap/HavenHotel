@@ -18,18 +18,21 @@ namespace HavenHotel
             x.Seedings();
             //var create = container.ResolveNamed<ICreate>("CreateRoom");
             //var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayDeletedGuests");
-            var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayDeletedBookings");
+            //var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayDeletedBookings");
             //var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayActiveRooms");
             //var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayDeletedRooms");
             //var displayAllRooms = container.ResolveNamed<IDisplay>("DisplayRoomDetails");
             //var displayAllRooms = container.ResolveNamed<IDisplay>("DisplayGuestDetails");
             //var displayAllRooms = container.ResolveNamed<IDisplay>("DisplayBookingDetails");
-            //var delete = container.ResolveNamed<IDelete>("DeleteBooking");
+            var delete = container.ResolveNamed<IDelete>("DeleteBooking");
+            var sdelete = container.ResolveNamed<ISoftDelete>("SoftDeleteBooking");
+
 
             //create.Create();
-            displayAllRooms.DisplayAll();
+            //displayAllRooms.DisplayAll();
             //displayAllRooms.DisplayById();
             //delete.Delete();
+            sdelete.SoftDelete();
 
 
 

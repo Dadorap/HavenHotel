@@ -1,5 +1,4 @@
 ﻿using Autofac.Features.AttributeFilters;
-using HavenHotel.Common;
 using HavenHotel.Guests;
 using HavenHotel.Interfaces;
 using HavenHotel.Repositories;

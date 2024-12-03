@@ -73,7 +73,7 @@ namespace HavenHotel.Common
                     Console.Write("Please enter the ID: ");
                     string idInput = Console.ReadLine();
                     _navigationHelper.ReturnToMenu(idInput);
-
+                    
                     if (int.TryParse(idInput, out int id))
                     {
                         dynamic item = textDisplay switch
@@ -84,7 +84,16 @@ namespace HavenHotel.Common
                             _ => throw new ArgumentException($"Invalid input: {text}")
                         };
 
+                        if (item.IsActive)
+                        {
                         item.IsActive = false;
+                        }
+                        else
+                        {
+                            _errorHandler.DisplayError("Invalid ID or already soft deleted. " +
+                           "\nPlease try again.");
+                            continue;
+                        }
 
                         switch (textDisplay)
                         {
@@ -114,7 +123,7 @@ namespace HavenHotel.Common
                 }
                 catch (Exception ex)
                 {
-                    _errorHandler.DisplayError($"An error occurred: {ex.Message}");
+                    _errorHandler.DisplayError($"Invalid input try again...");
                 }
             }
         }

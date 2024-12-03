@@ -1,4 +1,4 @@
-﻿namespace HavenHotel.Common
+﻿namespace HavenHotel.Interfaces
 {
     public interface IHardDeleteItem
     {
