@@ -90,7 +90,7 @@ namespace HavenHotel.Common
                         }
                         else
                         {
-                            _errorHandler.DisplayError("Invalid ID or already soft deleted. " +
+                            _errorHandler.DisplayError("ID already soft deleted. " +
                            "\nPlease try again.");
                             continue;
                         }
