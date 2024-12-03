@@ -39,8 +39,6 @@ namespace HavenHotel.Rooms.Services.Display
                 {
                     Console.Clear();
                     _displayRight.DisplayRightAligned("room");
-                    var roomsLength = _roomRepo.GetAllItems().ToList().Count + 1;
-
 
                     Console.SetCursorPosition(0, 0);
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -51,7 +49,7 @@ namespace HavenHotel.Rooms.Services.Display
                     Console.Write("Please enter the Room's ID: ");
                     string idInput = Console.ReadLine();
                     _navigationHelper.ReturnToMenu(idInput);
-                    if (int.TryParse(idInput, out int id) && id >= 0 && id < roomsLength)
+                    if (int.TryParse(idInput, out int id))
                     {
                         var room = _roomRepo.GetItemById(id);
                         var roomAvailability = room.IsActive ? "available" : "occupied";

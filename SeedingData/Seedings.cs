@@ -37,10 +37,11 @@ namespace HavenHotel.SeedingData
 
                 var roomsToAdd = new List<Room>
                 {
-                    new Room { Price = 120.50m, RoomType = RoomType.SINGLE, ExtraBed = 0, Size = 15, TotalGuests = 1, IsActive = false },
-                    new Room { Price = 200.00m, RoomType = RoomType.DOUBLE, ExtraBed = 1, Size = 25, TotalGuests = 2, IsActive = false },
-                    new Room { Price = 350.00m, RoomType = RoomType.SUITE, ExtraBed = 2, Size = 40, TotalGuests = 4, IsActive = false },
-                    new Room { Price = 450.00m, RoomType = RoomType.FAMILY, ExtraBed = 2, Size = 50, TotalGuests = 6, IsActive = false }
+                    new Room {RoomNumber = 101, Price = 1200.00m, RoomType = RoomType.SINGLE, ExtraBed = 0, Size = 15, TotalGuests = 1, IsActive = true },
+                    new Room {RoomNumber = 102, Price = 1200.00m, RoomType = RoomType.SINGLE, ExtraBed = 0, Size = 15, TotalGuests = 1, IsActive = false },
+                    new Room {RoomNumber = 103, Price = 2000.00m, RoomType = RoomType.DOUBLE, ExtraBed = 1, Size = 25, TotalGuests = 2, IsActive = false },
+                    new Room {RoomNumber = 104, Price = 3500.00m, RoomType = RoomType.SUITE, ExtraBed = 2, Size = 40, TotalGuests = 4, IsActive = false },
+                    new Room {RoomNumber = 105, Price = 4500.00m, RoomType = RoomType.FAMILY, ExtraBed = 2, Size = 50, TotalGuests = 6, IsActive = false }
                 };
 
                 foreach (var room in roomsToAdd)

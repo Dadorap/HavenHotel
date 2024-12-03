@@ -10,15 +10,15 @@ namespace HavenHotel.Rooms.RoomServices
 {
     public class CreateRoom : ICreate
     {
-        private readonly IRepository<Room> _repository;
+        private readonly IRepository<Room> _roomRepo;
         private readonly INavigationHelper _navigationHelper; 
         private readonly IErrorHandler _errorHandler;
         private readonly IUserMessages _userMessages;
 
 
-        public CreateRoom(IRepository<Room> repository, INavigationHelper navigationHelper, IErrorHandler errorHandler, IUserMessages userMessages)
+        public CreateRoom(IRepository<Room> roomRepo, INavigationHelper navigationHelper, IErrorHandler errorHandler, IUserMessages userMessages)
         {
-            _repository = repository;
+            _roomRepo = roomRepo;
             _navigationHelper = navigationHelper;
             _errorHandler = errorHandler;
             _userMessages = userMessages;
@@ -53,9 +53,33 @@ namespace HavenHotel.Rooms.RoomServices
                         RoomType.FAMILY => (30, 50),
                         _ => throw new ArgumentException("Invalid room type")
                     };
+                    Console.WriteLine("Enter a room number (100 - 500): ");
+                    string roomNumber = Console.ReadLine();
+                    _navigationHelper.ReturnToMenu(roomNumber);
+
+                    if (!int.TryParse(roomNumber, out int roomNum))
+                    {
+                        _errorHandler.DisplayError("Invalid input. Please enter a valid number.");
+                        continue;
+                    }
+
+                    if (roomNum < 100 || roomNum > 500)
+                    {
+                        _errorHandler.DisplayError("Room number must be between 100 and 500. Try again...");
+                        continue;
+                    }
+
+                    var IsRoomNum = _roomRepo.GetAllItems()?.Any(r => r.RoomNumber == roomNum) ?? false;
+
+                    if (IsRoomNum)
+                    {
+                        _errorHandler.DisplayError("Room number already exists. Try again...");
+                        continue;
+                    }
+
 
                     Console.WriteLine($"Enter room size {minSize}-{maxSize}:");
-                    string roomSize = Console.ReadLine(); ;
+                    string roomSize = Console.ReadLine();
                     _navigationHelper.ReturnToMenu(roomSize);
                     if (!int.TryParse(roomSize, out int size) || size < 12 || size > 50)
                     {
@@ -148,8 +172,8 @@ namespace HavenHotel.Rooms.RoomServices
                         IsActive = true
                     };
 
-                    _repository.Add(room);
-                    _repository.SaveChanges();
+                    _roomRepo.Add(room);
+                    _roomRepo.SaveChanges();
 
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Green;

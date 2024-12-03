@@ -64,12 +64,19 @@ namespace HavenHotel.Configuration
             containerBuilder.RegisterType<CreateBooking>()
                 .Named<ICreate>("CreateBooking");
             //DisplayAll
-            containerBuilder.RegisterType<DisplayAllRooms>()
-                .Named<IDisplayAll>("DisplayAllRooms");
-            containerBuilder.RegisterType<DisplayAllGuests>()
-                .Named<IDisplayAll>("DisplayAllGuests");
-            containerBuilder.RegisterType<DisplayAllBookings>()
-                .Named<IDisplayAll>("DisplayAllBookings");
+            containerBuilder.RegisterType<DisplayActiveRooms>()
+                .Named<IDisplayAll>("DisplayActiveRooms");
+            containerBuilder.RegisterType<DisplayActiveGuests>()
+                .Named<IDisplayAll>("DisplayActiveGuests");
+            containerBuilder.RegisterType<DisplayActiveBookings>()
+                .Named<IDisplayAll>("DisplayActiveBookings");
+
+            containerBuilder.RegisterType<DisplayDeletedGuests>()
+                .Named<IDisplayAll>("DisplayDeletedGuests");
+            containerBuilder.RegisterType<DisplayDeletedRooms>()
+                .Named<IDisplayAll>("DisplayDeletedRooms");
+            containerBuilder.RegisterType<DisplayDeletedBookings>()
+                .Named<IDisplayAll>("DisplayDeletedBookings");
 
             //Display
             containerBuilder.RegisterType<DisplayGuestDetails>()
@@ -82,30 +89,41 @@ namespace HavenHotel.Configuration
                 .Named<IDisplay>("DisplayBookingDetails")
                 .WithAttributeFiltering();
 
+
             containerBuilder.RegisterType<DisplayIDRight>().As<IDisplayRight>();
-          
+            containerBuilder.RegisterType<DisplayAllRooms>().As<IDisplayAllDetails>();
+            containerBuilder.RegisterType<DisplayGuestsDetails>().As<IDisplayAllDetails>();
+            containerBuilder.RegisterType<DisplayBookingsDetail>().As<IDisplayAllDetails>();
+            containerBuilder.RegisterType<DisplayRoomNumRight>().As<IDisplayRoomNumRight>();
 
 
-            //Delete
+
+
+            //DeleteClasses
             containerBuilder.RegisterType<DeleteBooking>()
                 .Named<IDelete>("DeleteBooking")
-                .WithAttributeFiltering();            
+                .WithAttributeFiltering();
             containerBuilder.RegisterType<DeleteGuest>()
                 .Named<IDelete>("DeleteGuest")
-                .WithAttributeFiltering();            
+                .WithAttributeFiltering();
             containerBuilder.RegisterType<DeleteRoom>()
                 .Named<IDelete>("DeleteRoom")
-                .WithAttributeFiltering();            
+                .WithAttributeFiltering();
             //SoftDelete
             containerBuilder.RegisterType<SoftDeleteBooking>()
                 .Named<ISoftDelete>("SoftDeleteBooking")
-                .WithAttributeFiltering();            
+                .WithAttributeFiltering();
             containerBuilder.RegisterType<SoftDeleteGuest>()
                 .Named<ISoftDelete>("SoftDeleteGuest")
-                .WithAttributeFiltering();            
+                .WithAttributeFiltering();
             containerBuilder.RegisterType<SoftDeleteRoom>()
                 .Named<ISoftDelete>("SoftDeleteRoom")
                 .WithAttributeFiltering();
+            //HardDelte
+            containerBuilder.RegisterType<HardDeleteItem>()
+                .As<IHardDeleteItem>()
+                .WithAttributeFiltering();
+
             //UnDelete
 
 

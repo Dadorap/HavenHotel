@@ -1,6 +1,5 @@
 ﻿using HavenHotel.Interfaces;
 using HavenHotel.Repositories;
-using HavenHotel.Rooms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,33 +8,36 @@ using System.Threading.Tasks;
 
 namespace HavenHotel.Guests.Services.Display
 {
-
-    public class DisplayAllGuests : IDisplayAll
+    public class DisplayGuestsDetails : IDisplayAllDetails
     {
-        private IRepository<Guest> _roomsRepository;
+        private IRepository<Guest> _guestRepo;
 
-        public DisplayAllGuests(IRepository<Guest> repository)
+        public DisplayGuestsDetails(IRepository<Guest> guestRepo)
         {
-            _roomsRepository = repository;
+            _guestRepo = guestRepo;
         }
 
-        public void DisplayAll()
+        public void DisplayAll(string displayText, string isActive)
         {
             int count = 0;
-            var guestsList = _roomsRepository.GetAllItems().OrderByDescending(r => r.IsActive).ToList();
+          
+            string isAvailable = isActive.ToLower() == "true" ? "true" : "false";
+            var availableRoomsList = _guestRepo.GetAllItems().Where(r => r.IsActive == true).ToList();
+            var unAvailableRoomsList = _guestRepo.GetAllItems().Where(r => r.IsActive == false).ToList();
+            var guests = isActive.ToLower() == "true" ? availableRoomsList : unAvailableRoomsList;
 
             Console.WriteLine("╔══════════════════╦═══════════════╦═══════════════════════════════╦═══════════╗");
             Console.WriteLine("║ Customer Name    ║ Phone Number  ║ Email                         ║ IsActive  ║");
             Console.WriteLine("╠══════════════════╬═══════════════╬═══════════════════════════════╣═══════════╣");
 
-            foreach (var guest in guestsList)
+            foreach (var guest in guests)
             {
                 Console.ForegroundColor = count % 2 == 0 ? ConsoleColor.Cyan : ConsoleColor.DarkYellow;
 
                 Console.WriteLine($"║ {guest.Name,-16} ║ {guest.PhoneNumber,-13} ║ {guest.Email,-29} ║  {guest.IsActive,-8} ║");
 
                 Console.ResetColor();
-                if (count < guestsList.Count - 1)
+                if (count < guests.Count - 1)
                 {
                     Console.WriteLine("╠══════════════════╬═══════════════╬═══════════════════════════════╬═══════════╣");
                 }
@@ -46,6 +48,7 @@ namespace HavenHotel.Guests.Services.Display
             Console.Write("Press any key to return to menu...");
             Console.ReadKey();
         }
-    }
 
+
+    }
 }

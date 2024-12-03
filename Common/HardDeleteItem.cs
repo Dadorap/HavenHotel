@@ -12,9 +12,8 @@ using System.Threading.Tasks;
 
 namespace HavenHotel.Common
 {
-    public class SoftDeleteItem : ISoftDeleteItem
+    public class HardDeleteItem : IHardDeleteItem
     {
-
 
         private readonly IRepository<Booking> _bookingRepo;
         private readonly IDisplayRight _displayRight;
@@ -23,7 +22,7 @@ namespace HavenHotel.Common
         private readonly INavigationHelper _navigationHelper;
         private readonly IRepository<Room> _roomsRepo;
         private readonly IRepository<Guest> _guestsRepo;
-        public SoftDeleteItem
+        public HardDeleteItem
             (
             IRepository<Booking> bookingRepo,
             IRepository<Room> roomsRepo,
@@ -44,7 +43,7 @@ namespace HavenHotel.Common
         }
 
 
-        public void SoftDelete(string text)
+        public void HardDelete(string text)
         {
             var textDisplay = text.ToUpper();
 
@@ -55,18 +54,9 @@ namespace HavenHotel.Common
                     Console.Clear();
                     _displayRight.DisplayRightAligned(textDisplay);
 
-                    // Fetch the appropriate repository count for validation
-                    int itemsLength = textDisplay switch
-                    {
-                        "BOOKING" => _bookingRepo.GetAllItems().Count(),
-                        "ROOM" => _roomsRepo.GetAllItems().Count(),
-                        "GUEST" => _guestsRepo.GetAllItems().Count(),
-                        _ => throw new ArgumentException($"Invalid input: {text}")
-                    };
-
                     Console.SetCursorPosition(0, 0);
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"===== SOFT DELETE A {textDisplay} =====");
+                    Console.WriteLine($"===== Hard DELETE A {textDisplay} =====");
                     _userMessages.ShowCancelMessage();
                     Console.ResetColor();
 
@@ -76,25 +66,19 @@ namespace HavenHotel.Common
 
                     if (int.TryParse(idInput, out int id))
                     {
-                        dynamic item = textDisplay switch
-                        {
-                            "BOOKING" => _bookingRepo.GetItemById(id),
-                            "ROOM" => _roomsRepo.GetItemById(id),
-                            "GUEST" => _guestsRepo.GetItemById(id),
-                            _ => throw new ArgumentException($"Invalid input: {text}")
-                        };
-
-                        item.IsActive = false;
 
                         switch (textDisplay)
                         {
                             case "BOOKING":
+                                _bookingRepo.RemoveItemById(id);
                                 _bookingRepo.SaveChanges();
                                 break;
                             case "ROOM":
+                                _roomsRepo.RemoveItemById(id);
                                 _roomsRepo.SaveChanges();
                                 break;
                             case "GUEST":
+                                _guestsRepo.RemoveItemById(id);
                                 _guestsRepo.SaveChanges();
                                 break;
                         }
@@ -119,8 +103,6 @@ namespace HavenHotel.Common
             }
         }
 
+
     }
 }
-
-
-

@@ -40,9 +40,7 @@ namespace HavenHotel.Guests.Services.Display
                 {
                     Console.Clear();
                     _displayRight.DisplayRightAligned("guest");
-                    var roomsLength = _guestRepo.GetAllItems().ToList().Count + 1;
-
-
+                    
                     Console.SetCursorPosition(0, 0);
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("===== DISPLAY A GUEST =====");
@@ -52,7 +50,7 @@ namespace HavenHotel.Guests.Services.Display
                     Console.Write("Please enter the Guest's ID: ");
                     string idInput = Console.ReadLine();
                     _navigationHelper.ReturnToMenu(idInput);
-                    if (int.TryParse(idInput, out int id) && id >= 0 && id < roomsLength)
+                    if (int.TryParse(idInput, out int id))
                     {
                         var guest = _guestRepo.GetItemById(id);
 

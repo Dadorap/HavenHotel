@@ -33,6 +33,7 @@ namespace HavenHotel.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    RoomNumber = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     RoomType = table.Column<int>(type: "int", nullable: false),
                     ExtraBed = table.Column<int>(type: "int", nullable: false),

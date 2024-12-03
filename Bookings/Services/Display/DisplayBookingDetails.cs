@@ -47,7 +47,6 @@ namespace HavenHotel.Bookings.Services.Display
                 {
                     Console.Clear();
                     _displayRight.DisplayRightAligned("booking");
-                    var bookingsLength = _bookingRepo.GetAllItems().ToList().Count + 1;
 
 
                     Console.SetCursorPosition(0, 0);
@@ -59,7 +58,7 @@ namespace HavenHotel.Bookings.Services.Display
                     Console.Write("Please enter the booking ID: ");
                     string idInput = Console.ReadLine();
                     _navigationHelper.ReturnToMenu(idInput);
-                    if (int.TryParse(idInput, out int id) && id >= 0 && id < bookingsLength)
+                    if (int.TryParse(idInput, out int id))
                     {
                         var booking = _bookingRepo.GetItemById(id);
                         var room = _roomsRepo.GetItemById(booking.Id);

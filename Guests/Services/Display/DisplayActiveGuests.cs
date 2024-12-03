@@ -1,26 +1,30 @@
 ﻿using HavenHotel.Interfaces;
+using HavenHotel.Repositories;
+using HavenHotel.Rooms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HavenHotel.Bookings.Services.Display
+namespace HavenHotel.Guests.Services.Display
 {
-    public class DisplayDeletedBookings : IDisplayAll
+
+    public class DisplayActiveGuests : IDisplayAll
     {
         private IDisplayAllDetails _details;
 
-        public DisplayDeletedBookings(IDisplayAllDetails displayAllDetails)
+        public DisplayActiveGuests(IDisplayAllDetails displayAllDetails)
         {
             _details = displayAllDetails;
         }
 
         public void DisplayAll()
         {
-            string displayText = "deleted bookings";
-            string isActive = "false";
+            string displayText = "acitve guests";
+            string isActive = "true";
             _details.DisplayAll(displayText, isActive);
         }
     }
+
 }
