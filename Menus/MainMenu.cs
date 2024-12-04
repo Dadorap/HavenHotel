@@ -1,105 +1,44 @@
-﻿using HavenHotel.Interfaces;
+﻿using Autofac.Features.AttributeFilters;
 using HavenHotel.Interfaces;
 
 
-namespace HavenHotel.Menus
+namespace HavenHotel.Menus;
+
+public class MainMenu : IMenuMain
 {
-    public class MainMenu : IMainMenu
+    private readonly IMainMenu _mainMenu;
+    private readonly IExit _exit;
+    private readonly IMenu _guestMenu;
+    private readonly IMenu _roomMenu;
+    private readonly IMenu _bookingMenu;
+
+    public MainMenu(IMainMenu mainMenu, 
+        IExit exit, 
+        [KeyFilter("GuestMenu")] IMenu guestMenu,
+        [KeyFilter("RoomMenu")] IMenu roomMenu,
+        [KeyFilter("BookingMenu")] IMenu bookingMenu)
     {
-        private readonly IHeader _header;
-        private readonly IExit _exit;
+        _mainMenu = mainMenu;
+        _exit = exit;
+        _guestMenu = guestMenu;
+        _roomMenu = roomMenu;
+        _bookingMenu = bookingMenu;
+    }
 
-        public MainMenu(IHeader header, IExit exit)
-        {
-            _header = header;
-            _exit = exit;
-        }
-        public void DisplayMenu()
-        {
-            int currentSelect = 0;
-            List<string> menu = new()
+    public void DisplayMenu()
     {
-        "Rooms",
-        "Guests",
-        "Bookings",
-        "Exit"
-    };
+        int currentSelect = 0;
+        List<string> menu = new()
+        {
+            "Rooms",
+            "Guests",
+            "Bookings",
+            "Exit"
+        };
 
-            while (true)
-            {
-                Console.Clear();
-                _header.DisplayHeader();
+        _mainMenu.DisplayMenu("Main Menu",menu, _roomMenu.DisplayMenu, _guestMenu.DisplayMenu, _bookingMenu.DisplayMenu, _exit.ExitConsole);
 
-                int consoleHeight = Console.WindowHeight;
-                int consoleWidth = Console.WindowWidth;
-                int headerHeight = 3;
-                int verticalOffset = (consoleHeight - menu.Count) / 2 + headerHeight;
-
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                string instruction = "Main Menu";
-                int instructionX = (consoleWidth - instruction.Length) / 2;
-                Console.SetCursorPosition(instructionX, verticalOffset - 2);
-                Console.Write(instruction);
-                Console.ResetColor();
-
-                for (int i = 0; i < menu.Count; i++)
-                {
-                    string menuItem = menu[i];
-                    int menuItemX = (consoleWidth - menuItem.Length) / 2;
-
-                    Console.SetCursorPosition(menuItemX, verticalOffset + i);
-
-                    if (i == currentSelect)
-                    {
-                        if (menu[i].ToLower() == "exit")
-                        {
-                            Console.ForegroundColor = ConsoleColor.White;
-                            Console.BackgroundColor = ConsoleColor.DarkRed;
-                        }
-                        else
-                        {
-                            Console.ForegroundColor = ConsoleColor.Black;
-                            Console.BackgroundColor = ConsoleColor.DarkGreen;
-                        }
-                        Console.WriteLine(menuItem);
-                    }
-                    else
-                    {
-                        Console.WriteLine(menuItem);
-                    }
-                    Console.ResetColor();
-                }
-
-                ConsoleKey keyPressed = Console.ReadKey(true).Key;
-
-                if (keyPressed == ConsoleKey.UpArrow)
-                {
-                    currentSelect = currentSelect > 0 ? currentSelect - 1 : menu.Count - 1;
-                }
-                else if (keyPressed == ConsoleKey.DownArrow)
-                {
-                    currentSelect = currentSelect < menu.Count - 1 ? currentSelect + 1 : 0;
-                }
-                else if (keyPressed == ConsoleKey.Enter)
-                {
-                    switch (currentSelect)
-                    {
-                        case 0:
-                          
-                            break;
-                        case 1:
-                           
-                            break;
-                        case 2:
-                            break;
-                        case 3:
-                            _exit.ExitConsole();
-                            return;
-                    }
-
-                }
-            }
-        }
 
     }
+
 }

@@ -37,7 +37,6 @@ namespace HavenHotel.Common
                 Console.SetCursorPosition(Math.Max(padding, 0), Console.CursorTop);
                 Console.WriteLine(line);
             }
-
             Console.ResetColor();
         }
 

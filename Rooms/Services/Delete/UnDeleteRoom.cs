@@ -9,9 +9,14 @@ namespace HavenHotel.Rooms.Services.Delete
 {
     public class UnDeleteRoom : IUnDelete
     {
-        public void UnDelete()
+        private readonly IUnDeleteItem _unDeleteItem;
+        public UnDeleteRoom(IUnDeleteItem unDeleteItem)
         {
-            throw new NotImplementedException();
+            _unDeleteItem = unDeleteItem;
+        }
+        public void UndoDete()
+        {
+            _unDeleteItem.UnDelete("room");
         }
     }
 }

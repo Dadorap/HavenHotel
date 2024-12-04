@@ -8,6 +8,6 @@ namespace HavenHotel.Interfaces.DeleteInterfaces
 {
     public interface IUnDelete
     {
-        void UnDelete();
+        void UndoDete();    
     }
 }

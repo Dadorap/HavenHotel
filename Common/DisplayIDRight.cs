@@ -25,13 +25,14 @@ namespace HavenHotel.Common
             _guestsRepo = guestRepo;
         }
 
-        public void DisplayRightAligned(string text)
+        public void DisplayRightAligned(string text, string isActive)
         {
-            int XOffset = 40;
+            var count = 0;
+            short XOffset = 40;
             Console.SetCursorPosition(XOffset, 0);
             Console.ForegroundColor = ConsoleColor.Green;
             var textDisplay = text.ToUpper();
-
+            var isVisible = isActive.ToLower() == "true" ? true : false;
             List<object> list = textDisplay switch
             {
                 "BOOKING" => _bookingRepo.GetAllItems().Cast<object>().ToList(),
@@ -41,22 +42,29 @@ namespace HavenHotel.Common
             };
 
             Console.WriteLine($"{textDisplay} ID");
-            var count = 0;
 
             foreach (var item in list)
             {
                 dynamic dynamicItem = item;
 
-                if (dynamicItem.IsActive)
+                // Display items based on the isActive condition
+                if ((isActive.ToLower() == "true" && dynamicItem.IsActive) ||
+                    (isActive.ToLower() == "false" && !dynamicItem.IsActive) ||
+                    (isActive.ToLower() == "all"))
                 {
-                    Console.ForegroundColor = count % 2 == 0 ? ConsoleColor.Cyan : ConsoleColor.DarkYellow;
-                    Console.SetCursorPosition(XOffset, count + 1);
-                    Console.WriteLine("    " + dynamicItem.Id);
-                    count++;
+                    DisplayText(ref count, XOffset, dynamicItem);
                 }
             }
 
             Console.ResetColor();
+        }
+
+        private void DisplayText(ref int count, short XOffset, dynamic dynamicItem)
+        {
+            Console.ForegroundColor = count % 2 == 0 ? ConsoleColor.Cyan : ConsoleColor.DarkYellow;
+            Console.SetCursorPosition(XOffset, count + 1);
+            Console.WriteLine("    " + dynamicItem.Id);
+            count++;
         }
     }
 }

@@ -43,7 +43,8 @@ namespace HavenHotel.Configuration
             containerBuilder.Register(c =>
             {
                 var optionsBuilder = new DbContextOptionsBuilder<HotelDbContext>();
-                optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+                optionsBuilder.UseSqlServer(configuration
+                    .GetConnectionString("DefaultConnection"));
 
                 return new HotelDbContext(optionsBuilder.Options);
             }).AsSelf()
@@ -60,6 +61,20 @@ namespace HavenHotel.Configuration
                 .As<IGuest>();
             containerBuilder.RegisterType<Booking>()
                 .As<IBooking>();
+
+            //Menu
+            containerBuilder.RegisterType<MainMenu>()
+                .As<IMenuMain>()
+                .WithAttributeFiltering();
+            containerBuilder.RegisterType<BookingMenu>()
+                .Named<IMenu>("BookingMenu")
+                .WithAttributeFiltering();
+            containerBuilder.RegisterType<GuestMenu>()
+                .Named<IMenu>("GuestMenu")
+                .WithAttributeFiltering(); 
+            containerBuilder.RegisterType<RoomMenu>()
+                .Named<IMenu>("RoomMenu")
+                .WithAttributeFiltering(); 
 
             //Create
             containerBuilder.RegisterType<CreateGuest>()
@@ -95,16 +110,21 @@ namespace HavenHotel.Configuration
                 .WithAttributeFiltering();
 
 
-            containerBuilder.RegisterType<DisplayIDRight>().As<IDisplayRight>();
-            containerBuilder.RegisterType<DisplayAllRooms>().As<IDisplayAllDetails>();
-            containerBuilder.RegisterType<DisplayGuestsDetails>().As<IDisplayAllDetails>();
-            containerBuilder.RegisterType<DisplayBookingsDetail>().As<IDisplayAllDetails>();
-            containerBuilder.RegisterType<DisplayRoomNumRight>().As<IDisplayRoomNumRight>();
+            containerBuilder.RegisterType<DisplayIDRight>()
+                .As<IDisplayRight>();
+            containerBuilder.RegisterType<DisplayAllRooms>()
+                .As<IDisplayAllDetails>();
+            containerBuilder.RegisterType<DisplayGuestsDetails>()
+                .As<IDisplayAllDetails>();
+            containerBuilder.RegisterType<DisplayBookingsDetail>()
+                .As<IDisplayAllDetails>();
+            containerBuilder.RegisterType<DisplayRoomNumRight>()
+                .As<IDisplayRoomNumRight>();
 
 
 
 
-            //DeleteClasses
+            //HardDelete
             containerBuilder.RegisterType<DeleteBooking>()
                 .Named<IDelete>("DeleteBooking")
                 .WithAttributeFiltering();
@@ -124,14 +144,17 @@ namespace HavenHotel.Configuration
             containerBuilder.RegisterType<SoftDeleteRoom>()
                 .Named<ISoftDelete>("SoftDeleteRoom")
                 .WithAttributeFiltering();
-            //HardDelte
-            containerBuilder.RegisterType<HardDeleteItem>()
-                .As<IHardDeleteItem>()
-                .WithAttributeFiltering();
-
+            
             //UnDelete
-
-
+            containerBuilder.RegisterType<UnDeleteBooking>()
+                .Named<IUnDelete>("UnDeleteBooking")
+                .WithAttributeFiltering();
+            containerBuilder.RegisterType<UnDeleteGuest>()
+                .Named<IUnDelete>("UnDeleteGuest")
+                .WithAttributeFiltering();
+            containerBuilder.RegisterType<UnDeleteRoom>()
+                .Named<IUnDelete>("UnDeleteRoom")
+                .WithAttributeFiltering();
 
             //Common
             containerBuilder.RegisterType<Exit>()
@@ -148,6 +171,11 @@ namespace HavenHotel.Configuration
                 .As<IDisplayRight>();
             containerBuilder.RegisterType<SoftDeleteItem>()
                 .As<ISoftDeleteItem>();
+            containerBuilder.RegisterType<UnDeleteItem>()
+                .As<IUnDeleteItem>();
+            containerBuilder.RegisterType<HardDeleteItem>()
+                .As<IHardDeleteItem>()
+                .WithAttributeFiltering();
 
 
 
@@ -159,10 +187,9 @@ namespace HavenHotel.Configuration
                 .AsSelf();
             containerBuilder.RegisterType<Seed>()
                 .AsSelf();
-            containerBuilder.RegisterType<MainMenu>()
-                .As<IMainMenu>();
             containerBuilder.RegisterType<Menu>()
-                .As<IMenu>();
+                .As<IMainMenu>()
+                .WithAttributeFiltering();
 
 
             return containerBuilder.Build();

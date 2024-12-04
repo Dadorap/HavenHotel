@@ -1,4 +1,5 @@
-﻿using HavenHotel.Interfaces;
+﻿using Autofac.Features.AttributeFilters;
+using HavenHotel.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,17 +8,18 @@ using System.Threading.Tasks;
 
 namespace HavenHotel.Bookings
 {
-    class BookingMenu
+    class BookingMenu : IMenu
     {
-
-        private readonly IMenu _menu;
-        public BookingMenu(IMenu menu)
+        private readonly Lazy<IMenuMain> _mainMenu;
+        private readonly IMainMenu _menu;
+        public BookingMenu(Lazy<IMenuMain> mainMenu, IMainMenu menu)
         {
+            _mainMenu = mainMenu;
             _menu = menu;
         }
-        public void BookingsMenu()
+        public void DisplayMenu()
         {
-            var guestMenuList = new List<string>
+            var bookingMenuList = new List<string>
             {
                 "Create New Booking",
                 "Show All Bookings",
@@ -29,8 +31,9 @@ namespace HavenHotel.Bookings
                 "Back to Main Menu"
             };
 
-            //_menu.DisplayMenu(guestMenuList, )
-
+            _menu.DisplayMenu("booking menu",bookingMenuList, _mainMenu.Value.DisplayMenu);
         }
+
+
     }
 }

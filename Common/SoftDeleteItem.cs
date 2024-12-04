@@ -6,132 +6,126 @@ using HavenHotel.Interfaces.DeleteInterfaces;
 using HavenHotel.Interfaces.DisplayInterfaces;
 using HavenHotel.Repositories;
 using HavenHotel.Rooms;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace HavenHotel.Common
+namespace HavenHotel.Common;
+
+public class SoftDeleteItem : ISoftDeleteItem
 {
-    public class SoftDeleteItem : ISoftDeleteItem
+
+
+    private readonly IRepository<Booking> _bookingRepo;
+    private readonly IDisplayRight _displayRight;
+    private readonly IErrorHandler _errorHandler;
+    private readonly IUserMessages _userMessages;
+    private readonly INavigationHelper _navigationHelper;
+    private readonly IRepository<Room> _roomsRepo;
+    private readonly IRepository<Guest> _guestsRepo;
+    public SoftDeleteItem
+        (
+        IRepository<Booking> bookingRepo,
+        IRepository<Room> roomsRepo,
+        IRepository<Guest> guestRepo,
+        [KeyFilter("DisplayBookingsIDRight")] IDisplayRight displayRight,
+        IErrorHandler errorHandler,
+        IUserMessages userMessages,
+        INavigationHelper navigationHelper
+        )
     {
+        _bookingRepo = bookingRepo;
+        _roomsRepo = roomsRepo;
+        _guestsRepo = guestRepo;
+        _displayRight = displayRight;
+        _errorHandler = errorHandler;
+        _userMessages = userMessages;
+        _navigationHelper = navigationHelper;
+    }
 
 
-        private readonly IRepository<Booking> _bookingRepo;
-        private readonly IDisplayRight _displayRight;
-        private readonly IErrorHandler _errorHandler;
-        private readonly IUserMessages _userMessages;
-        private readonly INavigationHelper _navigationHelper;
-        private readonly IRepository<Room> _roomsRepo;
-        private readonly IRepository<Guest> _guestsRepo;
-        public SoftDeleteItem
-            (
-            IRepository<Booking> bookingRepo,
-            IRepository<Room> roomsRepo,
-            IRepository<Guest> guestRepo,
-            [KeyFilter("DisplayBookingsIDRight")] IDisplayRight displayRight,
-            IErrorHandler errorHandler,
-            IUserMessages userMessages,
-            INavigationHelper navigationHelper
-            )
+    public void SoftDelete(string text)
+    {
+        var textDisplay = text.ToUpper();
+
+        while (true)
         {
-            _bookingRepo = bookingRepo;
-            _roomsRepo = roomsRepo;
-            _guestsRepo = guestRepo;
-            _displayRight = displayRight;
-            _errorHandler = errorHandler;
-            _userMessages = userMessages;
-            _navigationHelper = navigationHelper;
-        }
-
-
-        public void SoftDelete(string text)
-        {
-            var textDisplay = text.ToUpper();
-
-            while (true)
+            try
             {
-                try
-                {
-                    Console.Clear();
-                    _displayRight.DisplayRightAligned(textDisplay);
+                Console.Clear();
+                _displayRight.DisplayRightAligned(textDisplay, "true");
 
-                    // Fetch the appropriate repository count for validation
-                    int itemsLength = textDisplay switch
+                // Fetch the appropriate repository count for validation
+                int itemsLength = textDisplay switch
+                {
+                    "BOOKING" => _bookingRepo.GetAllItems().Count(),
+                    "ROOM" => _roomsRepo.GetAllItems().Count(),
+                    "GUEST" => _guestsRepo.GetAllItems().Count(),
+                    _ => throw new ArgumentException($"Invalid input: {text}")
+                };
+
+                Console.SetCursorPosition(0, 0);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"===== SOFT DELETE A {textDisplay} =====");
+                _userMessages.ShowCancelMessage();
+                Console.ResetColor();
+
+                Console.Write("Please enter the ID: ");
+                string idInput = Console.ReadLine();
+                _navigationHelper.ReturnToMenu(idInput);
+
+                if (int.TryParse(idInput, out int id))
+                {
+                    dynamic item = textDisplay switch
                     {
-                        "BOOKING" => _bookingRepo.GetAllItems().Count(),
-                        "ROOM" => _roomsRepo.GetAllItems().Count(),
-                        "GUEST" => _guestsRepo.GetAllItems().Count(),
+                        "BOOKING" => _bookingRepo.GetItemById(id),
+                        "ROOM" => _roomsRepo.GetItemById(id),
+                        "GUEST" => _guestsRepo.GetItemById(id),
                         _ => throw new ArgumentException($"Invalid input: {text}")
                     };
 
-                    Console.SetCursorPosition(0, 0);
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"===== SOFT DELETE A {textDisplay} =====");
-                    _userMessages.ShowCancelMessage();
-                    Console.ResetColor();
-
-                    Console.Write("Please enter the ID: ");
-                    string idInput = Console.ReadLine();
-                    _navigationHelper.ReturnToMenu(idInput);
-                    
-                    if (int.TryParse(idInput, out int id))
+                    if (item.IsActive)
                     {
-                        dynamic item = textDisplay switch
-                        {
-                            "BOOKING" => _bookingRepo.GetItemById(id),
-                            "ROOM" => _roomsRepo.GetItemById(id),
-                            "GUEST" => _guestsRepo.GetItemById(id),
-                            _ => throw new ArgumentException($"Invalid input: {text}")
-                        };
-
-                        if (item.IsActive)
-                        {
                         item.IsActive = false;
-                        }
-                        else
-                        {
-                            _errorHandler.DisplayError("ID already soft deleted. " +
-                           "\nPlease try again.");
-                            continue;
-                        }
-
-                        switch (textDisplay)
-                        {
-                            case "BOOKING":
-                                _bookingRepo.SaveChanges();
-                                break;
-                            case "ROOM":
-                                _roomsRepo.SaveChanges();
-                                break;
-                            case "GUEST":
-                                _guestsRepo.SaveChanges();
-                                break;
-                        }
-
-                        Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($"Successfully soft-deleted the {textDisplay} with ID {id}.");
-                        Console.ResetColor();
-                        Console.Write("Press any key to return to the menu...");
-                        Console.ReadKey();
-                        return;
                     }
                     else
                     {
-
-                        _errorHandler.DisplayError("Invalid ID. Please try again.");
+                        _errorHandler.DisplayError("ID already soft deleted. " +
+                       "\nPlease try again.");
+                        continue;
                     }
+
+                    switch (textDisplay)
+                    {
+                        case "BOOKING":
+                            _bookingRepo.SaveChanges();
+                            break;
+                        case "ROOM":
+                            _roomsRepo.SaveChanges();
+                            break;
+                        case "GUEST":
+                            _guestsRepo.SaveChanges();
+                            break;
+                    }
+
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"Successfully soft-deleted the {textDisplay} with ID {id}.");
+                    Console.ResetColor();
+                    Console.Write("Press any key to return to the menu...");
+                    Console.ReadKey();
+                    return;
                 }
-                catch (Exception ex)
+                else
                 {
-                    _errorHandler.DisplayError($"Invalid input try again...");
+
+                    _errorHandler.DisplayError("Invalid ID. Please try again.");
                 }
             }
+            catch (Exception ex)
+            {
+                _errorHandler.DisplayError($"Invalid input try again...");
+            }
         }
-
     }
+
 }
 
 

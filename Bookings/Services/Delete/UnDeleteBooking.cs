@@ -9,9 +9,14 @@ namespace HavenHotel.Bookings.Services.Delete
 {
     public class UnDeleteBooking : IUnDelete
     {
-        public void UnDelete()
+        private readonly IUnDeleteItem _unDeleteItem;
+        public UnDeleteBooking(IUnDeleteItem unDeleteItem)
         {
-            throw new NotImplementedException();
+            _unDeleteItem = unDeleteItem;
+        }
+        public void UndoDete()
+        {
+            _unDeleteItem.UnDelete("booking");
         }
     }
 }

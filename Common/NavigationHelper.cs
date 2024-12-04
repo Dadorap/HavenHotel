@@ -9,9 +9,9 @@ namespace HavenHotel.Common
 {
     public class NavigationHelper : INavigationHelper
     {
-        private readonly IMainMenu _mainMenu;
+        private readonly IMenu _mainMenu;
 
-        public NavigationHelper(IMainMenu mainMenu)
+        public NavigationHelper(IMenu mainMenu)
         {
             _mainMenu = mainMenu;
         }

@@ -8,6 +8,6 @@ namespace HavenHotel.Interfaces
 {
     public interface IMenu
     {
-        void DisplayMenu(List<string> menue, Action option1, Action option2, Action option3, Action option4, Action option5, Action option6);
+        void DisplayMenu();
     }
 }
