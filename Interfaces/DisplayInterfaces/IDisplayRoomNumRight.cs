@@ -1,4 +1,4 @@
-﻿namespace HavenHotel.Interfaces
+﻿namespace HavenHotel.Interfaces.DisplayInterfaces
 {
     public interface IDisplayRoomNumRight
     {

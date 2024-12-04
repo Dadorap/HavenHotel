@@ -1,7 +1,7 @@
 ﻿using HavenHotel.Guests;
 using HavenHotel.Rooms;
 
-namespace HavenHotel.Interfaces
+namespace HavenHotel.Interfaces.BookingInterfaces
 {
     public interface IBooking
     {
@@ -16,6 +16,6 @@ namespace HavenHotel.Interfaces
 
         int GuestId { get; set; }
         Guest Guest { get; set; }
-        public bool IsActive { get; set; } 
+        public bool IsActive { get; set; }
     }
 }

@@ -21,6 +21,11 @@ using HavenHotel.Guests.Services.Display;
 using HavenHotel.Rooms.Services.Display;
 using HavenHotel.Guests.Services.Delete;
 using HavenHotel.Rooms.Services.Delete;
+using HavenHotel.Interfaces.BookingInterfaces;
+using HavenHotel.Interfaces.GuestInterfaces;
+using HavenHotel.Interfaces.RoomsInterfaces;
+using HavenHotel.Interfaces.DisplayInterfaces;
+using HavenHotel.Interfaces.DeleteInterfaces;
 
 namespace HavenHotel.Configuration
 {

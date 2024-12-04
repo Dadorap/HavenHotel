@@ -1,5 +1,5 @@
 ﻿using HavenHotel.Guests;
-using HavenHotel.Interfaces;
+using HavenHotel.Interfaces.BookingInterfaces;
 using HavenHotel.Rooms;
 
 namespace HavenHotel.Bookings

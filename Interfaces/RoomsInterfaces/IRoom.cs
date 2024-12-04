@@ -1,6 +1,6 @@
 ﻿using HavenHotel.Rooms;
 
-namespace HavenHotel.Interfaces
+namespace HavenHotel.Interfaces.RoomsInterfaces
 {
     public interface IRoom
     {

@@ -1,6 +1,7 @@
 ﻿using Autofac.Features.AttributeFilters;
 using HavenHotel.Guests;
 using HavenHotel.Interfaces;
+using HavenHotel.Interfaces.DeleteInterfaces;
 using HavenHotel.Repositories;
 using HavenHotel.Rooms;
 using System;

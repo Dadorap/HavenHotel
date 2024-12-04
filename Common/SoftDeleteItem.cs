@@ -2,6 +2,8 @@
 using HavenHotel.Bookings;
 using HavenHotel.Guests;
 using HavenHotel.Interfaces;
+using HavenHotel.Interfaces.DeleteInterfaces;
+using HavenHotel.Interfaces.DisplayInterfaces;
 using HavenHotel.Repositories;
 using HavenHotel.Rooms;
 using System;
@@ -108,6 +110,7 @@ namespace HavenHotel.Common
                                 break;
                         }
 
+                        Console.Clear();
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine($"Successfully soft-deleted the {textDisplay} with ID {id}.");
                         Console.ResetColor();

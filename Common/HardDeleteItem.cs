@@ -2,6 +2,7 @@
 using HavenHotel.Bookings;
 using HavenHotel.Guests;
 using HavenHotel.Interfaces;
+using HavenHotel.Interfaces.DisplayInterfaces;
 using HavenHotel.Repositories;
 using HavenHotel.Rooms;
 using System;

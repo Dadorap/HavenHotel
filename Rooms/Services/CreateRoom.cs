@@ -5,6 +5,7 @@ using HavenHotel.Repositories;
 using HavenHotel.Rooms;
 using System.Threading.Channels;
 using HavenHotel.Guests;
+using HavenHotel.Interfaces.DisplayInterfaces;
 
 namespace HavenHotel.Rooms.RoomServices
 {
@@ -14,14 +15,20 @@ namespace HavenHotel.Rooms.RoomServices
         private readonly INavigationHelper _navigationHelper; 
         private readonly IErrorHandler _errorHandler;
         private readonly IUserMessages _userMessages;
+        private readonly IDisplayRoomNumRight _displayRoomNumRight;
 
 
-        public CreateRoom(IRepository<Room> roomRepo, INavigationHelper navigationHelper, IErrorHandler errorHandler, IUserMessages userMessages)
+        public CreateRoom(IRepository<Room> roomRepo, 
+            INavigationHelper navigationHelper, 
+            IErrorHandler errorHandler, 
+            IUserMessages userMessages, 
+            IDisplayRoomNumRight displayRoomNumRight)
         {
             _roomRepo = roomRepo;
             _navigationHelper = navigationHelper;
             _errorHandler = errorHandler;
             _userMessages = userMessages;
+            _displayRoomNumRight = displayRoomNumRight;
         }
 
         public void Create()
@@ -31,13 +38,16 @@ namespace HavenHotel.Rooms.RoomServices
                 Console.Clear();
                 try
                 {
+                    _displayRoomNumRight.DisplayRightAligned();
+                    Console.SetCursorPosition(0, 0);
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("CREATE NEW ROOM");
                     Console.ResetColor();
                     _userMessages.ShowCancelMessage();
                     Console.ForegroundColor= ConsoleColor.DarkCyan;
 
-                    Console.WriteLine("Enter room type (Single, Double, Suite, Family):");
+                    Console.Write("Enter room type " +
+                        "\n(Single, Double, Suite, Family): ");
                     string roomTypeInput = Console.ReadLine();
                     _navigationHelper.ReturnToMenu(roomTypeInput);
                     if (!Enum.TryParse(roomTypeInput, true, out RoomType roomType) || !Enum.IsDefined(typeof(RoomType), roomType))
@@ -53,7 +63,7 @@ namespace HavenHotel.Rooms.RoomServices
                         RoomType.FAMILY => (30, 50),
                         _ => throw new ArgumentException("Invalid room type")
                     };
-                    Console.WriteLine("Enter a room number (100 - 500): ");
+                    Console.Write("Enter a room number (100 - 500): ");
                     string roomNumber = Console.ReadLine();
                     _navigationHelper.ReturnToMenu(roomNumber);
 
@@ -105,10 +115,10 @@ namespace HavenHotel.Rooms.RoomServices
 
                     bool allowExtraBeds = roomType != RoomType.SINGLE;
 
-                    Console.WriteLine("Enter price per day (100 - 999):");
+                    Console.Write("Enter price per night (1000 - 5000): ");
                     string roomPrice = Console.ReadLine();
                     _navigationHelper.ReturnToMenu(roomPrice);
-                    if (!decimal.TryParse(roomPrice, out decimal price) || price < 100 || price > 999)
+                    if (!decimal.TryParse(roomPrice, out decimal price) || price < 1000 || price > 5000)
                     {
                         _errorHandler.DisplayError("Invalid price. Please enter a value between 100 and 999.");
                         continue;
@@ -135,7 +145,8 @@ namespace HavenHotel.Rooms.RoomServices
                     }
                     else
                     {
-                        Console.WriteLine("Extra beds are not allowed for Single rooms. Skipping this step.");
+                        Console.WriteLine("Extra beds are not allowed for Single rooms. " +
+                            "\nSkipping this step.");
                     }
 
                     int maxGuestsBySize = size switch

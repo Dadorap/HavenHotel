@@ -1,4 +1,4 @@
-﻿using HavenHotel.Interfaces;
+﻿using HavenHotel.Interfaces.DisplayInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

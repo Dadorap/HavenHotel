@@ -11,13 +11,15 @@ namespace HavenHotel.Guests.GuestServices
     {
         private readonly IRepository<Guest> _repository;
         private readonly INavigationHelper _navigationHelper;
+        private readonly IUserMessages _userMessages;
 
 
-        public CreateGuest(IRepository<Guest> repository, INavigationHelper navigationHelper)
+
+        public CreateGuest(IRepository<Guest> repository, INavigationHelper navigationHelper, IUserMessages userMessages)
         {
             _repository = repository;
             _navigationHelper = navigationHelper;
-           
+            _userMessages = userMessages;
         }
 
         public void Create()
@@ -31,11 +33,7 @@ namespace HavenHotel.Guests.GuestServices
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("CREATE NEW GUEST");
                     Console.ResetColor();
-                    Console.Write("Enter ");
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.Write("'cancel' ");
-                    Console.ResetColor();
-                    Console.WriteLine("at any time to return to the main menu.");
+                    _userMessages.ShowCancelMessage();
                     Console.ForegroundColor = ConsoleColor.Blue;
 
                     Console.WriteLine("Enter guest's name:");

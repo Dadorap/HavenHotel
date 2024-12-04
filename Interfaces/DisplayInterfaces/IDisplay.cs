@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HavenHotel.Interfaces
+namespace HavenHotel.Interfaces.DisplayInterfaces
 {
-    public interface IDisplayAll
+    public interface IDisplay
     {
-       void DisplayAll();
+        void DisplayById();
+
     }
 }

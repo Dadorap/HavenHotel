@@ -1,4 +1,4 @@
-﻿using HavenHotel.Interfaces;
+﻿using HavenHotel.Interfaces.GuestInterfaces;
 
 namespace HavenHotel.Guests
 {
