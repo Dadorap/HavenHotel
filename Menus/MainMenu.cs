@@ -4,7 +4,7 @@ using HavenHotel.Interfaces;
 
 namespace HavenHotel.Menus;
 
-public class MainMenu : IMenuMain
+public class MainMenu : IMenu
 {
     private readonly IMainMenu _mainMenu;
     private readonly IExit _exit;

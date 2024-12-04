@@ -64,8 +64,9 @@ namespace HavenHotel.Configuration
 
             //Menu
             containerBuilder.RegisterType<MainMenu>()
-                .As<IMenuMain>()
+                .Named<IMenu>("MainMenu")
                 .WithAttributeFiltering();
+                
             containerBuilder.RegisterType<BookingMenu>()
                 .Named<IMenu>("BookingMenu")
                 .WithAttributeFiltering();

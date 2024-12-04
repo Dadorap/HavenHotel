@@ -10,9 +10,9 @@ namespace HavenHotel.Guests
 {
     public class GuestMenu : IMenu
     {
-        private readonly Lazy<IMenuMain> _mainMenu;
+        private readonly Lazy<IMenu> _mainMenu;
         private readonly IMainMenu _menu;
-        public GuestMenu(Lazy<IMenuMain> mainMenu, IMainMenu menu)
+        public GuestMenu([KeyFilter("MainMenu")] Lazy<IMenu> mainMenu, IMainMenu menu)
         {
             _mainMenu = mainMenu;
             _menu = menu;
