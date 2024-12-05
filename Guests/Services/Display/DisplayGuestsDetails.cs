@@ -19,6 +19,7 @@ namespace HavenHotel.Guests.Services.Display
 
         public void DisplayAll(string displayText, string isActive)
         {
+            Console.Clear();
             int count = 0;
           
             string isAvailable = isActive.ToLower() == "true" ? "true" : "false";

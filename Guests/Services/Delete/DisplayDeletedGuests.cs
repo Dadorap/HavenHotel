@@ -5,20 +5,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HavenHotel.Bookings.Services.Display
+namespace HavenHotel.Guests.Services.Delete
 {
-    public class DisplayDeletedBookings : IDisplayAll
+    public class DisplayDeletedGuests : IDisplayAll
     {
         private IDisplayAllDetails _details;
 
-        public DisplayDeletedBookings(IDisplayAllDetails displayAllDetails)
+        public DisplayDeletedGuests(IDisplayAllDetails displayAllDetails)
         {
             _details = displayAllDetails;
         }
 
         public void DisplayAll()
         {
-            string displayText = "deleted bookings";
+            string displayText = "unacitve guests";
             string isActive = "false";
             _details.DisplayAll(displayText, isActive);
         }

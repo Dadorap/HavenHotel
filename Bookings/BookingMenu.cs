@@ -1,5 +1,7 @@
 ﻿using Autofac.Features.AttributeFilters;
 using HavenHotel.Interfaces;
+using HavenHotel.Interfaces.DeleteInterfaces;
+using HavenHotel.Interfaces.DisplayInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,27 +13,43 @@ namespace HavenHotel.Bookings
     class BookingMenu : IMenu
     {
         private readonly Lazy<IMenu> _mainMenu;
-        private readonly IMainMenu _menu;
-        public BookingMenu([KeyFilter("MainMenu")] Lazy<IMenu> mainMenu, IMainMenu menu)
+        private readonly ISharedMenu _menu;
+        private readonly ICreate _create;
+        private readonly Lazy<IMenu> _display;
+        private readonly Lazy<IMenu> _update;
+        private readonly Lazy<IMenu> _delete;
+
+        public BookingMenu
+            (
+           [KeyFilter("MainMenu")] Lazy<IMenu> mainMenu,
+           [KeyFilter("MainMenu")] ISharedMenu menu,
+           [KeyFilter("CreateBooking")] ICreate create,
+           [KeyFilter("MainMenu")] Lazy<IMenu> display,
+           [KeyFilter("MainMenu")] Lazy<IMenu> update,
+           [KeyFilter("DeletedBookingMenu")] Lazy<IMenu> delete
+            )
         {
             _mainMenu = mainMenu;
             _menu = menu;
+            _create = create;
+            _display = display;
+            _update = update;
+            _delete = delete;
         }
+
         public void DisplayMenu()
         {
             var bookingMenuList = new List<string>
             {
-                "Create New Booking",
-                "Show All Bookings",
-                "Show One booking",
-                "Update a Booking",
-                "Delete a Booking",
-                "Show All Deleted Bookings",
-                "Un-delete a Booking",
-                "Back to Main Menu"
+                "New Booking",
+                "View Booking",
+                "Edit Booking",              
+                "Delete Booking",
+                "Main Menu"
             };
 
-            _menu.DisplayMenu("booking menu",bookingMenuList, _mainMenu.Value.DisplayMenu);
+
+            _menu.DisplayMenu("booking menu", bookingMenuList, _create.Create, _display.Value.DisplayMenu, _update.Value.DisplayMenu, _delete.Value.DisplayMenu, _mainMenu.Value.DisplayMenu);
         }
 
 

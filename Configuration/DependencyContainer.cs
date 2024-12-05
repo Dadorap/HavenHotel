@@ -26,6 +26,9 @@ using HavenHotel.Interfaces.GuestInterfaces;
 using HavenHotel.Interfaces.RoomsInterfaces;
 using HavenHotel.Interfaces.DisplayInterfaces;
 using HavenHotel.Interfaces.DeleteInterfaces;
+using HavenHotel.Bookings.Services.Update;
+using HavenHotel.Guests.Services.Update;
+using HavenHotel.Rooms.Services.Update;
 
 namespace HavenHotel.Configuration
 {
@@ -65,17 +68,50 @@ namespace HavenHotel.Configuration
             //Menu
             containerBuilder.RegisterType<MainMenu>()
                 .Named<IMenu>("MainMenu")
+                .WithAttributeFiltering(); 
+
+            //Sup booking menu
+            containerBuilder.RegisterType<DeletedBookingMenu>()
+                .Named<IMenu>("DeletedBookingMenu")
                 .WithAttributeFiltering();
-                
+            containerBuilder.RegisterType<DisplayBookingMenu>()
+                .Named<IMenu>("DisplayBookingMenu")
+                .WithAttributeFiltering();
+            containerBuilder.RegisterType<UpdateBookingMenu>()
+                .Named<IMenu>("UpdateBookingMenu")
+                .WithAttributeFiltering();
+
+            //Sup guest menu
+            containerBuilder.RegisterType<DeletedGuestMenu>()
+                .Named<IMenu>("DeletedGuestMenu")
+                .WithAttributeFiltering();
+            containerBuilder.RegisterType<DisplayGuestMenu>()
+                .Named<IMenu>("DisplayGuestMenu")
+                .WithAttributeFiltering();
+            containerBuilder.RegisterType<UpdateGuestMenu>()
+                .Named<IMenu>("UpdateGuestMenu")
+                .WithAttributeFiltering();
+
+            //Sup room menu
+            containerBuilder.RegisterType<DeletedRoomMenu>()
+                .Named<IMenu>("DeletedRoomMenu")
+                .WithAttributeFiltering();
+            containerBuilder.RegisterType<DisplayRoomMenu>()
+                .Named<IMenu>("DisplayRoomMenu")
+                .WithAttributeFiltering();
+            containerBuilder.RegisterType<UpdateRoomMenu>()
+                .Named<IMenu>("UpdateRoomMenu")
+                .WithAttributeFiltering();
+            //CRUD menu
             containerBuilder.RegisterType<BookingMenu>()
                 .Named<IMenu>("BookingMenu")
                 .WithAttributeFiltering();
             containerBuilder.RegisterType<GuestMenu>()
                 .Named<IMenu>("GuestMenu")
-                .WithAttributeFiltering(); 
+                .WithAttributeFiltering();
             containerBuilder.RegisterType<RoomMenu>()
                 .Named<IMenu>("RoomMenu")
-                .WithAttributeFiltering(); 
+                .WithAttributeFiltering();
 
             //Create
             containerBuilder.RegisterType<CreateGuest>()
@@ -84,14 +120,14 @@ namespace HavenHotel.Configuration
                 .Named<ICreate>("CreateRoom");
             containerBuilder.RegisterType<CreateBooking>()
                 .Named<ICreate>("CreateBooking");
-            //DisplayAll
+            //Display all active
             containerBuilder.RegisterType<DisplayActiveRooms>()
                 .Named<IDisplayAll>("DisplayActiveRooms");
             containerBuilder.RegisterType<DisplayActiveGuests>()
                 .Named<IDisplayAll>("DisplayActiveGuests");
             containerBuilder.RegisterType<DisplayActiveBookings>()
                 .Named<IDisplayAll>("DisplayActiveBookings");
-
+            //Display all deleted
             containerBuilder.RegisterType<DisplayDeletedGuests>()
                 .Named<IDisplayAll>("DisplayDeletedGuests");
             containerBuilder.RegisterType<DisplayDeletedRooms>()
@@ -111,17 +147,24 @@ namespace HavenHotel.Configuration
                 .WithAttributeFiltering();
 
 
+
+            containerBuilder.RegisterType<DisplayAllRooms>()
+                .As<IDisplayAllDetails>()
+                .WithAttributeFiltering();
+            containerBuilder.RegisterType<DisplayGuestsDetails>()
+                .Named<IDisplayAllDetails>("DisplayGuestsDetails")
+                .WithAttributeFiltering();
+            containerBuilder.RegisterType<DisplayBookingsDetail>()
+                .Named<IDisplayAllDetails>("DisplayBookingsDetail")
+                .WithAttributeFiltering();
+
+
+            containerBuilder.RegisterType<DisplayRoomNumRight>()
+                .Named<IDisplayRoomNumRight>("DisplayRoomNumRight")
+                .WithAttributeFiltering();
+
             containerBuilder.RegisterType<DisplayIDRight>()
                 .As<IDisplayRight>();
-            containerBuilder.RegisterType<DisplayAllRooms>()
-                .As<IDisplayAllDetails>();
-            containerBuilder.RegisterType<DisplayGuestsDetails>()
-                .As<IDisplayAllDetails>();
-            containerBuilder.RegisterType<DisplayBookingsDetail>()
-                .As<IDisplayAllDetails>();
-            containerBuilder.RegisterType<DisplayRoomNumRight>()
-                .As<IDisplayRoomNumRight>();
-
 
 
 
@@ -145,7 +188,7 @@ namespace HavenHotel.Configuration
             containerBuilder.RegisterType<SoftDeleteRoom>()
                 .Named<ISoftDelete>("SoftDeleteRoom")
                 .WithAttributeFiltering();
-            
+
             //UnDelete
             containerBuilder.RegisterType<UnDeleteBooking>()
                 .Named<IUnDelete>("UnDeleteBooking")
@@ -167,7 +210,8 @@ namespace HavenHotel.Configuration
             containerBuilder.RegisterType<ErrorHandler>()
                 .As<IErrorHandler>();
             containerBuilder.RegisterType<NavigationHelper>()
-                .As<INavigationHelper>();
+                .As<INavigationHelper>()
+                .WithAttributeFiltering();
             containerBuilder.RegisterType<DisplayIDRight>()
                 .As<IDisplayRight>();
             containerBuilder.RegisterType<SoftDeleteItem>()
@@ -189,7 +233,7 @@ namespace HavenHotel.Configuration
             containerBuilder.RegisterType<Seed>()
                 .AsSelf();
             containerBuilder.RegisterType<Menu>()
-                .As<IMainMenu>()
+                .As<ISharedMenu>()
                 .WithAttributeFiltering();
 
 

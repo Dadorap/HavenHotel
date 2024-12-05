@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HavenHotel.Rooms.Services.Display
+namespace HavenHotel.Rooms.Services.Delete
 {
     public class DisplayDeletedRooms : IDisplayAll
     {

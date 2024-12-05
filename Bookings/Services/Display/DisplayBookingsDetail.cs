@@ -31,6 +31,7 @@ internal class DisplayBookingsDetail : IDisplayAllDetails
 
     public void DisplayAll(string displayText, string isActive)
     {
+        Console.Clear();
         int count = 0;
         var bookings = _bookingRepo.GetAllItems();
         var rooms = _roomsRepo.GetAllItems();

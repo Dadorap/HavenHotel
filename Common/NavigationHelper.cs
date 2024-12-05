@@ -1,4 +1,5 @@
-﻿using HavenHotel.Interfaces;
+﻿using Autofac.Features.AttributeFilters;
+using HavenHotel.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace HavenHotel.Common
     {
         private readonly IMenu _mainMenu;
 
-        public NavigationHelper(IMenu mainMenu)
+        public NavigationHelper([KeyFilter("MainMenu")] IMenu mainMenu)
         {
             _mainMenu = mainMenu;
         }

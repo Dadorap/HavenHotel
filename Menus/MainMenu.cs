@@ -6,13 +6,13 @@ namespace HavenHotel.Menus;
 
 public class MainMenu : IMenu
 {
-    private readonly IMainMenu _mainMenu;
+    private readonly ISharedMenu _mainMenu;
     private readonly IExit _exit;
     private readonly IMenu _guestMenu;
     private readonly IMenu _roomMenu;
     private readonly IMenu _bookingMenu;
 
-    public MainMenu(IMainMenu mainMenu, 
+    public MainMenu(ISharedMenu mainMenu, 
         IExit exit, 
         [KeyFilter("GuestMenu")] IMenu guestMenu,
         [KeyFilter("RoomMenu")] IMenu roomMenu,

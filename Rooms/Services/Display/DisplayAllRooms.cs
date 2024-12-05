@@ -19,6 +19,7 @@ namespace HavenHotel.Rooms.Services.Display
 
         public void DisplayAll(string displayText, string isActive)
         {
+            Console.Clear();
             int count = 0;
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"===== {displayText.ToUpper()} =====");

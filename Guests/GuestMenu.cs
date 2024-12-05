@@ -11,8 +11,8 @@ namespace HavenHotel.Guests
     public class GuestMenu : IMenu
     {
         private readonly Lazy<IMenu> _mainMenu;
-        private readonly IMainMenu _menu;
-        public GuestMenu([KeyFilter("MainMenu")] Lazy<IMenu> mainMenu, IMainMenu menu)
+        private readonly ISharedMenu _menu;
+        public GuestMenu([KeyFilter("MainMenu")] Lazy<IMenu> mainMenu, ISharedMenu menu)
         {
             _mainMenu = mainMenu;
             _menu = menu;
@@ -21,16 +21,18 @@ namespace HavenHotel.Guests
         {
             var guestMenuList = new List<string>
             {
-                "Create New Guest",
-                "Show All Guests",
-                "Update a Guest",
-                "Delete a Guest",
-                "Show All Deleted Guests",
-                "Un-delete a Guest",
-                "Back to Main Menu"
+                "New Guest",
+                "View Guest",
+                "Edit Guest",
+                "View Guests",
+                "Delete Guest",
+                "View Deleted",
+                "Restore Guest",
+                "Main Menu"
             };
 
-            _menu.DisplayMenu("guest menu",guestMenuList, _mainMenu.Value.DisplayMenu);
+
+            _menu.DisplayMenu("guest menu", guestMenuList, _mainMenu.Value.DisplayMenu);
         }
     }
 }

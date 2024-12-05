@@ -11,8 +11,8 @@ namespace HavenHotel.Rooms;
 public class RoomMenu : IMenu
 {
     private readonly Lazy<IMenu> _mainMenu;
-    private readonly IMainMenu _menu;
-    public RoomMenu([KeyFilter("MainMenu")] Lazy<IMenu> mainMenu, IMainMenu menu)
+    private readonly ISharedMenu _menu;
+    public RoomMenu([KeyFilter("MainMenu")] Lazy<IMenu> mainMenu, ISharedMenu menu)
     {
         _mainMenu = mainMenu;
         _menu = menu;
@@ -21,18 +21,20 @@ public class RoomMenu : IMenu
 
     public void DisplayMenu()
     {
-        var roomsMenuList = new List<string>
+        var roomMenuList = new List<string>
         {
-            "Create New Room",
-            "Show All Rooms",
-            "Update a Room",
-            "Delete a Room",
-            "Show All Deleted Rooms",
-            "Un-delete a Room",
-            "Back to Main Menu"
+            "New Room",
+            "View Room",
+            "Edit Room",
+            "View Rooms",
+            "Delete Room",
+            "View Deleted",
+            "Restore Room",
+            "Main Menu"
         };
 
-        _menu.DisplayMenu("room menu",roomsMenuList, _mainMenu.Value.DisplayMenu);
+
+        _menu.DisplayMenu("room menu", roomMenuList, _mainMenu.Value.DisplayMenu);
 
 
     }

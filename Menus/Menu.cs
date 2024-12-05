@@ -2,7 +2,7 @@
 
 namespace HavenHotel.Menus;
 
-public class Menu : IMainMenu
+public class Menu : ISharedMenu
 {
     private readonly IHeader _header;
 
