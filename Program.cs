@@ -17,7 +17,7 @@ namespace HavenHotel
         {
             var container = DependencyContainer.Configure();
             var x = container.Resolve<Seed>();
-            //x.Seedings();
+            x.Seedings();
             //var create = container.ResolveNamed<ICreate>("CreateRoom");
             //var create = container.ResolveNamed<ICreate>("CreateGuest");
             //var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayDeletedGuests");

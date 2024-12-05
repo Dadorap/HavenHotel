@@ -30,22 +30,27 @@ namespace HavenHotel.Bookings.Services.Display
             int count = 0;
 
             var bookings = _bookingRepo.GetAllItems();
+            var rooms = _roomsRepo.GetAllItems();
+            var guests = _guestsRepo.GetAllItems();
+
+
 
             var allBooking = bookings
-                .Where(booking => booking.IsActive)
                 .AsQueryable()
-                .Include(booking => booking.Guest)
                 .Include(booking => booking.Room)
+                .Include(booking => booking.Guest)
                 .Select(booking => new
                 {
-                    CustomerName = booking.Guest,
-                    RoomType = booking.Room,
+                    CustomerName = booking.Guest.Name,
+                    RoomType = booking.Room.RoomType,
                     booking.StartDate,
                     booking.EndDate,
-                    Price = booking.Room,
-                    IsActiveBooking = booking.IsActive,
+                    Price = booking.Room.Price,
+                    IsActiveBooking = booking.IsActive
                 })
                 .ToList();
+
+
 
 
 
@@ -57,7 +62,7 @@ namespace HavenHotel.Bookings.Services.Display
             {
                 int totalDays = (detail.EndDate.ToDateTime(TimeOnly.MinValue) -
                    detail.StartDate.ToDateTime(TimeOnly.MinValue)).Days;
-                var totalPrice = totalDays * detail.Price.Price;
+                var totalPrice = totalDays * detail.Price;
 
                 if ((isActive.ToLower() == "true" && detail.IsActiveBooking) ||
                     (isActive.ToLower() == "false" && !detail.IsActiveBooking) ||
