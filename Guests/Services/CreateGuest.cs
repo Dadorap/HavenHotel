@@ -4,21 +4,29 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using HavenHotel.Repositories;
 using HavenHotel.Common;
+using HavenHotel.Interfaces.DisplayInterfaces;
+using HavenHotel.Rooms;
 
 namespace HavenHotel.Guests.GuestServices
 {
     public class CreateGuest : ICreate
     {
-        private readonly IRepository<Guest> _repository;
-        private readonly INavigationHelper _navigationHelper;
+        private readonly IRepository<Guest> _guestRepo;
+        private readonly Lazy<INavigationHelper> _navigationHelper;
+        private readonly IErrorHandler _errorHandler;
         private readonly IUserMessages _userMessages;
 
 
-
-        public CreateGuest(IRepository<Guest> repository, INavigationHelper navigationHelper, IUserMessages userMessages)
+        public CreateGuest(
+            IRepository<Guest> guestRepo,
+            Lazy<INavigationHelper> navigationHelper,
+            IErrorHandler errorHandler,
+            IUserMessages userMessages
+            )
         {
-            _repository = repository;
+            _guestRepo = guestRepo;
             _navigationHelper = navigationHelper;
+            _errorHandler = errorHandler;
             _userMessages = userMessages;
         }
 
@@ -38,49 +46,34 @@ namespace HavenHotel.Guests.GuestServices
 
                     Console.WriteLine("Enter guest's name:");
                     var guestName = Console.ReadLine()?.Trim();
-                    _navigationHelper.ReturnToMenu(guestName);
+                    _navigationHelper.Value.ReturnToMenu(guestName);
                     if (string.IsNullOrWhiteSpace(guestName))
                     {
-                        Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Invalid name. Please enter a valid name.");
-                        Console.ResetColor();
-                        Console.Write("Press any key to return...");
-                        Console.ReadKey();
+                        _errorHandler.DisplayError("Invalid name. Please enter a valid name.");
                         continue;
                     }
 
                     Console.WriteLine("Enter phone number:");
                     string phoneNumber = Console.ReadLine();
-                    _navigationHelper.ReturnToMenu(phoneNumber);
+                    _navigationHelper.Value.ReturnToMenu(phoneNumber);
                     if (string.IsNullOrWhiteSpace(phoneNumber)
                         || phoneNumber.Length < 3
                         || phoneNumber.Length > 15
                         || !phoneNumber.All(char.IsDigit))
                     {
-                        Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Invalid phone number. " +
+                        _errorHandler.DisplayError("Invalid phone number. " +
                             "\nPlease enter a number between 3 and 15 digits.");
-                        Console.ResetColor();
-                        Console.Write("Press any key to return...");
-                        Console.ReadKey();
                         continue;
                     }
 
                     Console.WriteLine("Enter email address:");
                     var email = Console.ReadLine()?.Trim();
-                    _navigationHelper.ReturnToMenu(email);
+                    _navigationHelper.Value.ReturnToMenu(email);
 
                     if (string.IsNullOrWhiteSpace(email) || !IsValidEmail(email))
                     {
-                        Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Invalid email address. " +
+                        _errorHandler.DisplayError("Invalid email address. " +
                             "\nPlease enter a valid email.");
-                        Console.ResetColor();
-                        Console.Write("Press any key to return...");
-                        Console.ReadKey();
                         continue;
                     }
 
@@ -91,8 +84,8 @@ namespace HavenHotel.Guests.GuestServices
                         Email = email
                     };
 
-                    _repository.Add(guest);
-                    _repository.SaveChanges();
+                    _guestRepo.Add(guest);
+                    _guestRepo.SaveChanges();
                     Console.Clear();
                     Console.WriteLine("\nGuest successfully created:");
                     Console.WriteLine($"Name: {guest.Name}");
@@ -103,12 +96,7 @@ namespace HavenHotel.Guests.GuestServices
                 }
                 catch (Exception ex)
                 {
-                    Console.Clear();
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"An error occurred: {ex.Message}");
-                    Console.ResetColor();
-                    Console.Write("Press any key to return...");
-                    Console.ReadKey();
+                    _errorHandler.DisplayError($"An error occurred: {ex.Message}");
                 }
             }
         }

@@ -21,7 +21,7 @@ public class DisplayAllGuests : IDisplayAll
 
     public void DisplayAll()
     {
-        _details.DisplayAll("Available rooms", "true");
+        _details.DisplayAll("Available rooms", "all");
 
     }
 }

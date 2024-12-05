@@ -26,10 +26,7 @@ namespace HavenHotel.Guests.Services.Display
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"===== {displayText.ToUpper()} =====");
             Console.ResetColor();
-            string isAvailable = isActive.ToLower() == "true" ? "true" : "false";
-            var availableRoomsList = _guestRepo.GetAllItems().Where(r => r.IsActive == true).ToList();
-            var unAvailableRoomsList = _guestRepo.GetAllItems().Where(r => r.IsActive == false).ToList();
-            var guests = isActive.ToLower() == "true" ? availableRoomsList : unAvailableRoomsList;
+            var guests = _guestRepo.GetAllItems().ToList();
 
             Console.WriteLine("╔══════════════════╦═══════════════╦═══════════════════════════════╦═══════════╗");
             Console.WriteLine("║ Customer Name    ║ Phone Number  ║ Email                         ║ IsActive  ║");
@@ -49,13 +46,6 @@ namespace HavenHotel.Guests.Services.Display
                         Console.WriteLine("╠══════════════════╬═══════════════╬═══════════════════════════════╬═══════════╣");
                     }
                     count++;
-                }
-                else
-                {
-                    Console.Clear();
-                    Console.ForegroundColor= ConsoleColor.Red;
-                    Console.WriteLine("No guests found.");
-                    Console.ResetColor();
                 }
 
             }
