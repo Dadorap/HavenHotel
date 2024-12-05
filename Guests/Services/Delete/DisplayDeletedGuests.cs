@@ -18,9 +18,7 @@ namespace HavenHotel.Guests.Services.Delete
 
         public void DisplayAll()
         {
-            string displayText = "unacitve guests";
-            string isActive = "false";
-            _details.DisplayAll(displayText, isActive);
+            _details.DisplayAll("Inactive Guests", "false");
         }
     }
 }

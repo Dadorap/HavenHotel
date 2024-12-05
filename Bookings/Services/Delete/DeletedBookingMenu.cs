@@ -2,56 +2,47 @@
 using HavenHotel.Interfaces;
 using HavenHotel.Interfaces.DeleteInterfaces;
 using HavenHotel.Interfaces.DisplayInterfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace HavenHotel.Bookings.Services.Delete
+namespace HavenHotel.Bookings.Services.Delete;
+
+public class DeletedBookingMenu : IMenu
 {
-    public class DeletedBookingMenu : IMenu
+    private readonly ISharedMenu _menu;
+    private readonly Lazy<IMenu> _mainMenu;
+    private readonly IDelete _delete;
+    private readonly ISoftDelete _softDelete;
+    private readonly IUnDelete _unDelete;
+
+    public DeletedBookingMenu
+    (
+        ISharedMenu menu,
+       [KeyFilter("MainMenu")] Lazy<IMenu> mainMenu,
+       [KeyFilter("DeleteBooking")] IDelete delete,
+       [KeyFilter("SoftDeleteBooking")] ISoftDelete softDelete,
+       [KeyFilter("UnDeleteBooking")] IUnDelete unDelete
+
+    )
     {
-        private readonly ISharedMenu _menu;
-        private readonly Lazy<IMenu> _mainMenu;
-        private readonly IDelete _delete;
-        private readonly ISoftDelete _softDelete;
-        private readonly IUnDelete _unDelete;
-        private readonly IDisplayAll _displayAllDeleted;
+        _menu = menu;
+        _mainMenu = mainMenu;
+        _delete = delete;
+        _softDelete = softDelete;
+        _unDelete = unDelete;
+    }
 
-        public DeletedBookingMenu
-        (
-            ISharedMenu menu,
-           [KeyFilter("MainMenu")] Lazy<IMenu> mainMenu,
-           [KeyFilter("DeleteBooking")] IDelete delete,
-           [KeyFilter("SoftDeleteBooking")] ISoftDelete softDelete,
-           [KeyFilter("UnDeleteBooking")] IUnDelete unDelete,
-           [KeyFilter("DisplayDeletedBookings")] IDisplayAll displayAllDeleted
-        )
+    public void DisplayMenu()
+    {
+        var deletedBookingMenu = new List<string>
         {
-            _menu = menu;
-            _mainMenu = mainMenu;
-            _delete = delete;
-            _softDelete = softDelete;
-            _unDelete = unDelete;
-            _displayAllDeleted = displayAllDeleted;
-        }
+            "Soft Delete Booking",
+            "Delete Booking",
+            "Undelete Booking",
+            "Return to Main Menu"
+        };
+        string header = ("Deleted Bookings Menu");
 
-        public void DisplayMenu()
-        {
-            var deletedBookingMenu = new List<string>
-            {
-                "Soft Delete Booking",   
-                "Delete Booking",      
-                "Undelete Booking",    
-                "View Deleted Bookings", 
-                "Back to Main Menu"     
-            };
-           string header =("Deleted Bookings Menu");
-
-            _menu.DisplayMenu(header,deletedBookingMenu, _softDelete.SoftDelete, _delete.Delete, _unDelete.UndoDete, _displayAllDeleted.DisplayAll, _mainMenu.Value.DisplayMenu);
+        _menu.DisplayMenu(header, deletedBookingMenu, _softDelete.SoftDelete, _delete.Delete, _unDelete.UndoDete, _mainMenu.Value.DisplayMenu);
 
 
-        }
     }
 }

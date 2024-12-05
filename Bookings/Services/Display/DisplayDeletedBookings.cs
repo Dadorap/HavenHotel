@@ -3,20 +3,20 @@ using HavenHotel.Interfaces.DisplayInterfaces;
 
 namespace HavenHotel.Bookings.Services.Display;
 
-public class DisplayActiveBookings : IDisplayAll
+public class DisplayDeletedBookings : IDisplayAll
 {
     private IDisplayAllDetails _details;
 
-    public DisplayActiveBookings
+    public DisplayDeletedBookings
     (
-        [KeyFilter("DisplayBookingsDetail")] IDisplayAllDetails displayAllDetails)
+        [KeyFilter("DisplayBookingsDetail")] IDisplayAllDetails displayAllDetails
+    )
     {
         _details = displayAllDetails;
     }
 
     public void DisplayAll()
     {
-
-        _details.DisplayAll("acitve bookings", "true");
+        _details.DisplayAll("deleted bookings", "false");
     }
 }

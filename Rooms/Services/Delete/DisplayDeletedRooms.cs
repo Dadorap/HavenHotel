@@ -6,22 +6,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HavenHotel.Rooms.Services.Delete
-{
-    public class DisplayDeletedRooms : IDisplayAll
-    {
-        private readonly IDisplayAllDetails _displayAllRooms;
-        public DisplayDeletedRooms(IDisplayAllDetails displayAllRooms)
-        {
-            _displayAllRooms = displayAllRooms;
-        }
+namespace HavenHotel.Rooms.Services.Delete;
 
-        public void DisplayAll()
-        {
-            string displayText = "unAvailable rooms";
-            string isActive = "false";
-            _displayAllRooms.DisplayAll(displayText, isActive);
-        }
+public class DisplayDeletedRooms : IDisplayAll
+{
+    private readonly IDisplayAllDetails _displayAllRooms;
+    public DisplayDeletedRooms(IDisplayAllDetails displayAllRooms)
+    {
+        _displayAllRooms = displayAllRooms;
+    }
+
+    public void DisplayAll()
+    {
+        _displayAllRooms.DisplayAll("unAvailable rooms", "false");
     }
 }
 

@@ -21,10 +21,10 @@ namespace HavenHotel.Bookings
 
         public BookingMenu
             (
+           ISharedMenu menu,
            [KeyFilter("MainMenu")] Lazy<IMenu> mainMenu,
-           [KeyFilter("MainMenu")] ISharedMenu menu,
            [KeyFilter("CreateBooking")] ICreate create,
-           [KeyFilter("MainMenu")] Lazy<IMenu> display,
+           [KeyFilter("DisplayBookingMenu")] Lazy<IMenu> display,
            [KeyFilter("MainMenu")] Lazy<IMenu> update,
            [KeyFilter("DeletedBookingMenu")] Lazy<IMenu> delete
             )

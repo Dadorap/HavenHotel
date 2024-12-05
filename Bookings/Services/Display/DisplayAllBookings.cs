@@ -1,13 +1,18 @@
 ﻿using Autofac.Features.AttributeFilters;
 using HavenHotel.Interfaces.DisplayInterfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace HavenHotel.Bookings.Services.Display;
 
-public class DisplayActiveBookings : IDisplayAll
+public class DisplayAllBookings : IDisplayAll
 {
     private IDisplayAllDetails _details;
 
-    public DisplayActiveBookings
+    public DisplayAllBookings
     (
         [KeyFilter("DisplayBookingsDetail")] IDisplayAllDetails displayAllDetails)
     {
@@ -17,6 +22,6 @@ public class DisplayActiveBookings : IDisplayAll
     public void DisplayAll()
     {
 
-        _details.DisplayAll("acitve bookings", "true");
+        _details.DisplayAll("all bookings", "all");
     }
 }

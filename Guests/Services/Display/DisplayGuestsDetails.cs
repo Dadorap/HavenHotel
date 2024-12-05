@@ -1,7 +1,9 @@
 ﻿using HavenHotel.Interfaces.DisplayInterfaces;
+using HavenHotel.Interfaces.GuestInterfaces;
 using HavenHotel.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +23,9 @@ namespace HavenHotel.Guests.Services.Display
         {
             Console.Clear();
             int count = 0;
-          
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"===== {displayText.ToUpper()} =====");
+            Console.ResetColor();
             string isAvailable = isActive.ToLower() == "true" ? "true" : "false";
             var availableRoomsList = _guestRepo.GetAllItems().Where(r => r.IsActive == true).ToList();
             var unAvailableRoomsList = _guestRepo.GetAllItems().Where(r => r.IsActive == false).ToList();
@@ -33,16 +37,27 @@ namespace HavenHotel.Guests.Services.Display
 
             foreach (var guest in guests)
             {
-                Console.ForegroundColor = count % 2 == 0 ? ConsoleColor.Cyan : ConsoleColor.DarkYellow;
-
-                Console.WriteLine($"║ {guest.Name,-16} ║ {guest.PhoneNumber,-13} ║ {guest.Email,-29} ║  {guest.IsActive,-8} ║");
-
-                Console.ResetColor();
-                if (count < guests.Count - 1)
+                if ((isActive.ToLower() == "true" && guest.IsActive) ||
+                   (isActive.ToLower() == "false" && !guest.IsActive) ||
+                   (isActive.ToLower() == "all"))
                 {
-                    Console.WriteLine("╠══════════════════╬═══════════════╬═══════════════════════════════╬═══════════╣");
+                    Console.ForegroundColor = count % 2 == 0 ? ConsoleColor.Cyan : ConsoleColor.DarkYellow;
+                    Console.WriteLine($"║ {guest.Name,-16} ║ {guest.PhoneNumber,-13} ║ {guest.Email,-29} ║  {guest.IsActive,-8} ║");
+                    Console.ResetColor();
+                    if (count < guests.Count - 1)
+                    {
+                        Console.WriteLine("╠══════════════════╬═══════════════╬═══════════════════════════════╬═══════════╣");
+                    }
+                    count++;
                 }
-                count++;
+                else
+                {
+                    Console.Clear();
+                    Console.ForegroundColor= ConsoleColor.Red;
+                    Console.WriteLine("No guests found.");
+                    Console.ResetColor();
+                }
+
             }
 
             Console.WriteLine("╚══════════════════╩═══════════════╩═══════════════════════════════╩═══════════╝");

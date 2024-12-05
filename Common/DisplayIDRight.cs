@@ -47,7 +47,6 @@ namespace HavenHotel.Common
             {
                 dynamic dynamicItem = item;
 
-                // Display items based on the isActive condition
                 if ((isActive.ToLower() == "true" && dynamicItem.IsActive) ||
                     (isActive.ToLower() == "false" && !dynamicItem.IsActive) ||
                     (isActive.ToLower() == "all"))

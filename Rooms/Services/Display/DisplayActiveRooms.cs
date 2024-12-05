@@ -10,17 +10,16 @@ namespace HavenHotel.Rooms.Services.Display
 {
     public class DisplayActiveRooms : IDisplayAll
     {
-        private readonly IDisplayAllDetails _displayAllRooms;
+        private readonly IDisplayAllDetails _details;
         public DisplayActiveRooms(IDisplayAllDetails displayAllRooms)
         {
-            _displayAllRooms = displayAllRooms;
+            _details = displayAllRooms;
         }
 
         public void DisplayAll()
         {
-            string displayText = "Available rooms";
-            string isActive = "true";
-            _displayAllRooms.DisplayAll(displayText, isActive);
+           
+            _details.DisplayAll("Available rooms", "true");
         }
     }
 
