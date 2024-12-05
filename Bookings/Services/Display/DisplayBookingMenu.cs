@@ -43,7 +43,15 @@ public class DisplayBookingMenu : IMenu
             "Return to Main Menu"
         };
 
-        _menu.DisplayMenu("Booking View Menu", bookingViewMenu, _displayAllBooking.DisplayAll, _displayBookingDetail.DisplayById, _displayActiveBookingDetails.DisplayAll,_displayAllDeleted.DisplayAll ,_mainMenu.Value.DisplayMenu);
+        _menu.DisplayMenu(
+            "Booking View Menu", 
+            bookingViewMenu, 
+            _displayAllBooking.DisplayAll, 
+            _displayBookingDetail.DisplayById, 
+            _displayActiveBookingDetails.DisplayAll,
+            _displayAllDeleted.DisplayAll ,
+            _mainMenu.Value.DisplayMenu
+            );
 
     }
 }

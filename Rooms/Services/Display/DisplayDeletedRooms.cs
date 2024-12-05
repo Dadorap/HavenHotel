@@ -1,4 +1,5 @@
-﻿using HavenHotel.Interfaces.DisplayInterfaces;
+﻿using Autofac.Features.AttributeFilters;
+using HavenHotel.Interfaces.DisplayInterfaces;
 using HavenHotel.Repositories;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,8 @@ namespace HavenHotel.Rooms.Services.Delete;
 public class DisplayDeletedRooms : IDisplayAll
 {
     private readonly IDisplayAllDetails _displayAllRooms;
-    public DisplayDeletedRooms(IDisplayAllDetails displayAllRooms)
+    public DisplayDeletedRooms(
+        [KeyFilter("DisplayRoomsDetails")] IDisplayAllDetails displayAllRooms)
     {
         _displayAllRooms = displayAllRooms;
     }

@@ -21,7 +21,7 @@ namespace HavenHotel
             //var create = container.ResolveNamed<ICreate>("CreateRoom");
             //var create = container.ResolveNamed<ICreate>("CreateGuest");
             //var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayDeletedGuests");
-            var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayActiveBookings");
+            //var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayActiveBookings");
             //var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayDeletedBookings");
             //var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayActiveRooms");
             //var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayDeletedRooms");
@@ -47,7 +47,7 @@ namespace HavenHotel
 
 
 
-            var menu = container.ResolveNamed<IMenu>("DisplayBookingMenu");
+            var menu = container.ResolveNamed<IMenu>("DisplayRoomMenu");
             menu.DisplayMenu();
             //var createGuest = container.ResolveNamed<ICreate>("CreateGuest");
             //var createGuest = container.ResolveNamed<ICreate>("CreateRoom");

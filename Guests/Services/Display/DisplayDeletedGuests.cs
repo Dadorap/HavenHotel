@@ -3,12 +3,11 @@ using HavenHotel.Interfaces.DisplayInterfaces;
 
 namespace HavenHotel.Guests.Services.Display;
 
-
-public class DisplayActiveGuests : IDisplayAll
+public class DisplayDeletedGuests : IDisplayAll
 {
     private IDisplayAllDetails _details;
 
-    public DisplayActiveGuests(
+    public DisplayDeletedGuests(
         [KeyFilter("DisplayGuestsDetails")] IDisplayAllDetails displayAllDetails)
     {
         _details = displayAllDetails;
@@ -16,6 +15,6 @@ public class DisplayActiveGuests : IDisplayAll
 
     public void DisplayAll()
     {
-        _details.DisplayAll("acitve guests", "true");
+        _details.DisplayAll("Inactive Guests", "false");
     }
 }

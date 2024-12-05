@@ -1,4 +1,5 @@
-﻿using HavenHotel.Interfaces.DisplayInterfaces;
+﻿using Autofac.Features.AttributeFilters;
+using HavenHotel.Interfaces.DisplayInterfaces;
 using HavenHotel.Rooms.Services.Display;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,8 @@ public class DisplayAllGuests : IDisplayAll
 {
     private IDisplayAllDetails _details;
 
-    public DisplayAllGuests(IDisplayAllDetails details)
+    public DisplayAllGuests(
+        [KeyFilter("DisplayGuestsDetails")] IDisplayAllDetails details)
     {
         _details = details;
     }

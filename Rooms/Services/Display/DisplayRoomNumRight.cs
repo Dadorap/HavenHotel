@@ -1,12 +1,5 @@
-﻿using HavenHotel.Bookings;
-using HavenHotel.Guests;
-using HavenHotel.Interfaces.DisplayInterfaces;
+﻿using HavenHotel.Interfaces.DisplayInterfaces;
 using HavenHotel.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HavenHotel.Rooms.Services.Display;
 
@@ -24,7 +17,7 @@ public class DisplayRoomNumRight : IDisplayRoomNumRight
     {
         int XOffset = 40;
         Console.SetCursorPosition(XOffset, 0);
-        Console.ForegroundColor = ConsoleColor.Green;        
+        Console.ForegroundColor = ConsoleColor.Green;
         var list = _roomsRepo.GetAllItems().ToList();
 
 

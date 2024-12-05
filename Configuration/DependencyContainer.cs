@@ -147,7 +147,8 @@ public static class DependencyContainer
             .Named<IDisplayAll>("DisplayDeletedGuests")
             .WithAttributeFiltering();
         containerBuilder.RegisterType<DisplayDeletedRooms>()
-            .Named<IDisplayAll>("DisplayDeletedRooms").WithAttributeFiltering()
+            .Named<IDisplayAll>("DisplayDeletedRooms")
+            .WithAttributeFiltering()
             .WithAttributeFiltering();
         containerBuilder.RegisterType<DisplayDeletedBookings>()
             .Named<IDisplayAll>("DisplayDeletedBookings")
@@ -178,8 +179,8 @@ public static class DependencyContainer
 
 
         containerBuilder.RegisterType<DisplayRoomNumRight>()
-            .Named<IDisplayRoomNumRight>("DisplayRoomNumRight")
-            .WithAttributeFiltering();
+            .As<IDisplayRoomNumRight>();
+            
 
         containerBuilder.RegisterType<DisplayIDRight>()
             .As<IDisplayRight>()
