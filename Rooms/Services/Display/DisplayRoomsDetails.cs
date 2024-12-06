@@ -1,4 +1,5 @@
 ﻿using HavenHotel.Interfaces.DisplayInterfaces;
+using HavenHotel.Interfaces.RoomsInterfaces;
 using HavenHotel.Repositories;
 
 namespace HavenHotel.Rooms.Services.Display;
@@ -12,10 +13,11 @@ public class DisplayRoomsDetails : IDisplayAllDetails
         _roomsRepository = repository;
     }
 
-    public void DisplayAll(string displayText, string isActive)
+    public void DisplayAll(string displayText, string isActive, string id = null)
     {
         Console.Clear();
         int count = 0;
+
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine($"===== {displayText.ToUpper()} =====");
         Console.ResetColor();
@@ -24,29 +26,44 @@ public class DisplayRoomsDetails : IDisplayAllDetails
         Console.WriteLine("╠══════════════╬═════════════╬═════════════╬═══════════╬══════════════╣═════════════╣");
 
         var rooms = _roomsRepository.GetAllItems().ToList();
-        
 
 
 
-        foreach (var room in rooms)
+        if (id == null)
         {
-            if ((isActive.ToLower() == "true" && room.IsActive) ||
-                (isActive.ToLower() == "false" && !room.IsActive) ||
-                (isActive.ToLower() == "all"))
+
+            foreach (var room in rooms)
             {
-                Console.ForegroundColor = count % 2 == 0 ? ConsoleColor.Cyan : ConsoleColor.DarkYellow;
-                Console.WriteLine($"║ {room.RoomNumber,-13}║ {room.Price,-11} ║ {room.RoomType,-11} ║ {room.Size + "m²",-9} ║ {room.ExtraBed,-12} ║ {room.TotalGuests,-11} ║");
-
-                Console.ResetColor();
-                if (count < rooms.Count - 1)
+                if ((isActive.ToLower() == "true" && room.IsActive) ||
+                    (isActive.ToLower() == "false" && !room.IsActive) ||
+                    (isActive.ToLower() == "all"))
                 {
-                    Console.WriteLine("╠══════════════╬═════════════╬═════════════╬═══════════╬══════════════╬═════════════╣");
+                    Console.ForegroundColor = count % 2 == 0 ? ConsoleColor.Cyan : ConsoleColor.DarkYellow;
+                    Console.WriteLine($"║ {room.RoomNumber,-13}║ {room.Price,-11} ║ {room.RoomType,-11} ║ {room.Size + "m²",-9} ║ {room.ExtraBed,-12} ║ {room.TotalGuests,-11} ║");
+
+                    Console.ResetColor();
+                    if (count < rooms.Count - 1)
+                    {
+                        Console.WriteLine("╠══════════════╬═════════════╬═════════════╬═══════════╬══════════════╬═════════════╣");
+                    }
+                    count++;
+
                 }
-                count++;
-
             }
+        }
+        else
+        {
+            int roomId = int.Parse(id);
+            var roomById = _roomsRepository.GetItemById(roomId);
+            Console.ForegroundColor = count % 2 == 0 ? ConsoleColor.Cyan : ConsoleColor.DarkYellow;
+            Console.WriteLine($"║ {roomById.RoomNumber,-13}║ {roomById.Price,-11} ║ {roomById.RoomType,-11} ║ {roomById.Size + "m²",-9} ║ {roomById.ExtraBed,-12} ║ {roomById.TotalGuests,-11} ║");
 
-
+            Console.ResetColor();
+            if (count < rooms.Count - 1)
+            {
+                Console.WriteLine("╠══════════════╬═════════════╬═════════════╬═══════════╬══════════════╬═════════════╣");
+            }
+            count++;
         }
         Console.WriteLine("╚══════════════╩═════════════╩═════════════╩═══════════╩══════════════╩═════════════╝");
         Console.Write("Press any key to return to menu...");

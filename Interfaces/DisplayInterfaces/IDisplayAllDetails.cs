@@ -2,6 +2,6 @@
 {
     public interface IDisplayAllDetails
     {
-        void DisplayAll(string displayText, string isActive);
+        void DisplayAll(string displayText, string isActive = null, string id = null);
     }
 }

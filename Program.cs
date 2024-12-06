@@ -33,7 +33,7 @@ namespace HavenHotel
             //var undelete = container.ResolveNamed<IUnDelete>("UnDeleteGuest");
 
 
-            create.Create();
+            //create.Create();
             //displayAllRooms.DisplayAll();
             //displayAllRooms.DisplayById();
             //delete.Delete();
@@ -45,7 +45,7 @@ namespace HavenHotel
             //var menu = container.ResolveNamed<IMenu>("DeletedRoomMenu");
             var menu = container.ResolveNamed<IMenu>("MainMenu");
             //var menu = container.ResolveNamed<IMenu>("DisplayGuestMenu");
-            //menu.DisplayMenu();
+            menu.DisplayMenu();
             //var createGuest = container.ResolveNamed<ICreate>("CreateGuest");
             //var createGuest = container.ResolveNamed<ICreate>("CreateRoom");
             //createGuest.Create();

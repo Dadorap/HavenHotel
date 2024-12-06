@@ -12,6 +12,7 @@ public class DisplayRoom : IDisplay
     private readonly IErrorHandler _errorHandler;
     private readonly IUserMessages _userMessages;
     private readonly INavigationHelper _navigationHelper;
+
     public DisplayRoom(IRepository<Room> roomRepo,
         [KeyFilter("DisplayGuestsRight")] IDisplayRight displayRight,
         IErrorHandler errorHandler,
@@ -38,7 +39,7 @@ public class DisplayRoom : IDisplay
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("===== DISPLAY A ROOM =====");
                 _userMessages.ShowCancelMessage();
-                Console.ForegroundColor = ConsoleColor.Green;
+                Console.ForegroundColor = ConsoleColor.Cyan;
 
                 Console.Write("Please enter the Room's ID: ");
                 string idInput = Console.ReadLine();
@@ -49,16 +50,16 @@ public class DisplayRoom : IDisplay
                     var roomAvailability = room.IsActive ? "available" : "occupied";
 
                     Console.Clear();
-                    Console.WriteLine("╔════════════╦═════════════╦════════════╦══════════════╦═════════════╗");
-                    Console.WriteLine("║ Room Type  ║ Room Size   ║ Extra Beds ║ Total Guests ║ Availability║");
-                    Console.WriteLine("╠════════════╬═════════════╬════════════╬══════════════╣═════════════╣");
-                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.WriteLine("╔════════════╦═════════════╦═════════════╦════════════╦══════════════╦═════════════╗");
+                    Console.WriteLine("║ Room Type  ║ Price/night ║ Room Size   ║ Extra Beds ║ Total Guests ║ Availability║");
+                    Console.WriteLine("╠════════════╬═════════════╬═════════════╬════════════╬══════════════╣═════════════╣");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
 
-                    Console.WriteLine($"║ {room.RoomType,-10} ║ {room.Size + "m²",-11} ║ {room.ExtraBed,-10} ║ {room.TotalGuests,-12} ║ {roomAvailability,-11} ║");
+                    Console.WriteLine($"║ {room.RoomType,-10} ║ {room.Price,-11} ║  {room.Size + "m²",-10} ║ {room.ExtraBed,-10} ║ {room.TotalGuests,-12} ║ {roomAvailability,-11} ║");
                     Console.ResetColor();
-                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.ForegroundColor = ConsoleColor.Cyan;
 
-                    Console.WriteLine("╚════════════╩═════════════╩════════════╩══════════════╩═════════════╝");
+                    Console.WriteLine("╚════════════╩═════════════╩═════════════╩════════════╩══════════════╩═════════════╝");
                     Console.ResetColor();
 
                     Console.Write("Press any key to return to menu...");

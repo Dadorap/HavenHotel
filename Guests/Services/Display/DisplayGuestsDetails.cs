@@ -19,7 +19,7 @@ namespace HavenHotel.Guests.Services.Display
             _guestRepo = guestRepo;
         }
 
-        public void DisplayAll(string displayText, string isActive)
+        public void DisplayAll(string displayText, string isActive, string id = null)
         {
             Console.Clear();
             int count = 0;

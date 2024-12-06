@@ -62,6 +62,8 @@ public class DisplayBooking : IDisplay
                 if (int.TryParse(idInput, out int id))
                 {
                     var bookings = _bookingRepo.GetAllItems();
+                    var room = _roomsRepo.GetAllItems();
+                    var guest = _guestsRepo.GetAllItems();
 
 
                     var bookingDetail = bookings.Where(b => b.Id == id).AsQueryable().Include(b => b.Room).Include(b => b.Guest).Select(b => new
@@ -71,13 +73,11 @@ public class DisplayBooking : IDisplay
                         Price = b.Room.Price,
                         StartDate = b.StartDate,
                         EndDate = b.EndDate,
+                        TotalPrice = b.TotalPrice,
 
                     });
                     foreach (var detail in bookingDetail)
                     {
-
-                        int totalDays = (detail.EndDate.ToDateTime(TimeOnly.MinValue) - detail.StartDate.ToDateTime(TimeOnly.MinValue)).Days;
-                        var totalPrice = totalDays * detail.Price;
 
 
                         Console.Clear();
@@ -86,7 +86,7 @@ public class DisplayBooking : IDisplay
                         Console.WriteLine("╠═════════════════╬═════════════╬════════════╬══════════════╬═══════════════╣");
                         Console.ForegroundColor = ConsoleColor.Gray;
 
-                        Console.WriteLine($"║ {detail.GuestName,-15} ║  {detail.RoomType,-10} ║ {detail.StartDate:yyyy-MM-dd} ║ {detail.EndDate:yyyy-MM-dd}   ║ {totalPrice,-13:C} ║");
+                        Console.WriteLine($"║ {detail.GuestName,-15} ║  {detail.RoomType,-10} ║ {detail.StartDate:yyyy-MM-dd} ║ {detail.EndDate:yyyy-MM-dd}   ║ {detail.TotalPrice,-13:C} ║");
                         Console.ResetColor();
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("╚═════════════════╩═════════════╩════════════╩══════════════╩═══════════════╝");
