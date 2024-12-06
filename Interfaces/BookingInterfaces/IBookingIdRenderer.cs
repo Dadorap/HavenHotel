@@ -1,4 +1,4 @@
-﻿namespace HavenHotel.Bookings.Services.Update;
+﻿namespace HavenHotel.Interfaces.BookingInterfaces;
 
 public interface IBookingIdRenderer
 {

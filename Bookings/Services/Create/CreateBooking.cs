@@ -82,7 +82,7 @@ public class CreateBooking : ICreate
                 while (isDate)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkCyan;
-                    Console.WriteLine("Enter checkin date (yyyy-MM-dd)");
+                    Console.WriteLine("Enter check-in date (yyyy-MM-dd)");
                     string atDate = Console.ReadLine();
                     _navigationHelper.Value.ReturnToMenu(atDate);
                     if (!DateOnly.TryParse(atDate, out DateOnly startDate) || !_dateValidator.IsCorrectStartDate(startDate))
@@ -93,7 +93,7 @@ public class CreateBooking : ICreate
                         continue;
                     }
 
-                    Console.WriteLine("Enter checkout date (yyyy-MM-dd)");
+                    Console.WriteLine("Enter check-out date (yyyy-MM-dd)");
                     string lastDate = Console.ReadLine();
                     _navigationHelper.Value.ReturnToMenu(lastDate);
                     if (!DateOnly.TryParse(lastDate, out DateOnly endDate) || !_dateValidator.IsCorrectEndDate(startDate, endDate))

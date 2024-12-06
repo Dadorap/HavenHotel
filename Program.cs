@@ -47,8 +47,8 @@ namespace HavenHotel
 
 
             //var menu = container.ResolveNamed<IMenu>("DeletedRoomMenu");
-            var menu = container.ResolveNamed<IMenu>("UpdateBookingMenu");
-            //var menu = container.ResolveNamed<IMenu>("MainMenu");
+            //var menu = container.ResolveNamed<IMenu>("UpdateBookingMenu");
+            var menu = container.ResolveNamed<IMenu>("MainMenu");
             //var menu = container.ResolveNamed<IMenu>("DisplayGuestMenu");
             //menu.DisplayMenu();
             //var createGuest = container.ResolveNamed<ICreate>("CreateGuest");

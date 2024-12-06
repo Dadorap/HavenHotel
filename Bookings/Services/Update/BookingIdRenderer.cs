@@ -1,4 +1,5 @@
 ﻿using HavenHotel.Interfaces;
+using HavenHotel.Interfaces.BookingInterfaces;
 using HavenHotel.Repositories;
 
 namespace HavenHotel.Bookings.Services.Update;
@@ -20,7 +21,8 @@ public class BookingIdRenderer : IBookingIdRenderer
 
     public void DisplayBookingNumber(string text)
     {
-        int XOffset = 40;
+        Console.Clear();
+        int XOffset = 45;
         Console.SetCursorPosition(XOffset, 0);
         Console.ForegroundColor = ConsoleColor.Green;
 
@@ -36,7 +38,7 @@ public class BookingIdRenderer : IBookingIdRenderer
         {
             Console.ForegroundColor = count % 2 == 0 ? ConsoleColor.Cyan : ConsoleColor.DarkYellow;
             Console.SetCursorPosition(XOffset, count + 1);
-            Console.WriteLine($"{b.Id} ");
+            Console.WriteLine($"--> {b.Id} <--");
             count++;
         }
         Console.SetCursorPosition(0, 0);

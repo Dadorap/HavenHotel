@@ -16,7 +16,6 @@ public class DateRange : IDateRange
 {
     private readonly IRepository<Booking> _bookingRepo;
     private readonly IRepository<Room> _roomRepo;
-    private readonly IRepository<Guest> _guestRepo;
     private readonly Lazy<INavigationHelper> _navigationHelper;
     private readonly Lazy<IMenu> _mainMenu;
     private readonly IDateValidator _dateValidator;
@@ -26,7 +25,6 @@ public class DateRange : IDateRange
 
 
     public DateRange(
-        IRepository<Guest> guestRepo,
         IRepository<Room> roomRepo,
         IRepository<Booking> bookingRepo,
         Lazy<INavigationHelper> navigationHelper,
@@ -38,7 +36,7 @@ public class DateRange : IDateRange
 
         )
     {
-        _guestRepo = guestRepo;
+
         _roomRepo = roomRepo;
         _bookingRepo = bookingRepo;
         _navigationHelper = navigationHelper;
@@ -57,14 +55,68 @@ public class DateRange : IDateRange
             {
                 _bookingSidebarDisplay.DisplayBookingNumber("update booking date");
 
-                Console.WriteLine("Enter ");
-                Console.ReadLine();
+                Console.Write("Enter booking ID: ");
+               string inputId = Console.ReadLine();
+                _navigationHelper.Value.ReturnToMenu(inputId);
+                if (!int.TryParse(inputId, out int id))
+                {
+                    _errorHandler.DisplayError("Invalid ID input. try again...");
+                    continue;
+                }
+                var bookingId = _bookingRepo.GetItemById(id);
+                Console.WriteLine($"Current check-in: {bookingId.StartDate}");
+                Console.WriteLine("Enter the new check-in date (yyyy-MM-dd): ");
+                string atDate = Console.ReadLine();
+                _navigationHelper.Value.ReturnToMenu(atDate);
+                if (!DateOnly.TryParse(atDate, out DateOnly startDate) || 
+                    !_dateValidator.IsCorrectStartDate(startDate))
+                {
+                    _errorHandler.DisplayError("Invalid date input try again...");
+                    continue;
+                }
+                Console.WriteLine($"Current check-out date: {bookingId.EndDate}");
+                Console.WriteLine("Enter the new checkout date (yyyy-MM-dd)");
+                string lastDate = Console.ReadLine();
+                _navigationHelper.Value.ReturnToMenu(lastDate);
+                if (!DateOnly.TryParse(lastDate, out DateOnly endDate) || 
+                    !_dateValidator.IsCorrectEndDate(startDate, endDate))
+                {
+                    _errorHandler.DisplayError("Invalid date input try again...");
+                    continue;
+                }
+                var roomPrice = _roomRepo.GetItemById(bookingId.RoomId).Price;
+                int totalDays = (endDate.ToDateTime(TimeOnly.MinValue) -
+                                startDate.ToDateTime(TimeOnly.MinValue)).Days;
+                var daysTotal = totalDays == 0 ? 1 : totalDays;
+                var totalPrice = daysTotal * roomPrice;
+                var bookings = _bookingRepo.GetAllItems()
+                    .Where(b => b.Id == id).ToList();
+
+                bookings.ForEach(b =>
+                {
+                    b.StartDate = startDate;
+                    b.EndDate = endDate;
+                    b.TotalPrice = totalPrice;
+                    _bookingRepo.Update(b);
+                });
+                _bookingRepo.SaveChanges();
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"The new check-in {startDate} and check-out date {endDate} has been set.\nTotal price: {totalPrice:C}");
+                Console.Write("Press any key to return to menu...");
+                Console.ReadKey();
+                _mainMenu.Value.DisplayMenu();
+                Console.ResetColor();
+                break;
             }
             catch (Exception ex)
             {
-                _errorHandler.DisplayError(ex.Message);
+                _errorHandler.DisplayError($"Invalid input. try again...{ex.Message}");
+
                 continue;
             }
         }
     }
+
+
 }
