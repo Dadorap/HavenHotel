@@ -1,5 +1,6 @@
 ﻿using Autofac.Features.AttributeFilters;
 using HavenHotel.Interfaces;
+using HavenHotel.Interfaces.BookingInterfaces;
 using HavenHotel.Interfaces.DisplayInterfaces;
 using System;
 using System.Collections.Generic;
@@ -19,8 +20,7 @@ namespace HavenHotel.Bookings.Services.Update
         public UpdateBookingMenu
         (
             ISharedMenu menu,
-           [KeyFilter("MainMenu")] Lazy<IMenu> mainMenu,
-           Lazy<IMenu> mainMenu2
+           [KeyFilter("MainMenu")] Lazy<IMenu> mainMenu
         )
 
         {
@@ -32,18 +32,19 @@ namespace HavenHotel.Bookings.Services.Update
 
         public void DisplayMenu()
         {
-            var bookingViewMenu = new List<string>
-        {
-            "View All Bookings",
-            "View Booking Details",
-            "View Active Bookings",
-            "View Deleted Bookings",
-            "Return to Main Menu"
-        };
+            var updateMenu = new List<string>
+            {
+                "Assign New Guest",
+                "Update Booking Dates",
+                "Change Assigned Room",
+                "Recalculate Total Price",
+                "Back to Main Menu"
+            };
+
 
             _menu.DisplayMenu(
                 "Booking View Menu",
-                bookingViewMenu,
+                updateMenu,
                 _mainMenu.Value.DisplayMenu
                 );
 

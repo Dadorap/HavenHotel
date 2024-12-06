@@ -17,7 +17,6 @@ public class CreateBooking : ICreate
     private readonly Lazy<IMenu> _mainMenu;
     private readonly IDateValidator _dateValidator;
     private readonly IErrorHandler _errorHandler;
-    private readonly IUserMessages _userMessages;
     private readonly IBookingSidebarDisplay _bookingSidebarDisplay;
 
 
@@ -29,7 +28,6 @@ public class CreateBooking : ICreate
         [KeyFilter("MainMenu")] Lazy<IMenu> mainMenu,
         IDateValidator dateValidator,
         IErrorHandler errorHandler,
-        IUserMessages userMessages,
         IBookingSidebarDisplay bookingSidebarDisplay
 
         )
@@ -39,7 +37,6 @@ public class CreateBooking : ICreate
         _bookingRepo = bookingRepo;
         _navigationHelper = navigationHelper;
         _errorHandler = errorHandler;
-        _userMessages = userMessages;
         _bookingSidebarDisplay = bookingSidebarDisplay;
         _mainMenu = mainMenu;
         _dateValidator = dateValidator;
@@ -53,13 +50,8 @@ public class CreateBooking : ICreate
             Console.Clear();
             try
             {
-                _bookingSidebarDisplay.DisplayRightAligned();
-                Console.SetCursorPosition(0, 0);
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("CREATE NEW BOOKING");
-                Console.ResetColor();
-                _userMessages.ShowCancelMessage();
-                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                _bookingSidebarDisplay.DisplayRightAligned("CREATE NEW BOOKING");
+
                 Console.Write("Enter Guests ID: ");
                 string idInput = Console.ReadLine();
                 _navigationHelper.Value.ReturnToMenu(idInput);

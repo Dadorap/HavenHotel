@@ -25,7 +25,7 @@ namespace HavenHotel.Bookings
            [KeyFilter("MainMenu")] Lazy<IMenu> mainMenu,
            [KeyFilter("CreateBooking")] ICreate create,
            [KeyFilter("DisplayBookingMenu")] Lazy<IMenu> display,
-           [KeyFilter("MainMenu")] Lazy<IMenu> update,
+           [KeyFilter("UpdateBookingMenu")] Lazy<IMenu> update,
            [KeyFilter("DeletedBookingMenu")] Lazy<IMenu> delete
             )
         {

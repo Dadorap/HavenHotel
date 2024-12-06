@@ -2,6 +2,6 @@
 {
     public interface IBookingSidebarDisplay
     {
-        void DisplayRightAligned();
+        void DisplayRightAligned(string text);
     }
 }

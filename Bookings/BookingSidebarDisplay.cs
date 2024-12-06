@@ -1,24 +1,30 @@
-﻿using HavenHotel.Guests;
+﻿using HavenHotel.Common;
+using HavenHotel.Guests;
 using HavenHotel.Interfaces;
 using HavenHotel.Repositories;
 using HavenHotel.Rooms;
 
-namespace HavenHotel.Bookings.Services.Create;
+namespace HavenHotel.Bookings;
 
 public class BookingSidebarDisplay : IBookingSidebarDisplay
 {
     private readonly IRepository<Room> _roomsRepo;
     private readonly IRepository<Guest> _guestRepo;
+    private readonly IUserMessages _userMessages;
 
-    public BookingSidebarDisplay(
+    public BookingSidebarDisplay
+        (
         IRepository<Room> roomRepo,
-        IRepository<Guest> guestRepo)
+        IRepository<Guest> guestRepo,
+        IUserMessages userMessages
+        )
     {
         _roomsRepo = roomRepo;
         _guestRepo = guestRepo;
+        _userMessages = userMessages;
     }
 
-    public void DisplayRightAligned()
+    public void DisplayRightAligned(string text)
     {
         int XOffset = 40;
         Console.SetCursorPosition(XOffset, 0);
@@ -29,7 +35,7 @@ public class BookingSidebarDisplay : IBookingSidebarDisplay
 
         Console.WriteLine($"Room/Guests Number - Guest ID");
 
-        var roomGuestPairs = rooms.Zip(guests, (room, guest) => new { RoomNumber = room.RoomNumber, TotalGuests = room.TotalGuests, GuestId = guest.Id });
+        var roomGuestPairs = rooms.Zip(guests, (room, guest) => new { room.RoomNumber, room.TotalGuests, GuestId = guest.Id });
 
         var count = 0;
 
@@ -47,7 +53,7 @@ public class BookingSidebarDisplay : IBookingSidebarDisplay
             {
                 Console.ForegroundColor = count % 2 == 0 ? ConsoleColor.Cyan : ConsoleColor.DarkYellow;
                 Console.SetCursorPosition(XOffset, count + 1);
-                Console.WriteLine($"    {room.RoomNumber} / {room.TotalGuests}  \t\t*"); 
+                Console.WriteLine($"    {room.RoomNumber} / {room.TotalGuests}  \t\t*");
                 count++;
             }
         }
@@ -57,12 +63,17 @@ public class BookingSidebarDisplay : IBookingSidebarDisplay
             {
                 Console.ForegroundColor = count % 2 == 0 ? ConsoleColor.Cyan : ConsoleColor.DarkYellow;
                 Console.SetCursorPosition(XOffset, count + 1);
-                Console.WriteLine($"    * / *  \t\t{guest.Id}"); 
+                Console.WriteLine($"    * / *  \t\t{guest.Id}");
                 count++;
             }
         }
 
+        Console.SetCursorPosition(0, 0);
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine($"===== {text.ToUpper()} =====");
         Console.ResetColor();
+        _userMessages.ShowCancelMessage();
+        Console.ForegroundColor = ConsoleColor.DarkCyan;
 
     }
 }

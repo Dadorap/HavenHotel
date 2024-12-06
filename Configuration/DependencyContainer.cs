@@ -164,9 +164,7 @@ public static class DependencyContainer
         containerBuilder.RegisterType<DisplayBooking>()
             .Named<IDisplay>("DisplayBooking")
             .WithAttributeFiltering();
-
-
-
+        ///////////////////////////////////////
         containerBuilder.RegisterType<DisplayRoomsDetails>()
             .Named<IDisplayAllDetails>("DisplayRoomsDetails")
             .WithAttributeFiltering();
@@ -176,8 +174,7 @@ public static class DependencyContainer
         containerBuilder.RegisterType<DisplayBookingsDetail>()
             .Named<IDisplayAllDetails>("DisplayBookingsDetail")
             .WithAttributeFiltering();
-
-
+        ////////////////////////////////////////
         containerBuilder.RegisterType<DisplayRoomNumRight>()
             .As<IDisplayRoomNumRight>();         
         containerBuilder.RegisterType<BookingSidebarDisplay>()
@@ -220,6 +217,11 @@ public static class DependencyContainer
             .Named<IUnDelete>("UnDeleteRoom")
             .WithAttributeFiltering();
 
+        //update booking
+        containerBuilder.RegisterType<DateRange>()
+            .As<IDateRange>()
+            .WithAttributeFiltering();
+
         //Common
         containerBuilder.RegisterType<Exit>()
             .As<IExit>();
@@ -234,6 +236,8 @@ public static class DependencyContainer
             .WithAttributeFiltering();
         containerBuilder.RegisterType<DisplayIDRight>()
             .As<IDisplayRight>();
+        containerBuilder.RegisterType<BookingIdRenderer>()
+            .As<IBookingIdRenderer>();
         containerBuilder.RegisterType<SoftDeleteItem>()
             .As<ISoftDeleteItem>();
         containerBuilder.RegisterType<UnDeleteItem>()
