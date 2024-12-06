@@ -1,7 +1,7 @@
 ﻿using HavenHotel.Interfaces.DisplayInterfaces;
 using HavenHotel.Repositories;
 
-namespace HavenHotel.Rooms.Services.Display;
+namespace HavenHotel.Rooms.Services.Create;
 
 public class DisplayRoomNumRight : IDisplayRoomNumRight
 {

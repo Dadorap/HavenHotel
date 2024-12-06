@@ -37,11 +37,50 @@ namespace HavenHotel.SeedingData
 
                 var roomsToAdd = new List<Room>
                 {
-                    new Room {RoomNumber = 101, Price = 1200.00m, RoomType = RoomType.SINGLE, ExtraBed = 0, Size = 15, TotalGuests = 1, IsActive = true },
-                    new Room {RoomNumber = 102, Price = 1200.00m, RoomType = RoomType.SINGLE, ExtraBed = 0, Size = 15, TotalGuests = 1, IsActive = false },
-                    new Room {RoomNumber = 103, Price = 2000.00m, RoomType = RoomType.DOUBLE, ExtraBed = 1, Size = 25, TotalGuests = 2, IsActive = false },
-                    new Room {RoomNumber = 104, Price = 3500.00m, RoomType = RoomType.SUITE, ExtraBed = 2, Size = 40, TotalGuests = 4, IsActive = false },
-                    new Room {RoomNumber = 105, Price = 4500.00m, RoomType = RoomType.FAMILY, ExtraBed = 2, Size = 50, TotalGuests = 6, IsActive = false }
+                    new Room 
+                    {
+                        RoomNumber = 101, 
+                        Price = 1200.00m, 
+                        RoomType = RoomType.SINGLE, 
+                        ExtraBed = 0, Size = 15, 
+                        TotalGuests = 1, 
+                        IsActive = true 
+                    },
+                    new Room 
+                    {
+                        RoomNumber = 102, 
+                        Price = 1200.00m, 
+                        RoomType = RoomType.SINGLE, 
+                        ExtraBed = 0, Size = 15, 
+                        TotalGuests = 1, 
+                        IsActive = false 
+                    },
+                    new Room 
+                    {
+                        RoomNumber = 103, 
+                        Price = 2000.00m, 
+                        RoomType = RoomType.DOUBLE, 
+                        ExtraBed = 1, Size = 25, 
+                        TotalGuests = 2, 
+                        IsActive = false },
+                    new Room 
+                    {
+                        RoomNumber = 104, 
+                        Price = 3500.00m, 
+                        RoomType = RoomType.SUITE, 
+                        ExtraBed = 2, Size = 40, 
+                        TotalGuests = 4, 
+                        IsActive = false }
+                    ,
+                    new Room 
+                    {
+                        RoomNumber = 105,
+                        Price = 4500.00m, 
+                        RoomType = RoomType.FAMILY,
+                        ExtraBed = 2, Size = 50,
+                        TotalGuests = 6, 
+                        IsActive = false 
+                    }
                 };
 
                 foreach (var room in roomsToAdd)
@@ -60,6 +99,7 @@ namespace HavenHotel.SeedingData
                     {
                         StartDate = new DateOnly(2024, 11, 1),
                         EndDate = new DateOnly(2024, 12, 20),
+                        TotalPrice = 171500m,
                         RoomId = roomIds.FirstOrDefault(r => r.RoomType == RoomType.SUITE)?.Id ?? 0,
                         GuestId = guestIds.FirstOrDefault(g => g.Name == "John Doe")?.Id ?? 0,
                         IsActive = true,
@@ -69,6 +109,7 @@ namespace HavenHotel.SeedingData
                     {
                         StartDate = new DateOnly(2024, 12, 1),
                         EndDate = new DateOnly(2025, 01, 30),
+                        TotalPrice=120000m,
                         RoomId = roomIds.FirstOrDefault(r => r.RoomType == RoomType.DOUBLE)?.Id ?? 0,
                         GuestId = guestIds.FirstOrDefault(g => g.Name == "Jane Smith")?.Id ?? 0,
                         IsActive = true,
@@ -77,6 +118,7 @@ namespace HavenHotel.SeedingData
                     {
                         StartDate = new DateOnly(2024, 11, 1),
                         EndDate = new DateOnly(2024, 12, 15),
+                        TotalPrice =154000m,
                         RoomId = roomIds.FirstOrDefault(r => r.RoomType == RoomType.SUITE)?.Id ?? 0,
                         GuestId = guestIds.FirstOrDefault(g => g.Name == "Michael Johnson")?.Id ?? 0,
                         IsActive = true,
@@ -85,6 +127,7 @@ namespace HavenHotel.SeedingData
                     {
                         StartDate = new DateOnly(2024, 10, 1),
                         EndDate = new DateOnly(2024, 12, 20),
+                        TotalPrice =360000m,
                         RoomId = roomIds.FirstOrDefault(r => r.RoomType == RoomType.FAMILY)?.Id ?? 0,
                         GuestId = guestIds.FirstOrDefault(g => g.Name == "Emily Brown")?.Id ?? 0,
                         IsActive = true,

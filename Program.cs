@@ -1,12 +1,6 @@
 ﻿using Autofac;
 using HavenHotel.Configuration;
-using HavenHotel.Guests.GuestServices;
 using HavenHotel.Interfaces;
-using HavenHotel.Interfaces.DeleteInterfaces;
-using HavenHotel.Interfaces.DisplayInterfaces;
-using HavenHotel.Repositories;
-using HavenHotel.Rooms;
-using HavenHotel.Rooms.RoomServices;
 using HavenHotel.SeedingData;
 
 namespace HavenHotel
@@ -19,7 +13,8 @@ namespace HavenHotel
             var x = container.Resolve<Seed>();
             x.Seedings();
             //var create = container.ResolveNamed<ICreate>("CreateRoom");
-            //var create = container.ResolveNamed<ICreate>("CreateGuest");
+            var create = container.ResolveNamed<ICreate>("CreateGuest");
+            //var create = container.ResolveNamed<ICreate>("CreateBooking");
             //var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayDeletedGuests");
             //var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayActiveBookings");
             //var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayDeletedBookings");
@@ -38,7 +33,7 @@ namespace HavenHotel
             //var undelete = container.ResolveNamed<IUnDelete>("UnDeleteGuest");
 
 
-            //create.Create();
+            create.Create();
             //displayAllRooms.DisplayAll();
             //displayAllRooms.DisplayById();
             //delete.Delete();
@@ -47,8 +42,10 @@ namespace HavenHotel
 
 
 
-            var menu = container.ResolveNamed<IMenu>("DisplayGuestMenu");
-            menu.DisplayMenu();
+            //var menu = container.ResolveNamed<IMenu>("DeletedRoomMenu");
+            var menu = container.ResolveNamed<IMenu>("MainMenu");
+            //var menu = container.ResolveNamed<IMenu>("DisplayGuestMenu");
+            //menu.DisplayMenu();
             //var createGuest = container.ResolveNamed<ICreate>("CreateGuest");
             //var createGuest = container.ResolveNamed<ICreate>("CreateRoom");
             //createGuest.Create();

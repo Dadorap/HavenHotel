@@ -6,13 +6,15 @@ using HavenHotel.Repositories;
 using HavenHotel.Common;
 using HavenHotel.Interfaces.DisplayInterfaces;
 using HavenHotel.Rooms;
+using Autofac.Features.AttributeFilters;
 
-namespace HavenHotel.Guests.GuestServices
+namespace HavenHotel.Guests.Create
 {
     public class CreateGuest : ICreate
     {
         private readonly IRepository<Guest> _guestRepo;
         private readonly Lazy<INavigationHelper> _navigationHelper;
+        private readonly Lazy<IMenu> _mainMenu;
         private readonly IErrorHandler _errorHandler;
         private readonly IUserMessages _userMessages;
 
@@ -20,6 +22,7 @@ namespace HavenHotel.Guests.GuestServices
         public CreateGuest(
             IRepository<Guest> guestRepo,
             Lazy<INavigationHelper> navigationHelper,
+            [KeyFilter("MainMenu")] Lazy<IMenu> mainMenu,
             IErrorHandler errorHandler,
             IUserMessages userMessages
             )
@@ -28,6 +31,7 @@ namespace HavenHotel.Guests.GuestServices
             _navigationHelper = navigationHelper;
             _errorHandler = errorHandler;
             _userMessages = userMessages;
+            _mainMenu = mainMenu;
         }
 
         public void Create()
@@ -87,11 +91,15 @@ namespace HavenHotel.Guests.GuestServices
                     _guestRepo.Add(guest);
                     _guestRepo.SaveChanges();
                     Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("\nGuest successfully created:");
                     Console.WriteLine($"Name: {guest.Name}");
                     Console.WriteLine($"Phone: {guest.PhoneNumber}");
                     Console.WriteLine($"Email: {guest.Email}");
-
+                    Console.ResetColor();
+                    Console.Write("Press any key to return to menu...");
+                    Console.ReadKey();
+                    _mainMenu.Value.DisplayMenu();
                     break;
                 }
                 catch (Exception ex)

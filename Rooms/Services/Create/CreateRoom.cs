@@ -2,27 +2,29 @@
 using System;
 using System.Linq;
 using HavenHotel.Repositories;
-using HavenHotel.Rooms;
 using System.Threading.Channels;
 using HavenHotel.Guests;
 using HavenHotel.Interfaces.DisplayInterfaces;
+using Autofac.Features.AttributeFilters;
 
-namespace HavenHotel.Rooms.RoomServices
+namespace HavenHotel.Rooms.Services.Create
 {
     public class CreateRoom : ICreate
     {
         private readonly IRepository<Room> _roomRepo;
-        private readonly Lazy<INavigationHelper> _navigationHelper; 
+        private readonly Lazy<INavigationHelper> _navigationHelper;
+        private readonly Lazy<IMenu> _mainMenu;
         private readonly IErrorHandler _errorHandler;
         private readonly IUserMessages _userMessages;
         private readonly IDisplayRoomNumRight _displayRoomNumRight;
 
 
         public CreateRoom(
-            IRepository<Room> roomRepo, 
-            Lazy<INavigationHelper> navigationHelper, 
-            IErrorHandler errorHandler, 
-            IUserMessages userMessages, 
+            IRepository<Room> roomRepo,
+            Lazy<INavigationHelper> navigationHelper,
+            [KeyFilter("MainMenu")] Lazy<IMenu> mainMenu,
+            IErrorHandler errorHandler,
+            IUserMessages userMessages,
             IDisplayRoomNumRight displayRoomNumRight
             )
         {
@@ -31,6 +33,7 @@ namespace HavenHotel.Rooms.RoomServices
             _errorHandler = errorHandler;
             _userMessages = userMessages;
             _displayRoomNumRight = displayRoomNumRight;
+            _mainMenu = mainMenu;
         }
 
         public void Create()
@@ -46,7 +49,7 @@ namespace HavenHotel.Rooms.RoomServices
                     Console.WriteLine("CREATE NEW ROOM");
                     Console.ResetColor();
                     _userMessages.ShowCancelMessage();
-                    Console.ForegroundColor= ConsoleColor.DarkCyan;
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
 
                     Console.Write("Enter room type " +
                         "\n(Single, Double, Suite, Family): ");
@@ -198,6 +201,7 @@ namespace HavenHotel.Rooms.RoomServices
 
                     Console.Write("Press any key to return to the menu...");
                     Console.ReadKey();
+                    _mainMenu.Value.DisplayMenu();
                     break;
                 }
                 catch (Exception ex)

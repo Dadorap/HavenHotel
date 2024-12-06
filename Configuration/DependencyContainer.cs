@@ -1,14 +1,14 @@
 ﻿using Autofac;
 using Autofac.Features.AttributeFilters;
 using HavenHotel.Bookings;
-using HavenHotel.Bookings.BookingServices;
+using HavenHotel.Bookings.Services.Create;
 using HavenHotel.Bookings.Services.Delete;
 using HavenHotel.Bookings.Services.Display;
 using HavenHotel.Bookings.Services.Update;
 using HavenHotel.Common;
 using HavenHotel.Data;
 using HavenHotel.Guests;
-using HavenHotel.Guests.GuestServices;
+using HavenHotel.Guests.Create;
 using HavenHotel.Guests.Services.Delete;
 using HavenHotel.Guests.Services.Display;
 using HavenHotel.Guests.Services.Update;
@@ -21,7 +21,7 @@ using HavenHotel.Interfaces.RoomsInterfaces;
 using HavenHotel.Menus;
 using HavenHotel.Repositories;
 using HavenHotel.Rooms;
-using HavenHotel.Rooms.RoomServices;
+using HavenHotel.Rooms.Services.Create;
 using HavenHotel.Rooms.Services.Delete;
 using HavenHotel.Rooms.Services.Display;
 using HavenHotel.Rooms.Services.Update;
@@ -179,9 +179,9 @@ public static class DependencyContainer
 
 
         containerBuilder.RegisterType<DisplayRoomNumRight>()
-            .As<IDisplayRoomNumRight>();
-            
-
+            .As<IDisplayRoomNumRight>();         
+        containerBuilder.RegisterType<BookingSidebarDisplay>()
+            .As<IBookingSidebarDisplay>();
         containerBuilder.RegisterType<DisplayIDRight>()
             .As<IDisplayRight>()
             .WithAttributeFiltering();

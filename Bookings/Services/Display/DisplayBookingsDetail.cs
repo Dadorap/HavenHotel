@@ -45,6 +45,7 @@ namespace HavenHotel.Bookings.Services.Display
                     RoomType = booking.Room.RoomType,
                     booking.StartDate,
                     booking.EndDate,
+                    booking.TotalPrice,
                     Price = booking.Room.Price,
                     IsActiveBooking = booking.IsActive
                 })
@@ -60,16 +61,14 @@ namespace HavenHotel.Bookings.Services.Display
 
             foreach (var detail in allBooking)
             {
-                int totalDays = (detail.EndDate.ToDateTime(TimeOnly.MinValue) -
-                   detail.StartDate.ToDateTime(TimeOnly.MinValue)).Days;
-                var totalPrice = totalDays * detail.Price;
+
 
                 if ((isActive.ToLower() == "true" && detail.IsActiveBooking) ||
                     (isActive.ToLower() == "false" && !detail.IsActiveBooking) ||
                     (isActive.ToLower() == "all"))
                 {
                     Console.ForegroundColor = count % 2 == 0 ? ConsoleColor.Cyan : ConsoleColor.DarkYellow;
-                    Console.WriteLine($"║ {detail.CustomerName,-15} ║  {detail.RoomType,-10} ║ {detail.StartDate:yyyy-MM-dd} ║ {detail.EndDate:yyyy-MM-dd}   ║ {totalPrice,-13:C} ║");
+                    Console.WriteLine($"║ {detail.CustomerName,-15} ║  {detail.RoomType,-10} ║ {detail.StartDate:yyyy-MM-dd} ║ {detail.EndDate:yyyy-MM-dd}   ║ {detail.TotalPrice,-13:C} ║");
                     Console.ResetColor();
 
                     if (count < allBooking.Count - 1)

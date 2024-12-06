@@ -36,7 +36,13 @@ public class MainMenu : IMenu
             "Exit"
         };
 
-        _mainMenu.DisplayMenu("Main Menu",menu, _roomMenu.DisplayMenu, _guestMenu.DisplayMenu, _bookingMenu.DisplayMenu, _exit.ExitConsole);
+        _mainMenu.DisplayMenu(
+            "Main Menu",
+            menu, 
+            _roomMenu.DisplayMenu,
+            _guestMenu.DisplayMenu,
+            _bookingMenu.DisplayMenu,
+            _exit.ExitConsole);
 
 
     }

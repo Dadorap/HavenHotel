@@ -6,9 +6,11 @@ namespace HavenHotel.Bookings
 {
     public class Booking : IBooking
     {
+
         public int Id { get; set; }
         public DateOnly StartDate { get; set; }
         public DateOnly EndDate { get; set; }
+        public decimal TotalPrice { get; set; }
 
         public int RoomId { get; set; } 
         public Room Room { get; set; } 
@@ -18,6 +20,7 @@ namespace HavenHotel.Bookings
         public Guest Guest { get; set; } 
 
         public bool IsActive { get; set; } = true;
+
 
     }
 
