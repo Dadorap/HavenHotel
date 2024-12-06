@@ -241,6 +241,8 @@ public static class DependencyContainer
         containerBuilder.RegisterType<HardDeleteItem>()
             .As<IHardDeleteItem>()
             .WithAttributeFiltering();
+        containerBuilder.RegisterType<DateValidator>()
+            .As<IDateValidator>();
 
 
 

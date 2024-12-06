@@ -15,6 +15,7 @@ public class CreateBooking : ICreate
     private readonly IRepository<Guest> _guestRepo;
     private readonly Lazy<INavigationHelper> _navigationHelper;
     private readonly Lazy<IMenu> _mainMenu;
+    private readonly IDateValidator _dateValidator;
     private readonly IErrorHandler _errorHandler;
     private readonly IUserMessages _userMessages;
     private readonly IBookingSidebarDisplay _bookingSidebarDisplay;
@@ -26,6 +27,7 @@ public class CreateBooking : ICreate
         IRepository<Booking> bookingRepo,
         Lazy<INavigationHelper> navigationHelper,
         [KeyFilter("MainMenu")] Lazy<IMenu> mainMenu,
+        IDateValidator dateValidator,
         IErrorHandler errorHandler,
         IUserMessages userMessages,
         IBookingSidebarDisplay bookingSidebarDisplay
@@ -40,6 +42,7 @@ public class CreateBooking : ICreate
         _userMessages = userMessages;
         _bookingSidebarDisplay = bookingSidebarDisplay;
         _mainMenu = mainMenu;
+        _dateValidator = dateValidator;
     }
 
     public void Create()
@@ -90,7 +93,7 @@ public class CreateBooking : ICreate
                     Console.WriteLine("Enter checkin date (yyyy-MM-dd)");
                     string atDate = Console.ReadLine();
                     _navigationHelper.Value.ReturnToMenu(atDate);
-                    if (!DateOnly.TryParse(atDate, out DateOnly startDate) || !IsCorrectStartDate(startDate))
+                    if (!DateOnly.TryParse(atDate, out DateOnly startDate) || !_dateValidator.IsCorrectStartDate(startDate))
                     {
                         Console.ForegroundColor = ConsoleColor.DarkRed;
                         Console.WriteLine("Invalid date input try again...");
@@ -101,7 +104,7 @@ public class CreateBooking : ICreate
                     Console.WriteLine("Enter checkout date (yyyy-MM-dd)");
                     string lastDate = Console.ReadLine();
                     _navigationHelper.Value.ReturnToMenu(lastDate);
-                    if (!DateOnly.TryParse(lastDate, out DateOnly endDate) || !IsCorrectEndDate(startDate, endDate))
+                    if (!DateOnly.TryParse(lastDate, out DateOnly endDate) || !_dateValidator.IsCorrectEndDate(startDate, endDate))
                     {
                         Console.ForegroundColor = ConsoleColor.DarkRed;
                         Console.WriteLine("Invalid date input try again...");
@@ -164,17 +167,5 @@ public class CreateBooking : ICreate
         var appropriateRoom = _roomRepo.GetAllItems().Any(r => r.RoomNumber == roomNum && r.TotalGuests >= totalGuest);
         return appropriateRoom;
     }
-    private bool IsCorrectStartDate(DateOnly dateOnly)
-    {
-        DateOnly today = DateOnly.FromDateTime(DateTime.Now);
-        bool isCorrectDate = dateOnly >= today;
 
-        return isCorrectDate;
-    }
-    private bool IsCorrectEndDate(DateOnly startDate, DateOnly endDate)
-    {
-        bool isCorrectDate = endDate >= startDate;
-
-        return isCorrectDate;
-    }
 }
