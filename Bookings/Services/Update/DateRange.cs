@@ -21,7 +21,7 @@ public class DateRange : IDateRange
     private readonly IDateValidator _dateValidator;
     private readonly IErrorHandler _errorHandler;
     private readonly IUserMessages _userMessages;
-    private readonly IBookingIdRenderer _bookingSidebarDisplay;
+    private readonly IPromptForBookingId _promptForBookingId;
 
 
     public DateRange(
@@ -32,7 +32,7 @@ public class DateRange : IDateRange
         IDateValidator dateValidator,
         IErrorHandler errorHandler,
         IUserMessages userMessages,
-        IBookingIdRenderer bookingSidebarDisplay
+        IPromptForBookingId promptForBookingId
 
         )
     {
@@ -42,9 +42,9 @@ public class DateRange : IDateRange
         _navigationHelper = navigationHelper;
         _errorHandler = errorHandler;
         _userMessages = userMessages;
-        _bookingSidebarDisplay = bookingSidebarDisplay;
         _mainMenu = mainMenu;
         _dateValidator = dateValidator;
+        _promptForBookingId = promptForBookingId;
     }
 
     public void UpdateDate()
@@ -53,16 +53,8 @@ public class DateRange : IDateRange
         {
             try
             {
-                _bookingSidebarDisplay.DisplayBookingNumber("update booking date");
-
-                Console.Write("Enter booking ID: ");
-               string inputId = Console.ReadLine();
-                _navigationHelper.Value.ReturnToMenu(inputId);
-                if (!int.TryParse(inputId, out int id))
-                {
-                    _errorHandler.DisplayError("Invalid ID input. try again...");
-                    continue;
-                }
+                var id = _promptForBookingId.GetValidBookingId("update booking date");
+                
                 var bookingId = _bookingRepo.GetItemById(id);
                 Console.WriteLine($"Current check-in: {bookingId.StartDate}");
                 Console.WriteLine("Enter the new check-in date (yyyy-MM-dd): ");
@@ -102,7 +94,8 @@ public class DateRange : IDateRange
                 _bookingRepo.SaveChanges();
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"The new check-in {startDate} and check-out date {endDate} has been set.\nTotal price: {totalPrice:C}");
+                Console.WriteLine($"The new check-in {startDate} and check-out date " +
+                    $"{endDate} has been set.\nTotal price: {totalPrice:C}");
                 Console.Write("Press any key to return to menu...");
                 Console.ReadKey();
                 _mainMenu.Value.DisplayMenu();

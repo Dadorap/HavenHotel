@@ -221,6 +221,10 @@ public static class DependencyContainer
         containerBuilder.RegisterType<DateRange>()
             .As<IDateRange>()
             .WithAttributeFiltering();
+        containerBuilder.RegisterType<PromptForBookingId>()
+            .As<IPromptForBookingId>();        
+        containerBuilder.RegisterType<GuestAssignmentHandler>()
+            .As<IGuestAssignmentHandler>();
 
         //Common
         containerBuilder.RegisterType<Exit>()

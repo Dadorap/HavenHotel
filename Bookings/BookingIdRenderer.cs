@@ -2,7 +2,7 @@
 using HavenHotel.Interfaces.BookingInterfaces;
 using HavenHotel.Repositories;
 
-namespace HavenHotel.Bookings.Services.Update;
+namespace HavenHotel.Bookings;
 
 public class BookingIdRenderer : IBookingIdRenderer
 {
@@ -27,7 +27,7 @@ public class BookingIdRenderer : IBookingIdRenderer
         Console.ForegroundColor = ConsoleColor.Green;
 
         var bookings = _bookingRepo.GetAllItems().Where(r => r.IsActive).ToList();
-   
+
 
         Console.WriteLine($"Booking ID");
 
