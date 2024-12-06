@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Autofac.Features.AttributeFilters;
+﻿using Autofac.Features.AttributeFilters;
 using HavenHotel.Guests;
 using HavenHotel.Interfaces;
 using HavenHotel.Interfaces.BookingInterfaces;
 using HavenHotel.Repositories;
-using HavenHotel.Rooms;
 
 namespace HavenHotel.Bookings.Services.Update;
 

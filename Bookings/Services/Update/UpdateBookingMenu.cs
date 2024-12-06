@@ -18,7 +18,7 @@ public class UpdateBookingMenu : IMenu
         ISharedMenu menu,
        [KeyFilter("MainMenu")] Lazy<IMenu> mainMenu,
        IDateRange dateRange,
-       GuestAssignmentHandler guestAssignmentHandler
+       IGuestAssignmentHandler guestAssignmentHandler
 
     )
 
@@ -27,7 +27,6 @@ public class UpdateBookingMenu : IMenu
         _mainMenu = mainMenu;
         _dateRange = dateRange;
         _guestAssignmentHandler = guestAssignmentHandler;
-
 
     }
 
