@@ -2,5 +2,5 @@
 
 public interface IPromptForBookingId
 {
-    int GetValidBookingId(string text);
+    int GetValidBookingId(string text, string whoCalling);
 }

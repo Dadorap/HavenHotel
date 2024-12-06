@@ -53,7 +53,7 @@ public class DateRange : IDateRange
         {
             try
             {
-                var id = _promptForBookingId.GetValidBookingId("update booking date");
+                var id = _promptForBookingId.GetValidBookingId("update booking date" , "date");
                 
                 var bookingId = _bookingRepo.GetItemById(id);
                 Console.WriteLine($"Current check-in: {bookingId.StartDate}");

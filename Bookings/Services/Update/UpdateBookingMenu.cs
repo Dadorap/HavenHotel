@@ -9,6 +9,7 @@ public class UpdateBookingMenu : IMenu
     private readonly ISharedMenu _menu;
     private readonly Lazy<IMenu> _mainMenu;
     private readonly IDateRange _dateRange;
+    private readonly IGuestAssignmentHandler _guestAssignmentHandler;
 
 
 
@@ -16,13 +17,16 @@ public class UpdateBookingMenu : IMenu
     (
         ISharedMenu menu,
        [KeyFilter("MainMenu")] Lazy<IMenu> mainMenu,
-       IDateRange dateRange
+       IDateRange dateRange,
+       GuestAssignmentHandler guestAssignmentHandler
+
     )
 
     {
         _menu = menu;
         _mainMenu = mainMenu;
         _dateRange = dateRange;
+        _guestAssignmentHandler = guestAssignmentHandler;
 
 
     }
@@ -42,6 +46,7 @@ public class UpdateBookingMenu : IMenu
         _menu.DisplayMenu(
             "Booking View Menu",
             updateMenu,
+            _guestAssignmentHandler.UpdateGuestAssignment,
             _dateRange.UpdateDate,
             _mainMenu.Value.DisplayMenu
             );

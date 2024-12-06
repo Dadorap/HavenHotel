@@ -32,11 +32,13 @@ namespace HavenHotel
             //var undelete = container.ResolveNamed<IUnDelete>("UnDeleteRoom");            
             //var sdelete = container.ResolveNamed<ISoftDelete>("SoftDeleteGuest");
             //var undelete = container.ResolveNamed<IUnDelete>("UnDeleteGuest");
-            var update = container.Resolve<IDateRange>();
+            //var update = container.Resolve<IDateRange>();
+            var update = container.Resolve<IGuestAssignmentHandler>();
 
 
 
-            update.UpdateDate();
+            update.UpdateGuestAssignment();
+            //update.UpdateDate();
             //create.Create();
             //displayAllRooms.DisplayAll();
             //displayAllRooms.DisplayById();

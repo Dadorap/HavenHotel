@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Features.AttributeFilters;
 using HavenHotel.Bookings;
+using HavenHotel.Bookings.Services;
 using HavenHotel.Bookings.Services.Create;
 using HavenHotel.Bookings.Services.Delete;
 using HavenHotel.Bookings.Services.Display;
@@ -222,9 +223,14 @@ public static class DependencyContainer
             .As<IDateRange>()
             .WithAttributeFiltering();
         containerBuilder.RegisterType<PromptForBookingId>()
-            .As<IPromptForBookingId>();        
+            .As<IPromptForBookingId>()
+            .WithAttributeFiltering();        
         containerBuilder.RegisterType<GuestAssignmentHandler>()
-            .As<IGuestAssignmentHandler>();
+            .As<IGuestAssignmentHandler>()
+            .WithAttributeFiltering();        
+        containerBuilder.RegisterType<IdDisplayHandler>()
+            .As<IIdDisplayHandler>()
+            .WithAttributeFiltering();
 
         //Common
         containerBuilder.RegisterType<Exit>()
