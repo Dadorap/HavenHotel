@@ -36,14 +36,15 @@ namespace HavenHotel
             //var undelete = container.ResolveNamed<IUnDelete>("UnDeleteGuest");
             //var update = container.Resolve<IDateRange>();
             //var update = container.Resolve<IGuestAssignmentHandler>();
-            var update = container.Resolve<INameUpdate>();
+            //var update = container.Resolve<INameUpdate>();
+            var update = container.Resolve<IEmailUpdate>();
          
 
 
 
             //update.UpdateTotalPrice();
-            update.NameUpdater();
-            //update.EmailUpdater();
+            //update.NameUpdater();
+            update.EmailUpdater();
             //update.UpdateDate();
             //create.Create();
             //displayAllRooms.DisplayAll();

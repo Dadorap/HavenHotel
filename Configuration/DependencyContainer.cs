@@ -243,6 +243,9 @@ public static class DependencyContainer
             .WithAttributeFiltering();        
         containerBuilder.RegisterType<NameUpdate>()
             .As<INameUpdate>()
+            .WithAttributeFiltering();        
+        containerBuilder.RegisterType<UpdateConfirmation>()
+            .As<IUpdateConfirmation>()
             .WithAttributeFiltering();
         containerBuilder.RegisterType<PromptForGuestId>()
             .As<IPromptForGuestId>();

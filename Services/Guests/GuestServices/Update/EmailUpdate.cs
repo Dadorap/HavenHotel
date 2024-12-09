@@ -13,7 +13,7 @@ public class EmailUpdate : IEmailUpdate
     private readonly IErrorHandler _errorHandler;
     private readonly IPromptForGuestId _promptForGuestId;
     private readonly IRepository<Guest> _guestRepo;
-    private readonly Lazy<IMenu> _mainMenu;
+    private readonly IUpdateConfirmation _updateConfirmation;
 
     public EmailUpdate
         (
@@ -21,7 +21,7 @@ public class EmailUpdate : IEmailUpdate
         IErrorHandler errorHandler,
         IPromptForGuestId promptForGuestId,
         IRepository<Guest> guestRepo,
-        [KeyFilter("MainMenu")] Lazy<IMenu> mainMenu
+        IUpdateConfirmation updateConfirmation
 
         )
     {
@@ -29,7 +29,7 @@ public class EmailUpdate : IEmailUpdate
         _errorHandler = errorHandler;
         _promptForGuestId = promptForGuestId;
         _guestRepo = guestRepo;
-        _mainMenu = mainMenu;
+        _updateConfirmation = updateConfirmation;
     }
 
     public void EmailUpdater()
@@ -49,7 +49,7 @@ public class EmailUpdate : IEmailUpdate
                 Console.WriteLine($"Guest Email: {currentGuest.Email}");
                 Console.Write("Enter new Email: ");
                 string emailInput = Console.ReadLine();
-                if (!_emailValidator.IsValidEmail(emailInput))
+                if (!_emailValidator.IsValidEmail(emailInput) || string.IsNullOrEmpty(emailInput.Trim()))
                 {
                     _errorHandler.DisplayError("Invalid email input. Try again...");
                     continue;
@@ -57,14 +57,8 @@ public class EmailUpdate : IEmailUpdate
 
                 currentGuest.Email = emailInput;
                 _guestRepo.SaveChanges();
-                Console.Clear();
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"The new email address {emailInput} " +
-                    $"\nhas been successfully set.");
-                Console.ResetColor();
-                Console.Write("Press any key to return to menu...");
-                Console.ReadKey();
-                _mainMenu.Value.DisplayMenu();
+                _updateConfirmation.Confirmation($"The new email address {emailInput} " +
+                                    $"\nhas been successfully set.");
                 break;
 
 

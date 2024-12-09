@@ -15,20 +15,20 @@ namespace HavenHotel.Services.Guests.GuestServices.Update
         private readonly IErrorHandler _errorHandler;
         private readonly IPromptForGuestId _promptForGuestId;
         private readonly IRepository<Guest> _guestRepo;
-        private readonly Lazy<IMenu> _mainMenu;
+        private readonly IUpdateConfirmation _updateConfirmation;
 
         public NameUpdate
             (
             IErrorHandler errorHandler,
             IPromptForGuestId promptForGuestId,
             IRepository<Guest> guestRepo,
-            [KeyFilter("MainMenu")] Lazy<IMenu> mainMenu
+            IUpdateConfirmation updateConfirmation
             )
         {
             _errorHandler = errorHandler;
             _promptForGuestId = promptForGuestId;
             _guestRepo = guestRepo;
-            _mainMenu = mainMenu;
+            _updateConfirmation = updateConfirmation;
         }
 
         public void NameUpdater()
@@ -55,14 +55,7 @@ namespace HavenHotel.Services.Guests.GuestServices.Update
                     
                     currentGuest.Name = nameInput;
                     _guestRepo.SaveChanges();
-
-                    Console.Clear();
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine($"Guest's name has been updated to: {currentGuest.Name}");
-                    Console.ResetColor();
-                    Console.Write("Press any key to return to menu...");
-                    Console.ReadKey();
-                    _mainMenu.Value.DisplayMenu();
+                    _updateConfirmation.Confirmation($"Guest's name has been updated to: {currentGuest.Name}");
                     break;
                 }
                 catch (Exception ex)
