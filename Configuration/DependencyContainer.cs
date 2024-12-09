@@ -238,8 +238,11 @@ public static class DependencyContainer
             .As<ITotalPriceUpdater>()
             .WithAttributeFiltering();
         //update guest
-        containerBuilder.RegisterType<EmailUpdater>()
-            .As<IEmailUpdater>()
+        containerBuilder.RegisterType<EmailUpdate>()
+            .As<IEmailUpdate>()
+            .WithAttributeFiltering();        
+        containerBuilder.RegisterType<NameUpdate>()
+            .As<INameUpdate>()
             .WithAttributeFiltering();
         containerBuilder.RegisterType<PromptForGuestId>()
             .As<IPromptForGuestId>();

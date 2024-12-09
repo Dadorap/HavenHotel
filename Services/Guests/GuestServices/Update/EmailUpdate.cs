@@ -7,7 +7,7 @@ using HavenHotel.Models;
 namespace HavenHotel.Services.Guests.GuestServices.Update;
 
 
-public class EmailUpdater : IEmailUpdater
+public class EmailUpdate : IEmailUpdate
 {
     private readonly IEmailValidator _emailValidator;
     private readonly IErrorHandler _errorHandler;
@@ -15,7 +15,7 @@ public class EmailUpdater : IEmailUpdater
     private readonly IRepository<Guest> _guestRepo;
     private readonly Lazy<IMenu> _mainMenu;
 
-    public EmailUpdater
+    public EmailUpdate
         (
         IEmailValidator emailValidator,
         IErrorHandler errorHandler,
@@ -32,7 +32,7 @@ public class EmailUpdater : IEmailUpdater
         _mainMenu = mainMenu;
     }
 
-    public void EmailUpdate()
+    public void EmailUpdater()
     {
         while (true)
         {

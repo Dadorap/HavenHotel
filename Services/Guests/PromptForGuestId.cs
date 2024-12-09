@@ -47,10 +47,11 @@ namespace HavenHotel.Services.Guests
 
                 try
                 {
+                    var headerT = $"===== {headerText} Update Handler =====".ToUpper();
                     _displayRight.DisplayRightAligned("guest", "all");
                     Console.SetCursorPosition(0, 0);
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine($"===== {headerText} Update Handler =====");
+                    Console.WriteLine(headerT);
                     Console.ResetColor();
                     _userMessages.ShowCancelMessage();
                     Console.ForegroundColor = ConsoleColor.DarkCyan;

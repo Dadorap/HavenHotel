@@ -1,7 +1,7 @@
 ﻿namespace HavenHotel.Interfaces.GuestInterfaces
 {
-    public interface IEmailUpdater
+    public interface IEmailUpdate
     {
-        void EmailUpdate();
+        void EmailUpdater();
     }
 }
