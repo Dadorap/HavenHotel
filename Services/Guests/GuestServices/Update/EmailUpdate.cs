@@ -40,6 +40,11 @@ public class EmailUpdate : IEmailUpdate
             {
                 var id = _promptForGuestId.GetValidGuestId("email");
                 var currentGuest = _guestRepo.GetItemById(id);
+                if (currentGuest == null)
+                {
+                    _errorHandler.DisplayError("Guest not found. Try again...");
+                    continue;
+                }
                 Console.WriteLine($"Guest name: {currentGuest.Name}");
                 Console.WriteLine($"Guest Email: {currentGuest.Email}");
                 Console.Write("Enter new Email: ");
