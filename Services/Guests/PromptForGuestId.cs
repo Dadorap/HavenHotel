@@ -2,6 +2,7 @@
 using HavenHotel.Data.Repositories;
 using HavenHotel.Interfaces;
 using HavenHotel.Interfaces.DisplayInterfaces;
+using HavenHotel.Interfaces.GuestInterfaces;
 using HavenHotel.Models;
 using System;
 using System.Collections.Generic;
@@ -47,6 +48,7 @@ namespace HavenHotel.Services.Guests
 
                 try
                 {
+                    Console.Clear();
                     var headerT = $"===== {headerText} Update Handler =====".ToUpper();
                     _displayRight.DisplayRightAligned("guest", "all");
                     Console.SetCursorPosition(0, 0);

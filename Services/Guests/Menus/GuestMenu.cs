@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HavenHotel.Services.GuestServices
+namespace HavenHotel.Services.Guests.Menus
 {
     public class GuestMenu : IMenu
     {
@@ -23,7 +23,7 @@ namespace HavenHotel.Services.GuestServices
            [KeyFilter("MainMenu")] Lazy<IMenu> mainMenu,
            [KeyFilter("CreateGuest")] ICreate create,
            [KeyFilter("DisplayGuestMenu")] Lazy<IMenu> display,
-           [KeyFilter("MainMenu")] Lazy<IMenu> update,
+           [KeyFilter("UpdateGuestMenu")] Lazy<IMenu> update,
            [KeyFilter("DeletedGuestMenu")] Lazy<IMenu> delete
             )
         {

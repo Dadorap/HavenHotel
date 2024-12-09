@@ -24,7 +24,6 @@ using HavenHotel.Services.Guests.GuestServices.Delete;
 using HavenHotel.Services.Guests.GuestServices.Display;
 using HavenHotel.Services.Guests.GuestServices.Update;
 using HavenHotel.Services.Guests.Menus;
-using HavenHotel.Services.GuestServices;
 using HavenHotel.Services.RoomServices;
 using HavenHotel.Services.RoomServices.Services.Create;
 using HavenHotel.Services.RoomServices.Services.Delete;
@@ -248,7 +247,9 @@ public static class DependencyContainer
             .As<IUpdateConfirmation>()
             .WithAttributeFiltering();
         containerBuilder.RegisterType<PromptForGuestId>()
-            .As<IPromptForGuestId>();
+            .As<IPromptForGuestId>();        
+        containerBuilder.RegisterType<PhoneNumberUpdate>()
+            .As<IPhoneNumberUpdate>();
 
         //Common
         containerBuilder.RegisterType<Exit>()

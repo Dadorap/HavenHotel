@@ -1,17 +1,17 @@
-﻿using Autofac.Features.AttributeFilters;
-using HavenHotel.Data.Repositories;
-using HavenHotel.Interfaces;
+﻿using HavenHotel.Data.Repositories;
 using HavenHotel.Interfaces.GuestInterfaces;
+using HavenHotel.Interfaces;
 using HavenHotel.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HavenHotel.Common;
 
 namespace HavenHotel.Services.Guests.GuestServices.Update
 {
-    public class NameUpdate : INameUpdate
+    public class PhoneNumberUpdate : IPhoneNumberUpdate
     {
         private readonly IErrorHandler _errorHandler;
         private readonly IPromptForGuestId _promptForGuestId;
@@ -20,7 +20,7 @@ namespace HavenHotel.Services.Guests.GuestServices.Update
         private readonly Lazy<INavigationHelper> _navigationHelper;
 
 
-        public NameUpdate
+        public PhoneNumberUpdate
             (
             IErrorHandler errorHandler,
             IPromptForGuestId promptForGuestId,
@@ -35,33 +35,40 @@ namespace HavenHotel.Services.Guests.GuestServices.Update
             _navigationHelper = navigationHelper;
         }
 
-        public void NameUpdater()
+        public void PhoneNumberUpdater() 
         {
             while (true)
             {
                 try
                 {
-                    var id = _promptForGuestId.GetValidGuestId("name");
+                    var id = _promptForGuestId.GetValidGuestId("phone number");
                     var currentGuest = _guestRepo.GetItemById(id);
                     if (currentGuest == null)
                     {
                         _errorHandler.DisplayError("Guest not found. Try again...");
                         continue;
                     }
-                    Console.WriteLine($"Guest's full name: {currentGuest.Name}");
-                    Console.Write("Enter new full name: ");
-                    string nameInput = Console.ReadLine().Trim();
-                    _navigationHelper.Value.ReturnToMenu(nameInput);
-                    if (string.IsNullOrEmpty(nameInput))
+                    Console.WriteLine($"Guest name: {currentGuest.Name}");
+                    Console.WriteLine($"Guest phone number: {currentGuest.PhoneNumber}");
+                    Console.Write("Enter new phone number: ");
+                    string numInput = Console.ReadLine().Trim();
+                    _navigationHelper.Value.ReturnToMenu(numInput);
+                    if (string.IsNullOrEmpty(numInput.Trim()) 
+                        || !numInput.All(char.IsDigit)
+                        || numInput.Length < 3 || numInput.Length > 15
+                        )
                     {
-                        _errorHandler.DisplayError("Invalid name input. Try again...");
+                        _errorHandler.DisplayError("Invalid phone number input. Try again...");
                         continue;
                     }
-                    
-                    currentGuest.Name = nameInput;
+
+                    currentGuest.PhoneNumber = numInput;
                     _guestRepo.SaveChanges();
-                    _updateConfirmation.Confirmation($"Guest's name has been updated to: {currentGuest.Name}");
+                    _updateConfirmation.Confirmation($"The new email address {numInput} " +
+                                        $"\nhas been successfully set.");
                     break;
+
+
                 }
                 catch (Exception ex)
                 {

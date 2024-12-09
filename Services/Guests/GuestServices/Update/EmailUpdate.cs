@@ -14,6 +14,8 @@ public class EmailUpdate : IEmailUpdate
     private readonly IPromptForGuestId _promptForGuestId;
     private readonly IRepository<Guest> _guestRepo;
     private readonly IUpdateConfirmation _updateConfirmation;
+    private readonly Lazy<INavigationHelper> _navigationHelper;
+
 
     public EmailUpdate
         (
@@ -21,8 +23,8 @@ public class EmailUpdate : IEmailUpdate
         IErrorHandler errorHandler,
         IPromptForGuestId promptForGuestId,
         IRepository<Guest> guestRepo,
-        IUpdateConfirmation updateConfirmation
-
+        IUpdateConfirmation updateConfirmation,
+        Lazy<INavigationHelper> navigationHelper
         )
     {
         _emailValidator = emailValidator;
@@ -30,6 +32,7 @@ public class EmailUpdate : IEmailUpdate
         _promptForGuestId = promptForGuestId;
         _guestRepo = guestRepo;
         _updateConfirmation = updateConfirmation;
+        _navigationHelper = navigationHelper;
     }
 
     public void EmailUpdater()
@@ -48,8 +51,9 @@ public class EmailUpdate : IEmailUpdate
                 Console.WriteLine($"Guest name: {currentGuest.Name}");
                 Console.WriteLine($"Guest Email: {currentGuest.Email}");
                 Console.Write("Enter new Email: ");
-                string emailInput = Console.ReadLine();
-                if (!_emailValidator.IsValidEmail(emailInput) || string.IsNullOrEmpty(emailInput.Trim()))
+                string emailInput = Console.ReadLine().Trim();
+                _navigationHelper.Value.ReturnToMenu(emailInput);
+                if (!_emailValidator.IsValidEmail(emailInput) || string.IsNullOrEmpty(emailInput))
                 {
                     _errorHandler.DisplayError("Invalid email input. Try again...");
                     continue;
@@ -63,9 +67,9 @@ public class EmailUpdate : IEmailUpdate
 
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                _errorHandler.DisplayError("");
+                _errorHandler.DisplayError(ex.Message);
             }
         }
     }

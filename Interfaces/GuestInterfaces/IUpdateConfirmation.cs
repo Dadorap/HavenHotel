@@ -1,4 +1,4 @@
-﻿namespace HavenHotel.Services.Guests
+﻿namespace HavenHotel.Interfaces.GuestInterfaces
 {
     public interface IUpdateConfirmation
     {

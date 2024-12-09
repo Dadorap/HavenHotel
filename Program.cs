@@ -37,14 +37,16 @@ namespace HavenHotel
             //var update = container.Resolve<IDateRange>();
             //var update = container.Resolve<IGuestAssignmentHandler>();
             //var update = container.Resolve<INameUpdate>();
-            var update = container.Resolve<IEmailUpdate>();
+            //var update = container.Resolve<IEmailUpdate>();
+            var update = container.Resolve<IPhoneNumberUpdate>();
          
 
 
 
             //update.UpdateTotalPrice();
             //update.NameUpdater();
-            update.EmailUpdater();
+            //update.EmailUpdater();
+            //update.PhoneNumberUpdater();
             //update.UpdateDate();
             //create.Create();
             //displayAllRooms.DisplayAll();
@@ -59,7 +61,7 @@ namespace HavenHotel
             //var menu = container.ResolveNamed<IMenu>("UpdateBookingMenu");
             var menu = container.ResolveNamed<IMenu>("MainMenu");
             //var menu = container.ResolveNamed<IMenu>("DisplayGuestMenu");
-            //menu.DisplayMenu();
+            menu.DisplayMenu();
             //var createGuest = container.ResolveNamed<ICreate>("CreateGuest");
             //var createGuest = container.ResolveNamed<ICreate>("CreateRoom");
             //createGuest.Create();

@@ -1,5 +1,6 @@
 ﻿using Autofac.Features.AttributeFilters;
 using HavenHotel.Interfaces;
+using HavenHotel.Interfaces.GuestInterfaces;
 using HavenHotel.Menus;
 using System;
 using System.Collections.Generic;
