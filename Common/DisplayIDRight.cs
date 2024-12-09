@@ -1,8 +1,6 @@
-﻿using HavenHotel.Bookings;
-using HavenHotel.Guests;
+﻿using HavenHotel.Data.Repositories;
 using HavenHotel.Interfaces.DisplayInterfaces;
-using HavenHotel.Repositories;
-using HavenHotel.Rooms;
+using HavenHotel.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,19 +49,15 @@ namespace HavenHotel.Common
                     (isActive.ToLower() == "false" && !dynamicItem.IsActive) ||
                     (isActive.ToLower() == "all"))
                 {
-                    DisplayText(ref count, XOffset, dynamicItem);
+                    Console.ForegroundColor = count % 2 == 0 ? ConsoleColor.Cyan : ConsoleColor.DarkYellow;
+                    Console.SetCursorPosition(XOffset, count + 1);
+                    Console.WriteLine("    " + dynamicItem.Id);
+                    count++;
                 }
             }
 
             Console.ResetColor();
         }
 
-        private void DisplayText(ref int count, short XOffset, dynamic dynamicItem)
-        {
-            Console.ForegroundColor = count % 2 == 0 ? ConsoleColor.Cyan : ConsoleColor.DarkYellow;
-            Console.SetCursorPosition(XOffset, count + 1);
-            Console.WriteLine("    " + dynamicItem.Id);
-            count++;
-        }
     }
 }

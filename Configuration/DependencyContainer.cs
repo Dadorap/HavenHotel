@@ -1,18 +1,9 @@
 ﻿using Autofac;
 using Autofac.Features.AttributeFilters;
-using HavenHotel.Bookings;
-using HavenHotel.Bookings.Services;
-using HavenHotel.Bookings.Services.Create;
-using HavenHotel.Bookings.Services.Delete;
-using HavenHotel.Bookings.Services.Display;
-using HavenHotel.Bookings.Services.Update;
 using HavenHotel.Common;
 using HavenHotel.Data;
-using HavenHotel.Guests;
-using HavenHotel.Guests.Create;
-using HavenHotel.Guests.Services.Delete;
-using HavenHotel.Guests.Services.Display;
-using HavenHotel.Guests.Services.Update;
+using HavenHotel.Data.Repositories;
+using HavenHotel.Data.SeedingData;
 using HavenHotel.Interfaces;
 using HavenHotel.Interfaces.BookingInterfaces;
 using HavenHotel.Interfaces.DeleteInterfaces;
@@ -20,13 +11,25 @@ using HavenHotel.Interfaces.DisplayInterfaces;
 using HavenHotel.Interfaces.GuestInterfaces;
 using HavenHotel.Interfaces.RoomsInterfaces;
 using HavenHotel.Menus;
-using HavenHotel.Repositories;
-using HavenHotel.Rooms;
-using HavenHotel.Rooms.Services.Create;
-using HavenHotel.Rooms.Services.Delete;
-using HavenHotel.Rooms.Services.Display;
-using HavenHotel.Rooms.Services.Update;
-using HavenHotel.SeedingData;
+using HavenHotel.Models;
+using HavenHotel.Services.Bookings.BookingServices;
+using HavenHotel.Services.BookingServices;
+using HavenHotel.Services.BookingServices.Services.Create;
+using HavenHotel.Services.BookingServices.Services.Delete;
+using HavenHotel.Services.BookingServices.Services.Display;
+using HavenHotel.Services.BookingServices.Services.Update;
+using HavenHotel.Services.Guests;
+using HavenHotel.Services.Guests.GuestServices.Create;
+using HavenHotel.Services.Guests.GuestServices.Delete;
+using HavenHotel.Services.Guests.GuestServices.Display;
+using HavenHotel.Services.Guests.GuestServices.Update;
+using HavenHotel.Services.Guests.Menus;
+using HavenHotel.Services.GuestServices;
+using HavenHotel.Services.RoomServices;
+using HavenHotel.Services.RoomServices.Services.Create;
+using HavenHotel.Services.RoomServices.Services.Delete;
+using HavenHotel.Services.RoomServices.Services.Display;
+using HavenHotel.Services.RoomServices.Services.Update;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -177,7 +180,7 @@ public static class DependencyContainer
             .WithAttributeFiltering();
         ////////////////////////////////////////
         containerBuilder.RegisterType<DisplayRoomNumRight>()
-            .As<IDisplayRoomNumRight>();         
+            .As<IDisplayRoomNumRight>();
         containerBuilder.RegisterType<BookingSidebarDisplay>()
             .As<IBookingSidebarDisplay>();
         containerBuilder.RegisterType<DisplayIDRight>()
@@ -224,13 +227,22 @@ public static class DependencyContainer
             .WithAttributeFiltering();
         containerBuilder.RegisterType<PromptForBookingId>()
             .As<IPromptForBookingId>()
-            .WithAttributeFiltering();        
+            .WithAttributeFiltering();
         containerBuilder.RegisterType<GuestAssignmentHandler>()
             .As<IGuestAssignmentHandler>()
-            .WithAttributeFiltering();        
+            .WithAttributeFiltering();
         containerBuilder.RegisterType<IdDisplayHandler>()
             .As<IIdDisplayHandler>()
             .WithAttributeFiltering();
+        containerBuilder.RegisterType<TotalPriceUpdater>()
+            .As<ITotalPriceUpdater>()
+            .WithAttributeFiltering();
+        //update guest
+        containerBuilder.RegisterType<EmailUpdater>()
+            .As<IEmailUpdater>()
+            .WithAttributeFiltering();
+        containerBuilder.RegisterType<PromptForGuestId>()
+            .As<IPromptForGuestId>();
 
         //Common
         containerBuilder.RegisterType<Exit>()
@@ -257,6 +269,9 @@ public static class DependencyContainer
             .WithAttributeFiltering();
         containerBuilder.RegisterType<DateValidator>()
             .As<IDateValidator>();
+        containerBuilder.RegisterType<EmailValidator>()
+            .As<IEmailValidator>();
+
 
 
 

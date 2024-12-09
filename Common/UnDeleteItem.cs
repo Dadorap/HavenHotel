@@ -1,11 +1,9 @@
 ﻿using Autofac.Features.AttributeFilters;
-using HavenHotel.Bookings;
-using HavenHotel.Guests;
+using HavenHotel.Data.Repositories;
 using HavenHotel.Interfaces;
 using HavenHotel.Interfaces.DeleteInterfaces;
 using HavenHotel.Interfaces.DisplayInterfaces;
-using HavenHotel.Repositories;
-using HavenHotel.Rooms;
+using HavenHotel.Models;
 
 namespace HavenHotel.Common;
 
@@ -52,7 +50,6 @@ public class UnDeleteItem : IUnDeleteItem
                 Console.Clear();
                 _displayRight.DisplayRightAligned(textDisplay, "false");
 
-                // Fetch the appropriate repository count for validation
                 int itemsLength = textDisplay switch
                 {
                     "BOOKING" => _bookingRepo.GetAllItems().Count(),

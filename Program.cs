@@ -1,8 +1,9 @@
 ﻿using Autofac;
 using HavenHotel.Configuration;
+using HavenHotel.Data.SeedingData;
 using HavenHotel.Interfaces;
 using HavenHotel.Interfaces.BookingInterfaces;
-using HavenHotel.SeedingData;
+using HavenHotel.Interfaces.GuestInterfaces;
 
 namespace HavenHotel
 {
@@ -14,7 +15,7 @@ namespace HavenHotel
             var x = container.Resolve<Seed>();
             x.Seedings();
             //var create = container.ResolveNamed<ICreate>("CreateRoom");
-            var create = container.ResolveNamed<ICreate>("CreateGuest");
+            //var create = container.ResolveNamed<ICreate>("CreateGuest");
             //var create = container.ResolveNamed<ICreate>("CreateBooking");
             //var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayDeletedGuests");
             //var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayActiveBookings");
@@ -33,11 +34,14 @@ namespace HavenHotel
             //var sdelete = container.ResolveNamed<ISoftDelete>("SoftDeleteGuest");
             //var undelete = container.ResolveNamed<IUnDelete>("UnDeleteGuest");
             //var update = container.Resolve<IDateRange>();
-            var update = container.Resolve<IGuestAssignmentHandler>();
+            //var update = container.Resolve<IGuestAssignmentHandler>();
+            var update = container.Resolve<IEmailUpdater>();
+         
 
 
 
-            update.UpdateGuestAssignment();
+            //update.UpdateTotalPrice();
+            update.EmailUpdate();
             //update.UpdateDate();
             //create.Create();
             //displayAllRooms.DisplayAll();

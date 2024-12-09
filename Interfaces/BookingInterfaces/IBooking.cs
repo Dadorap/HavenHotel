@@ -1,5 +1,4 @@
-﻿using HavenHotel.Guests;
-using HavenHotel.Rooms;
+﻿using HavenHotel.Models;
 
 namespace HavenHotel.Interfaces.BookingInterfaces
 {

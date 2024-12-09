@@ -1,6 +1,4 @@
-﻿using HavenHotel.Bookings;
-using HavenHotel.Guests;
-using HavenHotel.Rooms;
+﻿using HavenHotel.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

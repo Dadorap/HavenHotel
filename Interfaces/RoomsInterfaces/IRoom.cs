@@ -1,4 +1,4 @@
-﻿using HavenHotel.Rooms;
+﻿using HavenHotel.Services.RoomServices;
 
 namespace HavenHotel.Interfaces.RoomsInterfaces
 {
