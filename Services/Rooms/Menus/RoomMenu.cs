@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HavenHotel.Services.RoomServices;
+namespace HavenHotel.Services.Rooms.Menus;
 
 public class RoomMenu : IMenu
 {

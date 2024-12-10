@@ -11,7 +11,7 @@ public class EmailUpdate : IEmailUpdate
 {
     private readonly IEmailValidator _emailValidator;
     private readonly IErrorHandler _errorHandler;
-    private readonly IPromptForGuestId _promptForGuestId;
+    private readonly IPromptForId _promptForGuestId;
     private readonly IRepository<Guest> _guestRepo;
     private readonly IUpdateConfirmation _updateConfirmation;
     private readonly Lazy<INavigationHelper> _navigationHelper;
@@ -21,7 +21,7 @@ public class EmailUpdate : IEmailUpdate
         (
         IEmailValidator emailValidator,
         IErrorHandler errorHandler,
-        IPromptForGuestId promptForGuestId,
+        IPromptForId promptForGuestId,
         IRepository<Guest> guestRepo,
         IUpdateConfirmation updateConfirmation,
         Lazy<INavigationHelper> navigationHelper
@@ -41,7 +41,7 @@ public class EmailUpdate : IEmailUpdate
         {
             try
             {
-                var id = _promptForGuestId.GetValidGuestId("email");
+                var id = _promptForGuestId.GetValidId("email", "guest");
                 var currentGuest = _guestRepo.GetItemById(id);
                 if (currentGuest == null)
                 {

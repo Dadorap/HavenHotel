@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HavenHotel.Services.RoomServices.Services.Delete
+namespace HavenHotel.Services.Rooms.Menus
 {
     public class DeletedRoomMenu : IMenu
     {

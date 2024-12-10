@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace HavenHotel.Services.Guests
 {
-    public class PromptForGuestId : IPromptForGuestId
+    public class PromptForId : IPromptForId
     {
         private readonly IDisplayRight _displayRight;
         private readonly IUserMessages _userMessages;
@@ -23,7 +23,7 @@ namespace HavenHotel.Services.Guests
 
 
 
-        public PromptForGuestId
+        public PromptForId
             (
             [KeyFilter("DisplayGuestsIDRight")] IDisplayRight displayRight,
             IUserMessages userMessages,
@@ -41,7 +41,7 @@ namespace HavenHotel.Services.Guests
 
         }
 
-        public int GetValidGuestId(string headerText)
+        public int GetValidId(string headerText, string identifier)
         {
             while (true)
             {
@@ -50,14 +50,14 @@ namespace HavenHotel.Services.Guests
                 {
                     Console.Clear();
                     var headerT = $"===== {headerText} Update Handler =====".ToUpper();
-                    _displayRight.DisplayRightAligned("guest", "all");
+                    _displayRight.DisplayRightAligned(identifier, "all");
                     Console.SetCursorPosition(0, 0);
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine(headerT);
                     Console.ResetColor();
                     _userMessages.ShowCancelMessage();
                     Console.ForegroundColor = ConsoleColor.DarkCyan;
-                    Console.Write("Enter guest ID: ");
+                    Console.Write($"Enter {identifier} ID: ");
                     string inputId = Console.ReadLine();
                     _navigationHelper.Value.ReturnToMenu(inputId);
                     if (!int.TryParse(inputId, out int id) || !IsIdFound(id))

@@ -51,6 +51,11 @@ public class TotalPriceUpdater : ITotalPriceUpdater
                 var id = _promptForBookingId.GetValidBookingId("Recalculate Total Price", "totalPrice");
 
                 var bookingPrice = _bookingRepo.GetItemById(id).TotalPrice;
+                if (bookingPrice == null)
+                {
+                    _errorHandler.DisplayError("Booking not found. Try again...");
+                    continue;
+                }
                 Console.WriteLine($"{bookingPrice:C}. Will be changed.");
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.Write("Enter new total price: ");

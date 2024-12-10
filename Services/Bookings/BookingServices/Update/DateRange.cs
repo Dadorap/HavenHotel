@@ -49,8 +49,13 @@ public class DateRange : IDateRange
             {
                 var id = _promptForBookingId.GetValidBookingId("update booking date", "date");
 
-                var bookingId = _bookingRepo.GetItemById(id);
-                Console.WriteLine($"Current check-in: {bookingId.StartDate}");
+                var booking = _bookingRepo.GetItemById(id);
+                if (booking == null)
+                {
+                    _errorHandler.DisplayError("Booking not found. Try again...");
+                    continue;
+                }
+                Console.WriteLine($"Current check-in: {booking.StartDate}");
                 Console.WriteLine("Enter the new check-in date (yyyy-MM-dd): ");
                 string atDate = Console.ReadLine();
                 _navigationHelper.Value.ReturnToMenu(atDate);
@@ -60,7 +65,7 @@ public class DateRange : IDateRange
                     _errorHandler.DisplayError("Invalid date input try again...");
                     continue;
                 }
-                Console.WriteLine($"Current check-out date: {bookingId.EndDate}");
+                Console.WriteLine($"Current check-out date: {booking.EndDate}");
                 Console.WriteLine("Enter the new checkout date (yyyy-MM-dd)");
                 string lastDate = Console.ReadLine();
                 _navigationHelper.Value.ReturnToMenu(lastDate);
@@ -70,7 +75,7 @@ public class DateRange : IDateRange
                     _errorHandler.DisplayError("Invalid date input try again...");
                     continue;
                 }
-                var roomPrice = _roomRepo.GetItemById(bookingId.RoomId).Price;
+                var roomPrice = _roomRepo.GetItemById(booking.RoomId).Price;
                 int totalDays = (endDate.ToDateTime(TimeOnly.MinValue) -
                                 startDate.ToDateTime(TimeOnly.MinValue)).Days;
                 var daysTotal = totalDays == 0 ? 1 : totalDays;

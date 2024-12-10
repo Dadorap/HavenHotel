@@ -14,7 +14,7 @@ namespace HavenHotel.Services.Guests.GuestServices.Update
     public class NameUpdate : INameUpdate
     {
         private readonly IErrorHandler _errorHandler;
-        private readonly IPromptForGuestId _promptForGuestId;
+        private readonly IPromptForId _promptForGuestId;
         private readonly IRepository<Guest> _guestRepo;
         private readonly IUpdateConfirmation _updateConfirmation;
         private readonly Lazy<INavigationHelper> _navigationHelper;
@@ -23,7 +23,7 @@ namespace HavenHotel.Services.Guests.GuestServices.Update
         public NameUpdate
             (
             IErrorHandler errorHandler,
-            IPromptForGuestId promptForGuestId,
+            IPromptForId promptForGuestId,
             IRepository<Guest> guestRepo,
             IUpdateConfirmation updateConfirmation,
             Lazy<INavigationHelper> navigationHelper)
@@ -41,7 +41,7 @@ namespace HavenHotel.Services.Guests.GuestServices.Update
             {
                 try
                 {
-                    var id = _promptForGuestId.GetValidGuestId("name");
+                    var id = _promptForGuestId.GetValidId("name", "guest");
                     var currentGuest = _guestRepo.GetItemById(id);
                     if (currentGuest == null)
                     {

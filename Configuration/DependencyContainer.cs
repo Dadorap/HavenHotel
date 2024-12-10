@@ -24,11 +24,11 @@ using HavenHotel.Services.Guests.GuestServices.Delete;
 using HavenHotel.Services.Guests.GuestServices.Display;
 using HavenHotel.Services.Guests.GuestServices.Update;
 using HavenHotel.Services.Guests.Menus;
-using HavenHotel.Services.RoomServices;
+using HavenHotel.Services.Rooms.Menus;
+using HavenHotel.Services.Rooms.RoomServices.Update;
 using HavenHotel.Services.RoomServices.Services.Create;
 using HavenHotel.Services.RoomServices.Services.Delete;
 using HavenHotel.Services.RoomServices.Services.Display;
-using HavenHotel.Services.RoomServices.Services.Update;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -246,10 +246,13 @@ public static class DependencyContainer
         containerBuilder.RegisterType<UpdateConfirmation>()
             .As<IUpdateConfirmation>()
             .WithAttributeFiltering();
-        containerBuilder.RegisterType<PromptForGuestId>()
-            .As<IPromptForGuestId>();        
+        containerBuilder.RegisterType<PromptForId>()
+            .As<IPromptForId>();        
         containerBuilder.RegisterType<PhoneNumberUpdate>()
-            .As<IPhoneNumberUpdate>();
+            .As<IPhoneNumberUpdate>();   
+        //update room
+        containerBuilder.RegisterType<RoomNumberUpdate>()
+            .As<IRoomNumberUpdate>();
 
         //Common
         containerBuilder.RegisterType<Exit>()
