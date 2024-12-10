@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HavenHotel.Migrations
 {
     [DbContext(typeof(HotelDbContext))]
-    [Migration("20241210181156_init")]
+    [Migration("20241210191324_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -118,9 +118,6 @@ namespace HavenHotel.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("RoomNumber")
-                        .IsUnique();
 
                     b.ToTable("Rooms");
                 });

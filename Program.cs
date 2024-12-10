@@ -39,8 +39,8 @@ namespace HavenHotel
             //var room = container.ResolveNamed<IUpdateRoom>("ExtraBedUpdate");
             //var room = container.ResolveNamed<IUpdateRoom>("TotalGuestsUpdate");
             //var room = container.ResolveNamed<IUpdateRoom>("RoomNumberUpdate");
-            var room = container.ResolveNamed<IUpdateRoom>("ExtraBedUpdate");
-            //var room = container.ResolveNamed<IUpdateRoom>("SizeUpdate");
+            //var room = container.ResolveNamed<IUpdateRoom>("ExtraBedUpdate");
+            var room = container.ResolveNamed<IUpdateRoom>("SizeUpdate");
             //var update = container.Resolve<IDateRange>();
             //var update = container.Resolve<IGuestAssignmentHandler>();
             //var update = container.Resolve<INameUpdate>();

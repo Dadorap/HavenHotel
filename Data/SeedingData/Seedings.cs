@@ -20,8 +20,7 @@ namespace HavenHotel.Data.SeedingData
             using (var scope = container.BeginLifetimeScope())
             {
                 var dbContext = scope.Resolve<HotelDbContext>();
-                if (dbContext.Rooms.Any()) return;
-                
+                if (dbContext.Rooms.Any() || dbContext.Guests.Any() || dbContext.Bookings.Any()) return;
 
                 var guestsToAdd = new List<Guest>
                 {
@@ -31,11 +30,7 @@ namespace HavenHotel.Data.SeedingData
                     new Guest { Name = "Emily Brown", PhoneNumber = "4443332222", Email = "emily.brown@example.com", IsActive = true }
                 };
 
-                foreach (var guest in guestsToAdd)
-                {
-                    if (dbContext.Guests.Any(g => g.Name == guest.Name && g.PhoneNumber == guest.PhoneNumber)) continue;
-                    dbContext.Guests.Add(guest);
-                }
+                dbContext.AddRange(guestsToAdd);
 
                 var roomsToAdd = new List<Room>
                 {
@@ -85,11 +80,8 @@ namespace HavenHotel.Data.SeedingData
                     }
                 };
 
-                foreach (var room in roomsToAdd)
-                {
-                    if (dbContext.Rooms.Any(r => r.Price == room.Price && r.RoomType == room.RoomType && r.Size == room.Size)) continue;
-                    dbContext.Rooms.Add(room);
-                }
+                dbContext.AddRange(roomsToAdd);
+
 
                 dbContext.SaveChanges();
 
@@ -138,13 +130,8 @@ namespace HavenHotel.Data.SeedingData
 
                 };
 
-                foreach (var booking in bookingsToAdd)
-                {
-                    if (booking.RoomId == 0 || booking.GuestId == 0) continue;
-                    if (dbContext.Bookings.Any(b => b.RoomId == booking.RoomId && b.StartDate <= booking.EndDate && b.EndDate >= booking.StartDate)) continue;
+                dbContext.AddRange(bookingsToAdd);
 
-                    dbContext.Bookings.Add(booking);
-                }
 
                 dbContext.SaveChanges();
             }

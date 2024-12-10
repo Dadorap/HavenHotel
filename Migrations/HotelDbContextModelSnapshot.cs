@@ -116,9 +116,6 @@ namespace HavenHotel.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RoomNumber")
-                        .IsUnique();
-
                     b.ToTable("Rooms");
                 });
 
