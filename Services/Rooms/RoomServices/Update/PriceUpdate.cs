@@ -1,5 +1,11 @@
-﻿namespace HavenHotel.Services.Rooms.RoomServices.Update;
+﻿using HavenHotel.Interfaces.RoomsInterfaces;
 
-internal class PriceUpdate : IPriceUpdate
+namespace HavenHotel.Services.Rooms.RoomServices.Update;
+
+internal class PriceUpdate : IUpdateRoom
 {
+    public void UpdateRoom()
+    {
+        throw new NotImplementedException();
+    }
 }

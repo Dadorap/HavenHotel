@@ -12,7 +12,7 @@ using HavenHotel.Interfaces.GuestInterfaces;
 using HavenHotel.Interfaces.RoomsInterfaces;
 using HavenHotel.Menus;
 using HavenHotel.Models;
-using HavenHotel.Services.Bookings.BookingServices;
+using HavenHotel.Services.Bookings.Menus;
 using HavenHotel.Services.BookingServices;
 using HavenHotel.Services.BookingServices.Services.Create;
 using HavenHotel.Services.BookingServices.Services.Delete;
@@ -249,10 +249,22 @@ public static class DependencyContainer
         containerBuilder.RegisterType<PromptForId>()
             .As<IPromptForId>();        
         containerBuilder.RegisterType<PhoneNumberUpdate>()
-            .As<IPhoneNumberUpdate>();   
+            .As<IPhoneNumberUpdate>();
         //update room
         containerBuilder.RegisterType<RoomNumberUpdate>()
-            .As<IRoomNumberUpdate>();
+        .Named<IUpdateRoom>("RoomNumberUpdate")
+        .WithAttributeFiltering();        
+        containerBuilder.RegisterType<ExtraBedUpdate>()
+        .Named<IUpdateRoom>("ExtraBedUpdate")
+        .WithAttributeFiltering();        
+        containerBuilder.RegisterType<SizeUpdate>()
+        .Named<IUpdateRoom>("SizeUpdate")
+        .WithAttributeFiltering();        
+        containerBuilder.RegisterType<TotalGuestsUpdate>()
+        .Named<IUpdateRoom>("TotalGuestsUpdate")
+        .WithAttributeFiltering();
+       
+
 
         //Common
         containerBuilder.RegisterType<Exit>()

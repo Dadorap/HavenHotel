@@ -2,7 +2,7 @@
 using HavenHotel.Interfaces;
 using HavenHotel.Interfaces.BookingInterfaces;
 
-namespace HavenHotel.Services.Bookings.BookingServices;
+namespace HavenHotel.Services.Bookings.Menus;
 
 public class UpdateBookingMenu : IMenu
 {

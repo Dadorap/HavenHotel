@@ -3,7 +3,7 @@ using HavenHotel.Interfaces;
 using HavenHotel.Interfaces.DeleteInterfaces;
 using HavenHotel.Interfaces.DisplayInterfaces;
 
-namespace HavenHotel.Services.BookingServices.Services.Delete;
+namespace HavenHotel.Services.Bookings.Menus;
 
 public class DeletedBookingMenu : IMenu
 {

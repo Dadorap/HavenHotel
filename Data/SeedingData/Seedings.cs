@@ -20,6 +20,8 @@ namespace HavenHotel.Data.SeedingData
             using (var scope = container.BeginLifetimeScope())
             {
                 var dbContext = scope.Resolve<HotelDbContext>();
+                if (dbContext.Rooms.Any()) return;
+                
 
                 var guestsToAdd = new List<Guest>
                 {

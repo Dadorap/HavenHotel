@@ -4,7 +4,9 @@ using HavenHotel.Data.SeedingData;
 using HavenHotel.Interfaces;
 using HavenHotel.Interfaces.BookingInterfaces;
 using HavenHotel.Interfaces.GuestInterfaces;
+using HavenHotel.Interfaces.RoomsInterfaces;
 using HavenHotel.Services.Guests.GuestServices.Update;
+using HavenHotel.Services.Rooms.RoomServices.Update;
 
 namespace HavenHotel
 {
@@ -34,15 +36,19 @@ namespace HavenHotel
             //var undelete = container.ResolveNamed<IUnDelete>("UnDeleteRoom");            
             //var sdelete = container.ResolveNamed<ISoftDelete>("SoftDeleteGuest");
             //var undelete = container.ResolveNamed<IUnDelete>("UnDeleteGuest");
+            //var room = container.ResolveNamed<IUpdateRoom>("ExtraBedUpdate");
+            //var room = container.ResolveNamed<IUpdateRoom>("TotalGuestsUpdate");
+            //var room = container.ResolveNamed<IUpdateRoom>("RoomNumberUpdate");
+            var room = container.ResolveNamed<IUpdateRoom>("ExtraBedUpdate");
+            //var room = container.ResolveNamed<IUpdateRoom>("SizeUpdate");
             //var update = container.Resolve<IDateRange>();
             //var update = container.Resolve<IGuestAssignmentHandler>();
             //var update = container.Resolve<INameUpdate>();
             //var update = container.Resolve<IEmailUpdate>();
-            var update = container.Resolve<IPhoneNumberUpdate>();
+            //var update = container.Resolve<IPhoneNumberUpdate>();
 
 
-
-            //update.UpdateRoom();
+            room.UpdateRoom();
             //update.UpdateTotalPrice();
             //update.NameUpdater();
             //update.EmailUpdater();

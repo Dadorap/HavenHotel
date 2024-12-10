@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HavenHotel.Migrations
 {
     [DbContext(typeof(HotelDbContext))]
-    [Migration("20241206173123_init")]
+    [Migration("20241210181156_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@ namespace HavenHotel.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("HavenHotel.Bookings.Booking", b =>
+            modelBuilder.Entity("HavenHotel.Models.Booking", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -60,7 +60,7 @@ namespace HavenHotel.Migrations
                     b.ToTable("Bookings");
                 });
 
-            modelBuilder.Entity("HavenHotel.Guests.Guest", b =>
+            modelBuilder.Entity("HavenHotel.Models.Guest", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -88,7 +88,7 @@ namespace HavenHotel.Migrations
                     b.ToTable("Guests");
                 });
 
-            modelBuilder.Entity("HavenHotel.Rooms.Room", b =>
+            modelBuilder.Entity("HavenHotel.Models.Room", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -119,18 +119,21 @@ namespace HavenHotel.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RoomNumber")
+                        .IsUnique();
+
                     b.ToTable("Rooms");
                 });
 
-            modelBuilder.Entity("HavenHotel.Bookings.Booking", b =>
+            modelBuilder.Entity("HavenHotel.Models.Booking", b =>
                 {
-                    b.HasOne("HavenHotel.Guests.Guest", "Guest")
+                    b.HasOne("HavenHotel.Models.Guest", "Guest")
                         .WithMany()
                         .HasForeignKey("GuestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HavenHotel.Rooms.Room", "Room")
+                    b.HasOne("HavenHotel.Models.Room", "Room")
                         .WithMany()
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)

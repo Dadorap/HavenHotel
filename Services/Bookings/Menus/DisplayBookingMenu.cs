@@ -2,7 +2,7 @@
 using HavenHotel.Interfaces;
 using HavenHotel.Interfaces.DisplayInterfaces;
 
-namespace HavenHotel.Services.BookingServices;
+namespace HavenHotel.Services.Bookings.Menus;
 
 public class DisplayBookingMenu : IMenu
 {

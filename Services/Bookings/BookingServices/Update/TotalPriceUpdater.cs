@@ -50,16 +50,16 @@ public class TotalPriceUpdater : ITotalPriceUpdater
             {
                 var id = _promptForBookingId.GetValidBookingId("Recalculate Total Price", "totalPrice");
 
-                var bookingPrice = _bookingRepo.GetItemById(id).TotalPrice;
-                if (bookingPrice == null)
+                var booking = _bookingRepo.GetItemById(id);
+                if (booking.TotalPrice == null)
                 {
                     _errorHandler.DisplayError("Booking not found. Try again...");
                     continue;
                 }
-                Console.WriteLine($"{bookingPrice:C}. Will be changed.");
+                Console.WriteLine($"{booking.TotalPrice:C}. Will be changed.");
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.Write("Enter new total price: ");
-                string totalP = Console.ReadLine();
+                string totalP = Console.ReadLine().Trim();
                 _navigationHelper.Value.ReturnToMenu(totalP);
 
                 if (!int.TryParse(totalP, out int totalPrice))
@@ -68,8 +68,8 @@ public class TotalPriceUpdater : ITotalPriceUpdater
                     continue;
                 }
 
-                bookingPrice = totalPrice;
-                _bookingRepo.SaveChanges();
+                booking.TotalPrice = totalPrice;
+                _bookingRepo.Update(booking);
 
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Green;

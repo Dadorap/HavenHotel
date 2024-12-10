@@ -59,6 +59,7 @@ namespace HavenHotel.Services.Guests.GuestServices.Update
                     }
                     
                     currentGuest.Name = nameInput;
+                    _guestRepo.Update(currentGuest);
                     _guestRepo.SaveChanges();
                     _updateConfirmation.Confirmation($"Guest's name has been updated to: {currentGuest.Name}");
                     break;

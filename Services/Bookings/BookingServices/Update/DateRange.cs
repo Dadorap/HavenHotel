@@ -90,7 +90,7 @@ public class DateRange : IDateRange
                     b.TotalPrice = totalPrice;
                     _bookingRepo.Update(b);
                 });
-                _bookingRepo.SaveChanges();
+                _bookingRepo.Update(booking);
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine($"The new check-in {startDate} and check-out date " +

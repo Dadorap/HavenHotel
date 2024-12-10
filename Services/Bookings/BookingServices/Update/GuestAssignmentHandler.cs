@@ -79,7 +79,7 @@ public class GuestAssignmentHandler : IGuestAssignmentHandler
                 }
 
                 booking.GuestId = newGuestId;
-                _bookingRepo.SaveChanges();
+                _bookingRepo.Update(booking);
 
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Green;

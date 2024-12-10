@@ -1,7 +1,7 @@
 ﻿using Autofac.Features.AttributeFilters;
 using HavenHotel.Interfaces;
 
-namespace HavenHotel.Services.BookingServices;
+namespace HavenHotel.Services.Bookings.Menus;
 
 class BookingMenu : IMenu
 {

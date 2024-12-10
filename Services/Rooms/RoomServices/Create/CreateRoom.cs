@@ -50,7 +50,7 @@ namespace HavenHotel.Services.RoomServices.Services.Create
 
                     Console.Write("Enter room type " +
                         "\n(Single, Double, Suite, Family): ");
-                    string roomTypeInput = Console.ReadLine();
+                    string roomTypeInput = Console.ReadLine().Trim();
                     _navigationHelper.Value.ReturnToMenu(roomTypeInput);
                     if (!Enum.TryParse(roomTypeInput, true, out RoomType roomType) || !Enum.IsDefined(typeof(RoomType), roomType))
                     {
@@ -66,7 +66,7 @@ namespace HavenHotel.Services.RoomServices.Services.Create
                         _ => throw new ArgumentException("Invalid room type")
                     };
                     Console.Write("Enter a room number (100 - 500): ");
-                    string roomNumber = Console.ReadLine();
+                    string roomNumber = Console.ReadLine().Trim();
                     _navigationHelper.Value.ReturnToMenu(roomNumber);
 
                     if (!int.TryParse(roomNumber, out int roomNum))
@@ -90,8 +90,8 @@ namespace HavenHotel.Services.RoomServices.Services.Create
                     }
 
 
-                    Console.WriteLine($"Enter room size {minSize}-{maxSize}:");
-                    string roomSize = Console.ReadLine();
+                    Console.Write($"Enter room size ({minSize}m²-{maxSize}m²): ");
+                    string roomSize = Console.ReadLine().Trim();
                     _navigationHelper.Value.ReturnToMenu(roomSize);
                     if (!int.TryParse(roomSize, out int size) || size < 12 || size > 50)
                     {
@@ -118,7 +118,7 @@ namespace HavenHotel.Services.RoomServices.Services.Create
                     bool allowExtraBeds = roomType != RoomType.SINGLE;
 
                     Console.Write("Enter price per night (1000 - 5000): ");
-                    string roomPrice = Console.ReadLine();
+                    string roomPrice = Console.ReadLine().Trim();
                     _navigationHelper.Value.ReturnToMenu(roomPrice);
                     if (!decimal.TryParse(roomPrice, out decimal price) || price < 1000 || price > 5000)
                     {
@@ -137,7 +137,7 @@ namespace HavenHotel.Services.RoomServices.Services.Create
                     if (allowExtraBeds)
                     {
                         Console.WriteLine($"Enter the number of extra beds (0-{maxExtraBeds}):");
-                        string extraBed = Console.ReadLine();
+                        string extraBed = Console.ReadLine().Trim();
                         _navigationHelper.Value.ReturnToMenu(extraBed);
                         if (!int.TryParse(extraBed, out extraBeds) || extraBeds < 0 || extraBeds > maxExtraBeds)
                         {
@@ -147,8 +147,7 @@ namespace HavenHotel.Services.RoomServices.Services.Create
                     }
                     else
                     {
-                        Console.WriteLine("Extra beds are not allowed for Single rooms. " +
-                            "\nSkipping this step.");
+                        Console.WriteLine("Extra beds are not allowed for Single rooms.");
                     }
 
                     int maxGuestsBySize = size switch
@@ -161,7 +160,7 @@ namespace HavenHotel.Services.RoomServices.Services.Create
 
                     int totalCapacity = Math.Min(maxGuests + extraBeds, maxGuestsBySize);
                     Console.WriteLine($"How many guests are allowed in the room (1-{totalCapacity}):");
-                    string guestTotal = Console.ReadLine();
+                    string guestTotal = Console.ReadLine().Trim();
                     _navigationHelper.Value.ReturnToMenu(guestTotal);
                     if (!int.TryParse(guestTotal, out int totalGuests) || totalGuests < 1 || totalGuests > totalCapacity)
                     {
@@ -169,11 +168,6 @@ namespace HavenHotel.Services.RoomServices.Services.Create
                         continue;
                     }
 
-                    if (roomType == RoomType.SUITE && totalGuests < 2)
-                    {
-                        _errorHandler.DisplayError("A Suite must have at least 2 guests.");
-                        continue;
-                    }
 
                     var room = new Room
                     {

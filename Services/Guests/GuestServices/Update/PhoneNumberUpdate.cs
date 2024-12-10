@@ -63,7 +63,7 @@ namespace HavenHotel.Services.Guests.GuestServices.Update
                     }
 
                     currentGuest.PhoneNumber = numInput;
-                    _guestRepo.SaveChanges();
+                    _guestRepo.Update(currentGuest);
                     _updateConfirmation.Confirmation($"The new email address {numInput} " +
                                         $"\nhas been successfully set.");
                     break;

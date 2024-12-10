@@ -60,6 +60,7 @@ public class EmailUpdate : IEmailUpdate
                 }
 
                 currentGuest.Email = emailInput;
+                _guestRepo.Update(currentGuest);
                 _guestRepo.SaveChanges();
                 _updateConfirmation.Confirmation($"The new email address {emailInput} " +
                                     $"\nhas been successfully set.");
