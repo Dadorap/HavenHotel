@@ -8,7 +8,6 @@ public class HotelDbContext : DbContext
 {
     public HotelDbContext(DbContextOptions<HotelDbContext> options) : base(options) { }
 
-    // Parameterless constructor for design-time tools
     public HotelDbContext() { }
 
     public DbSet<Booking> Bookings { get; set; }
@@ -22,6 +21,4 @@ public class HotelDbContext : DbContext
             optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=HavenDatabase;Integrated Security=True;TrustServerCertificate=True;");
         }
     }
-
-
 }

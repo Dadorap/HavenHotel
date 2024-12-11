@@ -259,6 +259,12 @@ public static class DependencyContainer
         .WithAttributeFiltering();
         containerBuilder.RegisterType<TotalGuestsUpdate>()
         .Named<IUpdateRoom>("TotalGuestsUpdate")
+        .WithAttributeFiltering();        
+        containerBuilder.RegisterType<PriceUpdate>()
+        .Named<IUpdateRoom>("PriceUpdate")
+        .WithAttributeFiltering();       
+        containerBuilder.RegisterType<RoomTypeUpdate>()
+        .Named<IUpdateRoom>("RoomTypeUpdate")
         .WithAttributeFiltering();
 
 

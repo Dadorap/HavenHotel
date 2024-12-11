@@ -16,7 +16,6 @@ public class SizeUpdate : IUpdateRoom
     private readonly IRepository<Room> _roomRepo;
     private readonly IUpdateConfirmation _updateConfirmation;
     private readonly Lazy<INavigationHelper> _navigationHelper;
-    private readonly HotelDbContext _dbContext;
 
 
     public SizeUpdate
@@ -25,8 +24,7 @@ public class SizeUpdate : IUpdateRoom
         IPromptForId promptForId,
         IRepository<Room> roomRepo,
         IUpdateConfirmation updateConfirmation,
-        Lazy<INavigationHelper> navigationHelper,
-        HotelDbContext dbContext
+        Lazy<INavigationHelper> navigationHelper
         )
     {
         _errorHandler = errorHandler;
@@ -34,7 +32,6 @@ public class SizeUpdate : IUpdateRoom
         _roomRepo = roomRepo;
         _updateConfirmation = updateConfirmation;
         _navigationHelper = navigationHelper;
-        _dbContext = dbContext;
     }
 
     public void UpdateRoom()
@@ -71,15 +68,8 @@ public class SizeUpdate : IUpdateRoom
                     continue;
                 }
 
-                var sizeRoom = _dbContext.Rooms.FirstOrDefault(r => r.Id == id);
-                if (sizeRoom == null)
-                {
-                    _errorHandler.DisplayError("Room not found in the database.");
-                    continue;
-                }
-
-                sizeRoom.Size = size;
-                _dbContext.SaveChanges();
+                currentRoom.Size = size;
+                _roomRepo.Update(currentRoom);
 
                 _updateConfirmation.Confirmation($"The new room size ({size}m²), " +
                                                  "\nhas been successfully set.");
