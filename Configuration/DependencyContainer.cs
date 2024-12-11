@@ -3,32 +3,29 @@ using Autofac.Features.AttributeFilters;
 using HavenHotel.Common;
 using HavenHotel.Data;
 using HavenHotel.Data.Repositories;
-using HavenHotel.Data.SeedingData;
 using HavenHotel.Interfaces;
 using HavenHotel.Interfaces.BookingInterfaces;
 using HavenHotel.Interfaces.DeleteInterfaces;
 using HavenHotel.Interfaces.DisplayInterfaces;
 using HavenHotel.Interfaces.GuestInterfaces;
 using HavenHotel.Interfaces.RoomsInterfaces;
-using HavenHotel.Menus;
 using HavenHotel.Models;
-using HavenHotel.Services.Bookings.Menus;
-using HavenHotel.Services.BookingServices;
 using HavenHotel.Services.BookingServices.Services.Create;
 using HavenHotel.Services.BookingServices.Services.Delete;
 using HavenHotel.Services.BookingServices.Services.Display;
 using HavenHotel.Services.BookingServices.Services.Update;
-using HavenHotel.Services.Guests;
 using HavenHotel.Services.Guests.GuestServices.Create;
 using HavenHotel.Services.Guests.GuestServices.Delete;
 using HavenHotel.Services.Guests.GuestServices.Display;
 using HavenHotel.Services.Guests.GuestServices.Update;
-using HavenHotel.Services.Guests.Menus;
-using HavenHotel.Services.Rooms.Menus;
 using HavenHotel.Services.Rooms.RoomServices.Update;
 using HavenHotel.Services.RoomServices.Services.Create;
 using HavenHotel.Services.RoomServices.Services.Delete;
 using HavenHotel.Services.RoomServices.Services.Display;
+using HavenHotel.Utilities;
+using HavenHotel.Utilities.BookingsMenus;
+using HavenHotel.Utilities.GuestsMenus;
+using HavenHotel.Utilities.RoomsMenus;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -239,31 +236,31 @@ public static class DependencyContainer
         //update guest
         containerBuilder.RegisterType<EmailUpdate>()
             .As<IEmailUpdate>()
-            .WithAttributeFiltering();        
+            .WithAttributeFiltering();
         containerBuilder.RegisterType<NameUpdate>()
             .As<INameUpdate>()
-            .WithAttributeFiltering();        
+            .WithAttributeFiltering();
         containerBuilder.RegisterType<UpdateConfirmation>()
             .As<IUpdateConfirmation>()
             .WithAttributeFiltering();
         containerBuilder.RegisterType<PromptForId>()
-            .As<IPromptForId>();        
+            .As<IPromptForId>();
         containerBuilder.RegisterType<PhoneNumberUpdate>()
             .As<IPhoneNumberUpdate>();
         //update room
         containerBuilder.RegisterType<RoomNumberUpdate>()
         .Named<IUpdateRoom>("RoomNumberUpdate")
-        .WithAttributeFiltering();        
+        .WithAttributeFiltering();
         containerBuilder.RegisterType<ExtraBedUpdate>()
         .Named<IUpdateRoom>("ExtraBedUpdate")
-        .WithAttributeFiltering();        
+        .WithAttributeFiltering();
         containerBuilder.RegisterType<SizeUpdate>()
         .Named<IUpdateRoom>("SizeUpdate")
-        .WithAttributeFiltering();        
+        .WithAttributeFiltering();
         containerBuilder.RegisterType<TotalGuestsUpdate>()
         .Named<IUpdateRoom>("TotalGuestsUpdate")
         .WithAttributeFiltering();
-       
+
 
 
         //Common
@@ -280,7 +277,7 @@ public static class DependencyContainer
             .WithAttributeFiltering();
         containerBuilder.RegisterType<DisplayIDRight>()
             .As<IDisplayRight>();
-        containerBuilder.RegisterType<BookingIdRenderer>()
+        containerBuilder.RegisterType<BookingIdDisplay>()
             .As<IBookingIdRenderer>();
         containerBuilder.RegisterType<SoftDeleteItem>()
             .As<ISoftDeleteItem>();
@@ -302,8 +299,6 @@ public static class DependencyContainer
         containerBuilder.RegisterType<BookingMenu>()
             .AsSelf();
         containerBuilder.RegisterType<GuestMenu>()
-            .AsSelf();
-        containerBuilder.RegisterType<Seed>()
             .AsSelf();
         containerBuilder.RegisterType<Menu>()
             .As<ISharedMenu>()

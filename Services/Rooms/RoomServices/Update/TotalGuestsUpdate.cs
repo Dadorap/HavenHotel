@@ -3,7 +3,7 @@ using HavenHotel.Interfaces.GuestInterfaces;
 using HavenHotel.Interfaces;
 using HavenHotel.Interfaces.RoomsInterfaces;
 using HavenHotel.Models;
-using HavenHotel.Services.RoomServices;
+using HavenHotel.Utilities;
 
 namespace HavenHotel.Services.Rooms.RoomServices.Update;
 
