@@ -6,7 +6,7 @@ using HavenHotel.Models;
 
 namespace HavenHotel.Services.BookingServices.Services.Update;
 
-public class DateRange : IDateRange
+public class DateRangeUpdate : IDateRange
 {
     private readonly IRepository<Booking> _bookingRepo;
     private readonly IRepository<Room> _roomRepo;
@@ -18,7 +18,7 @@ public class DateRange : IDateRange
     private readonly IPromptForBookingId _promptForBookingId;
 
 
-    public DateRange(
+    public DateRangeUpdate(
         IRepository<Room> roomRepo,
         IRepository<Booking> bookingRepo,
         Lazy<INavigationHelper> navigationHelper,

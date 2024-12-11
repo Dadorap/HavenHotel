@@ -46,11 +46,11 @@ public class PriceUpdate : IUpdateRoom
                 }
 
                 Console.WriteLine($"Current room price/night: {currentRoom.Price:C}");
-                Console.Write($"Enter new room price/night: ");
+                Console.Write($"Enter new room price/night (100 - 5000): ");
                 string roomPrice = Console.ReadLine().Trim();
                 _navigationHelper.Value.ReturnToMenu(roomPrice);
 
-                if (!int.TryParse(roomPrice, out int price))
+                if (!decimal.TryParse(roomPrice, out decimal price) || price < 100 || price > 5000)
                 {
                     _errorHandler.DisplayError($"The input '{roomPrice}' is not a valid price. " +
                         $"\nPlease try again with a correct value.");

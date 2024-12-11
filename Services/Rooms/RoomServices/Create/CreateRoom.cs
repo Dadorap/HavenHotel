@@ -119,10 +119,10 @@ namespace HavenHotel.Services.RoomServices.Services.Create
 
                     bool allowExtraBeds = roomType != RoomType.SINGLE;
 
-                    Console.Write("Enter price per night (1000 - 5000): ");
+                    Console.Write("Enter price per night (100 - 5000): ");
                     string roomPrice = Console.ReadLine().Trim();
                     _navigationHelper.Value.ReturnToMenu(roomPrice);
-                    if (!decimal.TryParse(roomPrice, out decimal price) || price < 1000 || price > 5000)
+                    if (!decimal.TryParse(roomPrice, out decimal price) || price < 100 || price > 5000)
                     {
                         _errorHandler.DisplayError("Invalid price. Please enter a value between 100 and 999.");
                         continue;

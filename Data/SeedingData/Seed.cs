@@ -96,6 +96,7 @@ namespace HavenHotel.Data.SeedingData
                         TotalPrice = 171500m,
                         RoomId = roomIds.FirstOrDefault(r => r.RoomType == RoomType.SUITE)?.Id ?? 0,
                         GuestId = guestIds.FirstOrDefault(g => g.Name == "John Doe")?.Id ?? 0,
+                        IsPaid = true,
                         IsActive = true,
 
                     },
@@ -106,6 +107,7 @@ namespace HavenHotel.Data.SeedingData
                         TotalPrice=120000m,
                         RoomId = roomIds.FirstOrDefault(r => r.RoomType == RoomType.DOUBLE)?.Id ?? 0,
                         GuestId = guestIds.FirstOrDefault(g => g.Name == "Jane Smith")?.Id ?? 0,
+                        IsPaid = false,
                         IsActive = true,
                     },
                     new Booking
@@ -115,6 +117,7 @@ namespace HavenHotel.Data.SeedingData
                         TotalPrice =154000m,
                         RoomId = roomIds.FirstOrDefault(r => r.RoomType == RoomType.SUITE)?.Id ?? 0,
                         GuestId = guestIds.FirstOrDefault(g => g.Name == "Michael Johnson")?.Id ?? 0,
+                        IsPaid = false,
                         IsActive = true,
                     },
                     new Booking
@@ -124,6 +127,7 @@ namespace HavenHotel.Data.SeedingData
                         TotalPrice =360000m,
                         RoomId = roomIds.FirstOrDefault(r => r.RoomType == RoomType.FAMILY)?.Id ?? 0,
                         GuestId = guestIds.FirstOrDefault(g => g.Name == "Emily Brown")?.Id ?? 0,
+                        IsPaid = false,
                         IsActive = true,
 
                     }

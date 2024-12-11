@@ -16,7 +16,7 @@ namespace HavenHotel.Models
 
         public int GuestId { get; set; }
         public Guest Guest { get; set; }
-
+        public bool IsPaid { get; set; } = false;
         public bool IsActive { get; set; } = true;
 
 

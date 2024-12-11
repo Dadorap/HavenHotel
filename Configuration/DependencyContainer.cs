@@ -10,6 +10,7 @@ using HavenHotel.Interfaces.DisplayInterfaces;
 using HavenHotel.Interfaces.GuestInterfaces;
 using HavenHotel.Interfaces.RoomsInterfaces;
 using HavenHotel.Models;
+using HavenHotel.Services.Bookings.BookingServices.Update;
 using HavenHotel.Services.BookingServices.Services.Create;
 using HavenHotel.Services.BookingServices.Services.Delete;
 using HavenHotel.Services.BookingServices.Services.Display;
@@ -218,20 +219,23 @@ public static class DependencyContainer
             .WithAttributeFiltering();
 
         //update booking
-        containerBuilder.RegisterType<DateRange>()
+        containerBuilder.RegisterType<DateRangeUpdate>()
             .As<IDateRange>()
             .WithAttributeFiltering();
         containerBuilder.RegisterType<PromptForBookingId>()
             .As<IPromptForBookingId>()
             .WithAttributeFiltering();
-        containerBuilder.RegisterType<GuestAssignmentHandler>()
+        containerBuilder.RegisterType<GuestAssignmentUpdate>()
             .As<IGuestAssignmentHandler>()
             .WithAttributeFiltering();
         containerBuilder.RegisterType<IdDisplayHandler>()
             .As<IIdDisplayHandler>()
             .WithAttributeFiltering();
-        containerBuilder.RegisterType<TotalPriceUpdater>()
-            .As<ITotalPriceUpdater>()
+        containerBuilder.RegisterType<PaymentDetailUpdate>()
+            .As<IPaymentDetailUpdate>()
+            .WithAttributeFiltering();        
+        containerBuilder.RegisterType<InvoiceUpdate>()
+            .As<IInvoiceUpdate>()
             .WithAttributeFiltering();
         //update guest
         containerBuilder.RegisterType<EmailUpdate>()

@@ -6,7 +6,7 @@ using HavenHotel.Models;
 
 namespace HavenHotel.Services.BookingServices.Services.Update;
 
-public class GuestAssignmentHandler : IGuestAssignmentHandler
+public class GuestAssignmentUpdate : IGuestAssignmentHandler
 {
     private readonly IRepository<Booking> _bookingRepo;
     private readonly IRepository<Guest> _guestRepo;
@@ -18,7 +18,7 @@ public class GuestAssignmentHandler : IGuestAssignmentHandler
     private readonly IPromptForBookingId _promptForBookingId;
 
 
-    public GuestAssignmentHandler(
+    public GuestAssignmentUpdate(
         IRepository<Guest> guestRepo,
         IRepository<Booking> bookingRepo,
         IRepository<Room> roomRepo,

@@ -5,6 +5,8 @@ using HavenHotel.Interfaces;
 using HavenHotel.Interfaces.BookingInterfaces;
 using HavenHotel.Interfaces.GuestInterfaces;
 using HavenHotel.Interfaces.RoomsInterfaces;
+using HavenHotel.Services.Bookings.BookingServices.Update;
+using HavenHotel.Services.BookingServices.Services.Update;
 using HavenHotel.Services.Guests.GuestServices.Update;
 using HavenHotel.Services.Rooms.RoomServices.Update;
 
@@ -41,16 +43,16 @@ namespace HavenHotel
             //var room = container.ResolveNamed<IUpdateRoom>("ExtraBedUpdate");
             //var room = container.ResolveNamed<IUpdateRoom>("SizeUpdate");
             //var room = container.ResolveNamed<IUpdateRoom>("PriceUpdate");
-            var room = container.ResolveNamed<IUpdateRoom>("RoomTypeUpdate");
-            //var update = container.Resolve<IDateRange>();
+            //var room = container.ResolveNamed<IUpdateRoom>("PriceUpdate");
+            var update = container.Resolve<IInvoiceUpdate>();
             //var update = container.Resolve<IGuestAssignmentHandler>();
             //var update = container.Resolve<INameUpdate>();
             //var update = container.Resolve<IEmailUpdate>();
             //var update = container.Resolve<IPhoneNumberUpdate>();
 
 
-            room.UpdateRoom();
-            //update.UpdateTotalPrice();
+            //room.UpdateRoom();
+            update.InvoiceUpdater();
             //update.NameUpdater();
             //update.EmailUpdater();
             //update.PhoneNumberUpdater();

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Autofac.Features.AttributeFilters;
+﻿using Autofac.Features.AttributeFilters;
 using HavenHotel.Data.Repositories;
 using HavenHotel.Interfaces;
 using HavenHotel.Interfaces.BookingInterfaces;
@@ -11,7 +6,7 @@ using HavenHotel.Models;
 
 namespace HavenHotel.Services.BookingServices.Services.Update;
 
-public class TotalPriceUpdater : ITotalPriceUpdater
+public class PaymentDetailUpdate : IPaymentDetailUpdate
 {
     private readonly IRepository<Booking> _bookingRepo;
     private readonly IRepository<Room> _roomRepo;
@@ -22,7 +17,7 @@ public class TotalPriceUpdater : ITotalPriceUpdater
     private readonly IPromptForBookingId _promptForBookingId;
 
 
-    public TotalPriceUpdater(
+    public PaymentDetailUpdate(
         IRepository<Room> roomRepo,
         IRepository<Booking> bookingRepo,
         Lazy<INavigationHelper> navigationHelper,
@@ -42,7 +37,7 @@ public class TotalPriceUpdater : ITotalPriceUpdater
         _mainMenu = mainMenu;
         _promptForBookingId = promptForBookingId;
     }
-    public void UpdateTotalPrice()
+    public void PaymentDetailUpdater()
     {
         while (true)
         {
@@ -62,7 +57,7 @@ public class TotalPriceUpdater : ITotalPriceUpdater
                 string totalP = Console.ReadLine().Trim();
                 _navigationHelper.Value.ReturnToMenu(totalP);
 
-                if (!int.TryParse(totalP, out int totalPrice))
+                if (!decimal.TryParse(totalP, out decimal totalPrice) || totalPrice <= 0)
                 {
                     _errorHandler.DisplayError("Invalid price input try again...");
                     continue;
@@ -70,6 +65,7 @@ public class TotalPriceUpdater : ITotalPriceUpdater
 
                 booking.TotalPrice = totalPrice;
                 _bookingRepo.Update(booking);
+
 
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Green;
