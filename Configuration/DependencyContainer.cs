@@ -1,6 +1,17 @@
 ﻿using Autofac;
 using Autofac.Features.AttributeFilters;
 using HavenHotel.Common;
+using HavenHotel.Controllers.BookingController.Create;
+using HavenHotel.Controllers.BookingController.Delete;
+using HavenHotel.Controllers.BookingController.Display;
+using HavenHotel.Controllers.BookingController.Update;
+using HavenHotel.Controllers.GuestController.Create;
+using HavenHotel.Controllers.GuestController.Delete;
+using HavenHotel.Controllers.GuestController.Display;
+using HavenHotel.Controllers.GuestController.Update;
+using HavenHotel.Controllers.RoomController.Create;
+using HavenHotel.Controllers.RoomController.Delete;
+using HavenHotel.Controllers.RoomController.Display;
 using HavenHotel.Data;
 using HavenHotel.Data.Repositories;
 using HavenHotel.Interfaces;
@@ -10,19 +21,7 @@ using HavenHotel.Interfaces.DisplayInterfaces;
 using HavenHotel.Interfaces.GuestInterfaces;
 using HavenHotel.Interfaces.RoomsInterfaces;
 using HavenHotel.Models;
-using HavenHotel.Services.Bookings.BookingServices.Update;
-using HavenHotel.Services.BookingServices.Services.Create;
-using HavenHotel.Services.BookingServices.Services.Delete;
-using HavenHotel.Services.BookingServices.Services.Display;
-using HavenHotel.Services.BookingServices.Services.Update;
-using HavenHotel.Services.Guests.GuestServices.Create;
-using HavenHotel.Services.Guests.GuestServices.Delete;
-using HavenHotel.Services.Guests.GuestServices.Display;
-using HavenHotel.Services.Guests.GuestServices.Update;
 using HavenHotel.Services.Rooms.RoomServices.Update;
-using HavenHotel.Services.RoomServices.Services.Create;
-using HavenHotel.Services.RoomServices.Services.Delete;
-using HavenHotel.Services.RoomServices.Services.Display;
 using HavenHotel.Utilities;
 using HavenHotel.Utilities.BookingsMenus;
 using HavenHotel.Utilities.GuestsMenus;
@@ -220,13 +219,13 @@ public static class DependencyContainer
 
         //update booking
         containerBuilder.RegisterType<DateRangeUpdate>()
-            .As<IDateRange>()
+            .As<IDateRangeUpdate>()
             .WithAttributeFiltering();
         containerBuilder.RegisterType<PromptForBookingId>()
             .As<IPromptForBookingId>()
             .WithAttributeFiltering();
         containerBuilder.RegisterType<GuestAssignmentUpdate>()
-            .As<IGuestAssignmentHandler>()
+            .As<IGuestAssignmentUpdate>()
             .WithAttributeFiltering();
         containerBuilder.RegisterType<IdDisplayHandler>()
             .As<IIdDisplayHandler>()

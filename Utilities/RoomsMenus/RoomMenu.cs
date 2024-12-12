@@ -23,7 +23,7 @@ public class RoomMenu : IMenu
        [KeyFilter("MainMenu")] Lazy<IMenu> mainMenu,
        [KeyFilter("CreateRoom")] ICreate create,
        [KeyFilter("DisplayRoomMenu")] Lazy<IMenu> display,
-       [KeyFilter("MainMenu")] Lazy<IMenu> update,
+       [KeyFilter("UpdateRoomMenu")] Lazy<IMenu> update,
        [KeyFilter("DeletedRoomMenu")] Lazy<IMenu> delete
         )
     {

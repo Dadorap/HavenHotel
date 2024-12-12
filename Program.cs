@@ -1,87 +1,10 @@
-﻿using Autofac;
-using HavenHotel.Configuration;
-using HavenHotel.Data.SeedingData;
-using HavenHotel.Interfaces;
-using HavenHotel.Interfaces.BookingInterfaces;
-using HavenHotel.Interfaces.GuestInterfaces;
-using HavenHotel.Interfaces.RoomsInterfaces;
-using HavenHotel.Services.Bookings.BookingServices.Update;
-using HavenHotel.Services.BookingServices.Services.Update;
-using HavenHotel.Services.Guests.GuestServices.Update;
-using HavenHotel.Services.Rooms.RoomServices.Update;
+﻿namespace HavenHotel;
 
-namespace HavenHotel
+public class Program
 {
-    internal class Program
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
-            var container = DependencyContainer.Configure();
-            Seed.Seedings();
-            //var create = container.ResolveNamed<ICreate>("CreateRoom");
-            //var create = container.ResolveNamed<ICreate>("CreateGuest");
-            //var create = container.ResolveNamed<ICreate>("CreateBooking");
-            //var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayDeletedGuests");
-            //var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayActiveBookings");
-            //var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayDeletedBookings");
-            //var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayActiveRooms");
-            //var displayAllRooms = container.ResolveNamed<IDisplayAll>("DisplayDeletedRooms");
-            //var displayAllRooms = container.ResolveNamed<IDisplay>("DisplayRoomDetails");
-            //var displayAllRooms = container.ResolveNamed<IDisplay>("DisplayGuestDetails");
-            //var displayAllRooms = container.ResolveNamed<IDisplay>("DisplayBookingDetails");
-            //var delete = container.ResolveNamed<IDelete>("DeleteRoom");
-            //var delete = container.ResolveNamed<IDelete>("DeleteGuest");
-            //var sdelete = container.ResolveNamed<ISoftDelete>("SoftDeleteGuest");
-            //var sdelete = container.ResolveNamed<ISoftDelete>("SoftDeleteBooking");
-            //var sdelete = container.ResolveNamed<ISoftDelete>("SoftDeleteRoom");
-            //var undelete = container.ResolveNamed<IUnDelete>("UnDeleteRoom");            
-            //var sdelete = container.ResolveNamed<ISoftDelete>("SoftDeleteGuest");
-            //var undelete = container.ResolveNamed<IUnDelete>("UnDeleteGuest");
-            //var room = container.ResolveNamed<IUpdateRoom>("ExtraBedUpdate");
-            //var room = container.ResolveNamed<IUpdateRoom>("TotalGuestsUpdate");
-            //var room = container.ResolveNamed<IUpdateRoom>("RoomNumberUpdate");
-            //var room = container.ResolveNamed<IUpdateRoom>("ExtraBedUpdate");
-            //var room = container.ResolveNamed<IUpdateRoom>("SizeUpdate");
-            //var room = container.ResolveNamed<IUpdateRoom>("PriceUpdate");
-            //var room = container.ResolveNamed<IUpdateRoom>("PriceUpdate");
-            var update = container.Resolve<IInvoiceUpdate>();
-            //var update = container.Resolve<IGuestAssignmentHandler>();
-            //var update = container.Resolve<INameUpdate>();
-            //var update = container.Resolve<IEmailUpdate>();
-            //var update = container.Resolve<IPhoneNumberUpdate>();
-
-
-            //room.UpdateRoom();
-            update.InvoiceUpdater();
-            //update.NameUpdater();
-            //update.EmailUpdater();
-            //update.PhoneNumberUpdater();
-            //update.UpdateDate();
-            //create.Create();
-            //displayAllRooms.DisplayAll();
-            //displayAllRooms.DisplayById();
-            //delete.Delete();
-            //sdelete.SoftDelete();
-            //undelete.UndoDete();
-
-
-
-            //var menu = container.ResolveNamed<IMenu>("DeletedRoomMenu");
-            //var menu = container.ResolveNamed<IMenu>("UpdateBookingMenu");
-            var menu = container.ResolveNamed<IMenu>("MainMenu");
-            //var menu = container.ResolveNamed<IMenu>("DisplayGuestMenu");
-            //menu.DisplayMenu();
-            //var createGuest = container.ResolveNamed<ICreate>("CreateGuest");
-            //var createGuest = container.ResolveNamed<ICreate>("CreateRoom");
-            //createGuest.Create();
-
-
-
-
-
-
-
-        }
+        App.Run();
     }
 }
 

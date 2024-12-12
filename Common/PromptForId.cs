@@ -20,6 +20,7 @@ namespace HavenHotel.Common
         private readonly Lazy<INavigationHelper> _navigationHelper;
         private readonly IRepository<Guest> _guestRepo;
         private readonly IRepository<Room> _roomRepo;
+        private readonly IRepository<Booking> _bookingRepo;
 
 
 
@@ -31,7 +32,9 @@ namespace HavenHotel.Common
             Lazy<INavigationHelper> navigationHelper,
             IErrorHandler errorHandler,
             IRepository<Guest> guestRepo,
-            IRepository<Room> roomRepo
+            IRepository<Room> roomRepo,
+            IRepository<Booking> bookingRepo
+
 
 
             )
@@ -42,6 +45,7 @@ namespace HavenHotel.Common
             _navigationHelper = navigationHelper;
             _guestRepo = guestRepo;
             _roomRepo = roomRepo;
+            _bookingRepo = bookingRepo;
 
         }
 
@@ -86,9 +90,14 @@ namespace HavenHotel.Common
                 var isGuestFound = _guestRepo.GetAllItems().Any(i => i.Id == id);
                 return isGuestFound;
             }
-            else
+            else if(identifier == "room")
             {
                 var isFound = _roomRepo.GetAllItems().Any(i => i.Id == id);
+                return isFound;
+            }
+            else
+            {
+                var isFound = _bookingRepo.GetAllItems().Any(i => i.Id == id);
                 return isFound;
             }
         }

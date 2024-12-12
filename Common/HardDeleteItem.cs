@@ -21,7 +21,7 @@ public class HardDeleteItem : IHardDeleteItem
         IRepository<Booking> bookingRepo,
         IRepository<Room> roomsRepo,
         IRepository<Guest> guestRepo,
-        [KeyFilter("DisplayBookingsIDRight")] IDisplayRight displayRight,
+        IDisplayRight displayRight,
         IErrorHandler errorHandler,
         IUserMessages userMessages,
         INavigationHelper navigationHelper
@@ -65,15 +65,12 @@ public class HardDeleteItem : IHardDeleteItem
                     {
                         case "BOOKING":
                             _bookingRepo.RemoveItemById(id);
-                            _bookingRepo.SaveChanges();
                             break;
                         case "ROOM":
                             _roomsRepo.RemoveItemById(id);
-                            _roomsRepo.SaveChanges();
                             break;
                         case "GUEST":
                             _guestsRepo.RemoveItemById(id);
-                            _guestsRepo.SaveChanges();
                             break;
                     }
                     Console.Clear();

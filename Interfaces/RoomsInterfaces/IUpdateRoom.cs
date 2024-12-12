@@ -1,6 +1,6 @@
 ﻿namespace HavenHotel.Interfaces.RoomsInterfaces
 {
-    internal interface IUpdateRoom
+    public interface IUpdateRoom
     {
         void UpdateRoom();
     }

@@ -30,8 +30,8 @@ public class BookingSidebarDisplay : IBookingSidebarDisplay
 
         var rooms = _roomsRepo.GetAllItems().Where(r => r.IsActive).ToList();
         var guests = _guestRepo.GetAllItems().Where(g => g.IsActive).ToList();
-
-        Console.WriteLine($"Room/Guests Number - Guest ID");
+        var header = $"available rooms - Guest ID".ToUpper();
+        Console.WriteLine(header);
 
         var roomGuestPairs = rooms.Zip(guests, (room, guest) => new { room.RoomNumber, room.TotalGuests, guest.Id });
 

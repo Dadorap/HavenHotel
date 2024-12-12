@@ -1,6 +1,7 @@
 ﻿using Autofac.Features.AttributeFilters;
 using HavenHotel.Interfaces;
 using HavenHotel.Interfaces.BookingInterfaces;
+using HavenHotel.Models;
 
 namespace HavenHotel.Utilities.BookingsMenus;
 
@@ -8,8 +9,10 @@ public class UpdateBookingMenu : IMenu
 {
     private readonly ISharedMenu _menu;
     private readonly Lazy<IMenu> _mainMenu;
-    private readonly IDateRange _dateRange;
-    private readonly IGuestAssignmentHandler _guestAssignmentHandler;
+    private readonly IDateRangeUpdate _dateRange;
+    private readonly IGuestAssignmentUpdate _guestAssignmentUpdate;
+    private readonly IInvoiceUpdate _invoiceUpdate;
+    private readonly IPaymentDetailUpdate _paymentDetailUpdate;
 
 
 
@@ -17,8 +20,10 @@ public class UpdateBookingMenu : IMenu
     (
         ISharedMenu menu,
        [KeyFilter("MainMenu")] Lazy<IMenu> mainMenu,
-       IDateRange dateRange,
-       IGuestAssignmentHandler guestAssignmentHandler
+       IDateRangeUpdate dateRange,
+       IGuestAssignmentUpdate guestAssignmentHandler,
+       IInvoiceUpdate invoiceUpdate,
+       IPaymentDetailUpdate paymentDetailUpdate
 
     )
 
@@ -26,7 +31,9 @@ public class UpdateBookingMenu : IMenu
         _menu = menu;
         _mainMenu = mainMenu;
         _dateRange = dateRange;
-        _guestAssignmentHandler = guestAssignmentHandler;
+        _guestAssignmentUpdate = guestAssignmentHandler;
+        _invoiceUpdate = invoiceUpdate;
+        _paymentDetailUpdate = paymentDetailUpdate;
 
     }
 
@@ -34,9 +41,9 @@ public class UpdateBookingMenu : IMenu
     {
         var updateMenu = new List<string>
         {
-            "Assign New Guest",
+            "Update Invoice",
             "Update Booking Dates",
-            "Change Assigned Room",
+            "Reassign to New Guest",
             "Recalculate Total Price",
             "Back to Main Menu"
         };
@@ -45,8 +52,10 @@ public class UpdateBookingMenu : IMenu
         _menu.DisplayMenu(
             "Booking View Menu",
             updateMenu,
-            _guestAssignmentHandler.UpdateGuestAssignment,
+            _invoiceUpdate.InvoiceUpdater,
             _dateRange.UpdateDate,
+            _guestAssignmentUpdate.UpdateGuestAssignment,
+            _paymentDetailUpdate.PaymentDetailUpdater,
             _mainMenu.Value.DisplayMenu
             );
 

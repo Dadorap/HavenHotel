@@ -23,7 +23,7 @@ public class SoftDeleteItem : ISoftDeleteItem
         IRepository<Booking> bookingRepo,
         IRepository<Room> roomsRepo,
         IRepository<Guest> guestRepo,
-        [KeyFilter("DisplayBookingsIDRight")] IDisplayRight displayRight,
+        IDisplayRight displayRight,
         IErrorHandler errorHandler,
         IUserMessages userMessages,
         INavigationHelper navigationHelper
@@ -50,7 +50,6 @@ public class SoftDeleteItem : ISoftDeleteItem
                 Console.Clear();
                 _displayRight.DisplayRightAligned(textDisplay, "true");
 
-                // Fetch the appropriate repository count for validation
                 int itemsLength = textDisplay switch
                 {
                     "BOOKING" => _bookingRepo.GetAllItems().Count(),
