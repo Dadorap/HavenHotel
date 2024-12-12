@@ -1,4 +1,4 @@
-﻿namespace HavenHotel.Interfaces
+﻿namespace HavenHotel.Interfaces.BookingInterfaces
 {
     public interface IBookingSidebarDisplay
     {
