@@ -1,5 +1,6 @@
 ﻿using HavenHotel.Data.Repositories;
 using HavenHotel.Interfaces;
+using HavenHotel.Interfaces.BookingInterfaces;
 using HavenHotel.Models;
 
 namespace HavenHotel.Utilities;
