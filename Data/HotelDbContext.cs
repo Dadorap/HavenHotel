@@ -1,24 +1,19 @@
 ﻿using HavenHotel.Models;
 using Microsoft.EntityFrameworkCore;
 
-
-namespace HavenHotel.Data;
-
-public class HotelDbContext : DbContext
+namespace HavenHotel.Data
 {
-    public HotelDbContext(DbContextOptions<HotelDbContext> options) : base(options) { }
-
-    public HotelDbContext() { }
-
-    public DbSet<Booking> Bookings { get; set; }
-    public DbSet<Guest> Guests { get; set; }
-    public DbSet<Room> Rooms { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    public class HotelDbContext : DbContext
     {
-        if (!optionsBuilder.IsConfigured)
+        public HotelDbContext(DbContextOptions<HotelDbContext> options) : base(options) { }
+
+        public DbSet<Booking> Bookings { get; set; }
+        public DbSet<Guest> Guests { get; set; }
+        public DbSet<Room> Rooms { get; set; }
+
+        public void MigrateDatabase()
         {
-            optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=HavenDatabase;Integrated Security=True;TrustServerCertificate=True;");
+            Database.Migrate();
         }
     }
 }

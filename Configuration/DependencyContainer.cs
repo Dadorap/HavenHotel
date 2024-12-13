@@ -45,11 +45,9 @@ public static class DependencyContainer
         containerBuilder.Register(c =>
         {
             var optionsBuilder = new DbContextOptionsBuilder<HotelDbContext>();
-            optionsBuilder.UseSqlServer(configuration
-                .GetConnectionString("DefaultConnection"));
-
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             return new HotelDbContext(optionsBuilder.Options);
-        }).AsSelf()
+        }).As<HotelDbContext>()
         .InstancePerLifetimeScope();
 
         containerBuilder.RegisterGeneric(typeof(Repository<>))
