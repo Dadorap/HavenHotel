@@ -29,7 +29,7 @@ public class BookingSidebarDisplay : IBookingSidebarDisplay
         Console.SetCursorPosition(XOffset, 0);
         Console.ForegroundColor = ConsoleColor.Green;
 
-        var rooms = _roomsRepo.GetAllItems().Where(r => r.IsActive).ToList();
+        var rooms = _roomsRepo.GetAllItems().Where(r => r.IsAvailable).ToList();
         var guests = _guestRepo.GetAllItems().Where(g => g.IsActive).ToList();
         var header = $"available rooms - Guest ID".ToUpper();
         Console.WriteLine(header);

@@ -301,6 +301,8 @@ public static class DependencyContainer
 
 
 
+        containerBuilder.RegisterType<RoomAvailability>()
+            .AsSelf();        
         containerBuilder.RegisterType<RoomMenu>()
             .AsSelf();
         containerBuilder.RegisterType<BookingMenu>()

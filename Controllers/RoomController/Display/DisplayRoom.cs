@@ -48,7 +48,7 @@ public class DisplayRoom : IDisplay
                 if (int.TryParse(idInput, out int id))
                 {
                     var room = _roomRepo.GetItemById(id);
-                    var roomAvailability = room.IsActive ? "available" : "occupied";
+                    var roomAvailability = room.IsAvailable ? "available" : "occupied";
 
                     Console.Clear();
                     Console.WriteLine("╔════════════╦═════════════╦═════════════╦════════════╦══════════════╦═════════════╗");

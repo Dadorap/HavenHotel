@@ -41,7 +41,7 @@ namespace HavenHotel.Data.SeedingData
                         RoomType = RoomType.SINGLE,
                         ExtraBed = 0, Size = 15,
                         TotalGuests = 1,
-                        IsActive = true
+                        IsAvailable = false
                     },
                     new Room
                     {
@@ -50,7 +50,7 @@ namespace HavenHotel.Data.SeedingData
                         RoomType = RoomType.SINGLE,
                         ExtraBed = 0, Size = 15,
                         TotalGuests = 1,
-                        IsActive = false
+                        IsAvailable = true
                     },
                     new Room
                     {
@@ -59,7 +59,8 @@ namespace HavenHotel.Data.SeedingData
                         RoomType = RoomType.DOUBLE,
                         ExtraBed = 1, Size = 25,
                         TotalGuests = 2,
-                        IsActive = false },
+                        IsAvailable = false
+                    },
                     new Room
                     {
                         RoomNumber = 104,
@@ -67,8 +68,8 @@ namespace HavenHotel.Data.SeedingData
                         RoomType = RoomType.SUITE,
                         ExtraBed = 2, Size = 40,
                         TotalGuests = 4,
-                        IsActive = false }
-                    ,
+                        IsAvailable = false
+                    },
                     new Room
                     {
                         RoomNumber = 105,
@@ -76,7 +77,7 @@ namespace HavenHotel.Data.SeedingData
                         RoomType = RoomType.FAMILY,
                         ExtraBed = 2, Size = 50,
                         TotalGuests = 6,
-                        IsActive = false
+                        IsAvailable = false
                     }
                 };
 
@@ -94,8 +95,8 @@ namespace HavenHotel.Data.SeedingData
                         StartDate = new DateOnly(2024, 11, 1),
                         EndDate = new DateOnly(2024, 12, 20),
                         TotalPrice = 171500m,
-                        RoomId = roomIds.FirstOrDefault(r => r.RoomType == RoomType.SUITE)?.Id ?? 0,
-                        GuestId = guestIds.FirstOrDefault(g => g.Name == "John Doe")?.Id ?? 0,
+                        RoomId = 1,
+                        GuestId = 1,
                         IsPaid = true,
                         IsActive = true,
 
@@ -105,18 +106,18 @@ namespace HavenHotel.Data.SeedingData
                         StartDate = new DateOnly(2024, 12, 1),
                         EndDate = new DateOnly(2025, 01, 30),
                         TotalPrice=120000m,
-                        RoomId = roomIds.FirstOrDefault(r => r.RoomType == RoomType.DOUBLE)?.Id ?? 0,
-                        GuestId = guestIds.FirstOrDefault(g => g.Name == "Jane Smith")?.Id ?? 0,
+                        RoomId = 3,
+                        GuestId = 2,
                         IsPaid = false,
                         IsActive = true,
                     },
                     new Booking
                     {
                         StartDate = new DateOnly(2024, 11, 1),
-                        EndDate = new DateOnly(2024, 12, 15),
+                        EndDate = new DateOnly(2024, 12, 13),
                         TotalPrice =154000m,
-                        RoomId = roomIds.FirstOrDefault(r => r.RoomType == RoomType.SUITE)?.Id ?? 0,
-                        GuestId = guestIds.FirstOrDefault(g => g.Name == "Michael Johnson")?.Id ?? 0,
+                        RoomId = 4,
+                        GuestId = 3,
                         IsPaid = false,
                         IsActive = true,
                     },
@@ -125,8 +126,8 @@ namespace HavenHotel.Data.SeedingData
                         StartDate = new DateOnly(2024, 10, 1),
                         EndDate = new DateOnly(2024, 12, 20),
                         TotalPrice =360000m,
-                        RoomId = roomIds.FirstOrDefault(r => r.RoomType == RoomType.FAMILY)?.Id ?? 0,
-                        GuestId = guestIds.FirstOrDefault(g => g.Name == "Emily Brown")?.Id ?? 0,
+                        RoomId = 5,
+                        GuestId = 4,
                         IsPaid = false,
                         IsActive = true,
 

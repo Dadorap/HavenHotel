@@ -35,8 +35,8 @@ public class DisplayRoomsDetails : IDisplayAllDetails
 
             foreach (var room in rooms)
             {
-                if (isActive.ToLower() == "true" && room.IsActive ||
-                    isActive.ToLower() == "false" && !room.IsActive ||
+                if (isActive.ToLower() == "true" && room.IsAvailable ||
+                    isActive.ToLower() == "false" && !room.IsAvailable ||
                     isActive.ToLower() == "all")
                 {
                     Console.ForegroundColor = count % 2 == 0 ? ConsoleColor.Cyan : ConsoleColor.DarkYellow;

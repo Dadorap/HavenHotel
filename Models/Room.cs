@@ -12,6 +12,6 @@ public class Room : IRoom
     public int ExtraBed { get; set; }
     public int Size { get; set; }
     public int TotalGuests { get; set; }
-    public bool IsActive { get; set; } = true;
+    public bool IsAvailable { get; set; } = true;
 
 }

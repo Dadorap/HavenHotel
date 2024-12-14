@@ -99,7 +99,7 @@ namespace HavenHotel.Migrations
                     b.Property<int>("ExtraBed")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");
 
                     b.Property<decimal>("Price")
