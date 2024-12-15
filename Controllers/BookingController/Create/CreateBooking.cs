@@ -72,9 +72,19 @@ public class CreateBooking : ICreate
                 Console.Write("Enter room number: ");
                 string roomNum = Console.ReadLine();
                 _navigationHelper.Value.ReturnToMenu(roomNum);
+
+                
                 if (!int.TryParse(roomNum, out int roomNumber) || !IsAppropriateRoom(roomNumber, totalGuests))
                 {
                     _errorHandler.DisplayError("Invalid room number try again...");
+                    continue;
+                }
+                var roomId = _roomRepo.GetAllItems().FirstOrDefault(r => r.RoomNumber == roomNumber).Id;
+                var bookingsEndDate = _bookingRepo.GetAllItems().FirstOrDefault(b => b.RoomId == roomId).EndDate;
+                if (!isRoomAvailable(roomNumber))
+                {
+                    _errorHandler.DisplayError($"Room is not available. " +
+                        $"\nThe room will be available again after {bookingsEndDate}");
                     continue;
                 }
                 while (isDate)
@@ -156,6 +166,15 @@ public class CreateBooking : ICreate
     {
         var appropriateRoom = _roomRepo.GetAllItems().Any(r => r.RoomNumber == roomNum && r.TotalGuests >= totalGuest);
         return appropriateRoom;
+    }
+
+    private bool isRoomAvailable(int roomNum)
+    {
+        DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
+        var roomId = _roomRepo.GetAllItems().FirstOrDefault(r => r.RoomNumber == roomNum).Id;
+        var bookingsEndDate = _bookingRepo.GetAllItems().FirstOrDefault(b=> b.RoomId == roomId).EndDate;
+        var isRoomAvailable = currentDate > bookingsEndDate;
+        return isRoomAvailable;
     }
 
 }
