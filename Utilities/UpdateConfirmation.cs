@@ -2,7 +2,7 @@
 using HavenHotel.Interfaces;
 using HavenHotel.Interfaces.GuestInterfaces;
 
-namespace HavenHotel.Common;
+namespace HavenHotel.Utilities;
 
 public class UpdateConfirmation : IUpdateConfirmation
 {

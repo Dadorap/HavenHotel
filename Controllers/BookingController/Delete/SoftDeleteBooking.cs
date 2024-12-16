@@ -14,6 +14,7 @@ namespace HavenHotel.Controllers.BookingController.Delete
     public class SoftDeleteBooking : ISoftDelete
     {
         private readonly IRepository<Booking> _bookingRepo;
+        private readonly IRepository<Room> _roomRepo;
         private readonly IErrorHandler _errorHandler;
         private readonly IPromptForId _promptForId;
         private readonly IUpdateConfirmation _updateConfirmation;
@@ -25,13 +26,14 @@ namespace HavenHotel.Controllers.BookingController.Delete
             IErrorHandler errorHandler,
             IPromptForId promptForId,
             IUpdateConfirmation updateConfirmation
-            )
+,
+            IRepository<Room> roomRepo)
         {
             _bookingRepo = repository;
             _errorHandler = errorHandler;
             _promptForId = promptForId;
             _updateConfirmation = updateConfirmation;
-
+            _roomRepo = roomRepo;
         }
         public void SoftDelete()
         {
@@ -49,7 +51,10 @@ namespace HavenHotel.Controllers.BookingController.Delete
                             "\nThe invoice must be paid to proceed with this action.");
                         continue;
                     }
-
+                    var roomId = _bookingRepo.GetItemById(id).RoomId;
+                    var room = _roomRepo.GetItemById(roomId);
+                    room.IsAvailable = true;
+                    _roomRepo.Update(room);
                     currentBooking.IsActive = false;
                     _bookingRepo.SaveChanges();
                     _updateConfirmation.Confirmation($"Booking with ID: {currentBooking.Id}. " +

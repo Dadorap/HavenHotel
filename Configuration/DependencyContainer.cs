@@ -37,18 +37,9 @@ public static class DependencyContainer
     {
         var containerBuilder = new ContainerBuilder();
 
-        var configuration = new ConfigurationBuilder()
-            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-            .Build();
-
-        containerBuilder.Register(c =>
-        {
-            var optionsBuilder = new DbContextOptionsBuilder<HotelDbContext>();
-            optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
-            return new HotelDbContext(optionsBuilder.Options);
-        }).As<HotelDbContext>()
-        .InstancePerLifetimeScope();
+        containerBuilder.RegisterType<HotelDbContext>()
+            .As<HotelDbContext>()
+            .InstancePerLifetimeScope();
 
         containerBuilder.RegisterGeneric(typeof(Repository<>))
             .As(typeof(IRepository<>))

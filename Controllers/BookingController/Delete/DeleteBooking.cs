@@ -9,6 +9,7 @@ namespace HavenHotel.Controllers.BookingController.Delete;
 public class DeleteBooking : IDelete
 {
     private readonly IRepository<Booking> _bookingRepo;
+    private readonly IRepository<Room> _roomRepo;
     private readonly IErrorHandler _errorHandler;
     private readonly IPromptForId _promptForId;
     private readonly IUpdateConfirmation _updateConfirmation;
@@ -19,13 +20,15 @@ public class DeleteBooking : IDelete
         IRepository<Booking> repository,
         IErrorHandler errorHandler,
         IPromptForId promptForId,
-        IUpdateConfirmation updateConfirmation
+        IUpdateConfirmation updateConfirmation,
+        IRepository<Room> roomRepo
         )
     {
         _bookingRepo = repository;
         _errorHandler = errorHandler;
         _promptForId = promptForId;
         _updateConfirmation = updateConfirmation;
+        _roomRepo = roomRepo;
 
     }
     public void Delete()
@@ -45,11 +48,15 @@ public class DeleteBooking : IDelete
                         "\nThe invoice must be paid to proceed with this action.");
                     continue;
                 }
-
+                var roomId = _bookingRepo.GetItemById(id).RoomId;
+                var room = _roomRepo.GetItemById(roomId);
+                room.IsAvailable = true;
+                _roomRepo.Update(room);
                 _bookingRepo.RemoveItemById(id);
+
                 _updateConfirmation.Confirmation($"Booking with ID: {currentBooking.Id}. " +
                     $"\nHas been deleted successfully.");
-
+                break;
             }
             catch (Exception)
             {

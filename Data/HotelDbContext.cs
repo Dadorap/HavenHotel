@@ -22,12 +22,12 @@ namespace HavenHotel.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                var configuration = new ConfigurationBuilder()
+                var builder = new ConfigurationBuilder()
                     .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                    .Build();
+                    .AddJsonFile("appsettings.json", true, true);
+                var config = builder.Build();
 
-                var connectionString = configuration.GetConnectionString("DefaultConnection");
+                var connectionString = config.GetConnectionString("DefaultConnection");
 
                 optionsBuilder.UseSqlServer(connectionString);
             }
