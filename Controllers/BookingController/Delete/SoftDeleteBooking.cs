@@ -53,7 +53,7 @@ namespace HavenHotel.Controllers.BookingController.Delete
                     }
                     var roomId = _bookingRepo.GetItemById(id).RoomId;
                     var room = _roomRepo.GetItemById(roomId);
-                    room.IsAvailable = true;
+                    room.IsActive = true;
                     _roomRepo.Update(room);
                     currentBooking.IsActive = false;
                     _bookingRepo.SaveChanges();

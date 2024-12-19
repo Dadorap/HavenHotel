@@ -60,11 +60,13 @@ public class UnDeleteItem : IUnDeleteItem
 
                 Console.SetCursorPosition(0, 0);
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine($"=== REVERSING A DELETION ON: {textDisplay} ===");
+                Console.WriteLine($"== REVERSING A DELETION ON: {textDisplay} ==");
                 _userMessages.ShowCancelMessage();
                 Console.ResetColor();
 
-                Console.Write("Please enter the ID: ");
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.Write("Please enter the ID-number: ");
+
                 string idInput = Console.ReadLine();
                 _navigationHelper.ReturnToMenu(idInput);
 
@@ -81,7 +83,9 @@ public class UnDeleteItem : IUnDeleteItem
                     if (!item.IsActive)
                     {
                         item.IsActive = true;
+
                     }
+
                     else
                     {
                         _errorHandler.DisplayError("ID is already active. Please try again.");
@@ -103,7 +107,7 @@ public class UnDeleteItem : IUnDeleteItem
 
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine($"Successfully soft-deleted the {textDisplay} with ID {id}.");
+                    Console.WriteLine($"Successfully undeleted the {textDisplay} with ID: {id}.");
                     Console.ResetColor();
                     Console.Write("Press any key to return to the menu...");
                     Console.ReadKey();
@@ -117,7 +121,7 @@ public class UnDeleteItem : IUnDeleteItem
             }
             catch (Exception ex)
             {
-                _errorHandler.DisplayError($"Invalid input try again...");
+                _errorHandler.DisplayError($"Error: {ex.Message}");
             }
         }
     }

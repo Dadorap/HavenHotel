@@ -65,7 +65,7 @@ namespace HavenHotel.Data.SeedingData
                         RoomType = RoomType.SINGLE,
                         ExtraBed = 0, Size = 15,
                         TotalGuests = 1,
-                        IsAvailable = true
+                        IsActive = true
                     },
                     new Room
                     {
@@ -74,7 +74,7 @@ namespace HavenHotel.Data.SeedingData
                         RoomType = RoomType.SINGLE,
                         ExtraBed = 0, Size = 15,
                         TotalGuests = 1,
-                        IsAvailable = true
+                        IsActive = true
                     },
                     new Room
                     {
@@ -83,7 +83,7 @@ namespace HavenHotel.Data.SeedingData
                         RoomType = RoomType.DOUBLE,
                         ExtraBed = 1, Size = 25,
                         TotalGuests = 2,
-                        IsAvailable = true
+                        IsActive = true
                     },
                     new Room
                     {
@@ -92,7 +92,7 @@ namespace HavenHotel.Data.SeedingData
                         RoomType = RoomType.SUITE,
                         ExtraBed = 2, Size = 40,
                         TotalGuests = 4,
-                        IsAvailable = true
+                        IsActive = true
                     },
                     new Room
                     {
@@ -101,7 +101,7 @@ namespace HavenHotel.Data.SeedingData
                         RoomType = RoomType.FAMILY,
                         ExtraBed = 2, Size = 50,
                         TotalGuests = 6,
-                        IsAvailable = true,
+                        IsActive = true,
                     }
                 };
 

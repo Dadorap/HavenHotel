@@ -29,7 +29,7 @@ public class RoomAvailability
         booking.ForEach(b =>
         {
             var room = _roomRepo.GetItemById(b.RoomId);
-            room.IsAvailable = true;
+            room.IsActive = true;
             _roomRepo.SaveChanges();
         });
 

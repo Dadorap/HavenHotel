@@ -6,7 +6,7 @@ namespace HavenHotel.Interfaces.RoomsInterfaces
     {
         int ExtraBed { get; set; }
         int Id { get; set; }
-        bool IsAvailable { get; set; }
+        bool IsActive { get; set; }
         decimal Price { get; set; }
         RoomType RoomType { get; set; }
         int Size { get; set; }

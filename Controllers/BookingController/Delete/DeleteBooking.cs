@@ -50,7 +50,7 @@ public class DeleteBooking : IDelete
                 }
                 var roomId = _bookingRepo.GetItemById(id).RoomId;
                 var room = _roomRepo.GetItemById(roomId);
-                room.IsAvailable = true;
+                room.IsActive = true;
                 _roomRepo.Update(room);
                 _bookingRepo.RemoveItemById(id);
 

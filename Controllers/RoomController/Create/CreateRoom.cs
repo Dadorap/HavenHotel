@@ -179,7 +179,7 @@ namespace HavenHotel.Controllers.RoomController.Create
                         Size = size,
                         ExtraBed = extraBeds,
                         TotalGuests = totalGuests,
-                        IsAvailable = true
+                        IsActive = true
                     };
 
                     _roomRepo.Add(room);

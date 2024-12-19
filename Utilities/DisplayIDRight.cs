@@ -22,6 +22,7 @@ public class DisplayIDRight : IDisplayRight
 
     public void DisplayRightAligned(string text, string isActive)
     {
+        Console.Clear();
         var count = 0;
         short XOffset = 40;
         Console.SetCursorPosition(XOffset, 0);
@@ -51,7 +52,6 @@ public class DisplayIDRight : IDisplayRight
                 count++;
             }
         }
-
         Console.ResetColor();
     }
 

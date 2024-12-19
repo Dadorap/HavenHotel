@@ -129,7 +129,7 @@ public class CreateBooking : ICreate
                     };
                     rooms.ForEach(r =>
                     {
-                        r.IsAvailable = false;
+                        r.IsActive = false;
                         _roomRepo.Update(r);
                     });
                     _bookingRepo.Add(booking);

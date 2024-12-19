@@ -16,7 +16,7 @@ namespace HavenHotel.Controllers.BookingController.Delete
         }
         public void UndoDete()
         {
-            _unDeleteItem.UnDelete("booking");
+            _unDeleteItem.UnDelete("BOOKING");
         }
     }
 }

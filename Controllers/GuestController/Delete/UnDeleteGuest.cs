@@ -11,6 +11,6 @@ public class UnDeleteGuest : IUnDelete
     }
     public void UndoDete()
     {
-        _unDeleteItem.UnDelete("guest");
+        _unDeleteItem.UnDelete("GUEST");
     }
 }
