@@ -26,8 +26,6 @@ using HavenHotel.Utilities;
 using HavenHotel.Utilities.BookingsMenus;
 using HavenHotel.Utilities.GuestsMenus;
 using HavenHotel.Utilities.RoomsMenus;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace HavenHotel.Configuration;
 
@@ -221,7 +219,7 @@ public static class DependencyContainer
             .WithAttributeFiltering();
         containerBuilder.RegisterType<PaymentDetailUpdate>()
             .As<IPaymentDetailUpdate>()
-            .WithAttributeFiltering();        
+            .WithAttributeFiltering();
         containerBuilder.RegisterType<InvoiceUpdate>()
             .As<IInvoiceUpdate>()
             .WithAttributeFiltering();
@@ -251,10 +249,10 @@ public static class DependencyContainer
         .WithAttributeFiltering();
         containerBuilder.RegisterType<TotalGuestsUpdate>()
         .Named<IUpdateRoom>("TotalGuestsUpdate")
-        .WithAttributeFiltering();        
+        .WithAttributeFiltering();
         containerBuilder.RegisterType<PriceUpdate>()
         .Named<IUpdateRoom>("PriceUpdate")
-        .WithAttributeFiltering();       
+        .WithAttributeFiltering();
         containerBuilder.RegisterType<RoomTypeUpdate>()
         .Named<IUpdateRoom>("RoomTypeUpdate")
         .WithAttributeFiltering();
@@ -293,7 +291,7 @@ public static class DependencyContainer
 
 
         containerBuilder.RegisterType<RoomAvailability>()
-            .AsSelf();        
+            .AsSelf();
         containerBuilder.RegisterType<RoomMenu>()
             .AsSelf();
         containerBuilder.RegisterType<BookingMenu>()

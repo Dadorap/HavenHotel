@@ -15,11 +15,11 @@ public static class App
 
         using (var scope = container.BeginLifetimeScope())
         {
-            var menu = scope.ResolveNamed<IMenu>("MainMenu");
-            var roomAvailability = scope.Resolve<RoomAvailability>();
             var dbContext = scope.Resolve<HotelDbContext>();
             dbContext.MigrateDatabase();
             Seed.Seedings();
+            var menu = scope.ResolveNamed<IMenu>("MainMenu");
+            var roomAvailability = scope.Resolve<RoomAvailability>();
             roomAvailability.CheckAvailability();
             menu.DisplayMenu();
         }
