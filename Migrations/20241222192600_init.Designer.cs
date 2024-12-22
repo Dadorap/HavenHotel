@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HavenHotel.Migrations
 {
     [DbContext(typeof(HotelDbContext))]
-    [Migration("20241219141102_init")]
+    [Migration("20241222192600_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -102,7 +102,7 @@ namespace HavenHotel.Migrations
                     b.Property<int>("ExtraBed")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsAvailable")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<decimal>("Price")
