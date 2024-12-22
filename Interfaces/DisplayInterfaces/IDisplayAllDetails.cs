@@ -1,7 +1,6 @@
-﻿namespace HavenHotel.Interfaces.DisplayInterfaces
+﻿namespace HavenHotel.Interfaces.DisplayInterfaces;
+
+public interface IDisplayAllDetails
 {
-    public interface IDisplayAllDetails
-    {
-        void DisplayAll(string displayText, string isActive = null, string id = null);
-    }
+    void DisplayAll(string displayText, string isActive = null, string id = null);
 }

@@ -1,7 +1,6 @@
-﻿namespace HavenHotel.Interfaces
+﻿namespace HavenHotel.Interfaces;
+
+public interface IEmailValidator
 {
-    public interface IEmailValidator
-    {
-        bool IsValidEmail(string email);
-    }
+    bool IsValidEmail(string email);
 }

@@ -1,10 +1,8 @@
 ﻿using HavenHotel.Data.Repositories;
-using HavenHotel.Interfaces.GuestInterfaces;
 using HavenHotel.Interfaces;
+using HavenHotel.Interfaces.GuestInterfaces;
 using HavenHotel.Interfaces.RoomsInterfaces;
 using HavenHotel.Models;
-using Microsoft.EntityFrameworkCore;
-using HavenHotel.Data;
 using HavenHotel.Utilities;
 
 namespace HavenHotel.Services.Rooms.RoomServices.Update;

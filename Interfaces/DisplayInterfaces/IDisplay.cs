@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace HavenHotel.Interfaces.DisplayInterfaces;
 
-namespace HavenHotel.Interfaces.DisplayInterfaces
+public interface IDisplay
 {
-    public interface IDisplay
-    {
-        void DisplayById();
+    void DisplayById();
 
-    }
 }

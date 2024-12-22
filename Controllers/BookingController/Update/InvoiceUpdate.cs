@@ -1,7 +1,7 @@
 ﻿using Autofac.Features.AttributeFilters;
 using HavenHotel.Data.Repositories;
-using HavenHotel.Interfaces.BookingInterfaces;
 using HavenHotel.Interfaces;
+using HavenHotel.Interfaces.BookingInterfaces;
 using HavenHotel.Models;
 
 namespace HavenHotel.Controllers.BookingController.Update;

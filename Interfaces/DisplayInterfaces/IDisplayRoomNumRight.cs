@@ -1,7 +1,6 @@
-﻿namespace HavenHotel.Interfaces.DisplayInterfaces
+﻿namespace HavenHotel.Interfaces.DisplayInterfaces;
+
+public interface IDisplayRoomNumRight
 {
-    public interface IDisplayRoomNumRight
-    {
-        void DisplayRightAligned();
-    }
+    void DisplayRightAligned();
 }

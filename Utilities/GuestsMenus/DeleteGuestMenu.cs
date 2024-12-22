@@ -1,11 +1,10 @@
 ﻿using Autofac.Features.AttributeFilters;
 using HavenHotel.Interfaces;
 using HavenHotel.Interfaces.DeleteInterfaces;
-using HavenHotel.Interfaces.DisplayInterfaces;
 
-namespace HavenHotel.Utilities.BookingsMenus;
+namespace HavenHotel.Utilities.GuestsMenus;
 
-public class DeletedBookingMenu : IMenu
+public class DeleteGuestMenu : IMenu
 {
     private readonly ISharedMenu _menu;
     private readonly Lazy<IMenu> _mainMenu;
@@ -13,13 +12,13 @@ public class DeletedBookingMenu : IMenu
     private readonly ISoftDelete _softDelete;
     private readonly IUnDelete _unDelete;
 
-    public DeletedBookingMenu
+    public DeleteGuestMenu
     (
         ISharedMenu menu,
        [KeyFilter("MainMenu")] Lazy<IMenu> mainMenu,
-       [KeyFilter("DeleteBooking")] IDelete delete,
-       [KeyFilter("SoftDeleteBooking")] ISoftDelete softDelete,
-       [KeyFilter("UnDeleteBooking")] IUnDelete unDelete
+       [KeyFilter("DeleteGuest")] IDelete delete,
+       [KeyFilter("SoftDeleteGuest")] ISoftDelete softDelete,
+       [KeyFilter("UnDeleteGuest")] IUnDelete unDelete
 
     )
     {
@@ -32,17 +31,21 @@ public class DeletedBookingMenu : IMenu
 
     public void DisplayMenu()
     {
-        var deletedBookingMenu = new List<string>
+        var deletedGuestMenu = new List<string>
         {
-            "Soft Delete Booking",
-            "Delete Booking",
-            "Undelete Booking",
+            "Soft Delete Guest",
+            "Delete Guest",
+            "Undelete Guest",
             "Return to Main Menu"
         };
-        string header = "Deleted Bookings Menu";
 
-        _menu.DisplayMenu(header, deletedBookingMenu, _softDelete.SoftDelete, _delete.Delete, _unDelete.UndoDete, _mainMenu.Value.DisplayMenu);
-
-
+        _menu.DisplayMenu(
+            "Deleted Guests Menu",
+            deletedGuestMenu,
+            _softDelete.SoftDelete,
+            _delete.Delete,
+            _unDelete.UndoDete,
+            _mainMenu.Value.DisplayMenu
+        );
     }
 }

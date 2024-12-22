@@ -1,7 +1,6 @@
-﻿namespace HavenHotel.Interfaces.BookingInterfaces
+﻿namespace HavenHotel.Interfaces.BookingInterfaces;
+
+public interface IDateRangeUpdate
 {
-    public interface IDateRangeUpdate
-    {
-        void UpdateDate();
-    }
+    void UpdateDate();
 }

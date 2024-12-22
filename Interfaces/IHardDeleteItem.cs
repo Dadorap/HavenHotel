@@ -1,7 +1,6 @@
-﻿namespace HavenHotel.Interfaces
+﻿namespace HavenHotel.Interfaces;
+
+public interface IHardDeleteItem
 {
-    public interface IHardDeleteItem
-    {
-        void HardDelete(string text);
-    }
+    void HardDelete(string text);
 }

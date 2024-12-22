@@ -1,7 +1,6 @@
-﻿namespace HavenHotel.Interfaces.BookingInterfaces
+﻿namespace HavenHotel.Interfaces.BookingInterfaces;
+
+public interface IInvoiceUpdate
 {
-    public interface IInvoiceUpdate
-    {
-        void InvoiceUpdater();
-    }
+    void InvoiceUpdater();
 }

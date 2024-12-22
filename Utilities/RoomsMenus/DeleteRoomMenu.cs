@@ -2,9 +2,9 @@
 using HavenHotel.Interfaces;
 using HavenHotel.Interfaces.DeleteInterfaces;
 
-namespace HavenHotel.Utilities.GuestsMenus;
+namespace HavenHotel.Utilities.RoomsMenus;
 
-public class DeletedGuestMenu : IMenu
+public class DeleteRoomMenu : IMenu
 {
     private readonly ISharedMenu _menu;
     private readonly Lazy<IMenu> _mainMenu;
@@ -12,14 +12,13 @@ public class DeletedGuestMenu : IMenu
     private readonly ISoftDelete _softDelete;
     private readonly IUnDelete _unDelete;
 
-    public DeletedGuestMenu
+    public DeleteRoomMenu
     (
         ISharedMenu menu,
-       [KeyFilter("MainMenu")] Lazy<IMenu> mainMenu,
-       [KeyFilter("DeleteGuest")] IDelete delete,
-       [KeyFilter("SoftDeleteGuest")] ISoftDelete softDelete,
-       [KeyFilter("UnDeleteGuest")] IUnDelete unDelete
-
+        [KeyFilter("MainMenu")] Lazy<IMenu> mainMenu,
+        [KeyFilter("DeleteRoom")] IDelete delete,
+        [KeyFilter("SoftDeleteRoom")] ISoftDelete softDelete,
+        [KeyFilter("UnDeleteRoom")] IUnDelete unDelete
     )
     {
         _menu = menu;
@@ -31,21 +30,22 @@ public class DeletedGuestMenu : IMenu
 
     public void DisplayMenu()
     {
-        var deletedGuestMenu = new List<string>
+        var deletedRoomMenu = new List<string>
         {
-            "Soft Delete Guest",
-            "Delete Guest",
-            "Undelete Guest",
+            "Soft Delete Room",
+            "Delete Room",
+            "Undelete Room",
             "Return to Main Menu"
         };
 
         _menu.DisplayMenu(
-            "Deleted Guests Menu",
-            deletedGuestMenu,
+            "Deleted Rooms Menu",
+            deletedRoomMenu,
             _softDelete.SoftDelete,
             _delete.Delete,
             _unDelete.UndoDete,
             _mainMenu.Value.DisplayMenu
         );
     }
+
 }

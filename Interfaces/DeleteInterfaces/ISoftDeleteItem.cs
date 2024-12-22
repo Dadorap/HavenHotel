@@ -1,7 +1,6 @@
-﻿namespace HavenHotel.Interfaces.DeleteInterfaces
+﻿namespace HavenHotel.Interfaces.DeleteInterfaces;
+
+public interface ISoftDeleteItem
 {
-    public interface ISoftDeleteItem
-    {
-        void SoftDelete(string text);
-    }
+    void SoftDelete(string text);
 }

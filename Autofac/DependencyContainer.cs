@@ -27,7 +27,7 @@ using HavenHotel.Utilities.BookingsMenus;
 using HavenHotel.Utilities.GuestsMenus;
 using HavenHotel.Utilities.RoomsMenus;
 
-namespace HavenHotel.Configuration;
+namespace HavenHotel.Autofac;
 
 public static class DependencyContainer
 {
@@ -57,7 +57,7 @@ public static class DependencyContainer
             .WithAttributeFiltering();
 
         //Sup booking menu
-        containerBuilder.RegisterType<DeletedBookingMenu>()
+        containerBuilder.RegisterType<DeleteBookingMenu>()
             .Named<IMenu>("DeletedBookingMenu")
             .WithAttributeFiltering();
         containerBuilder.RegisterType<DisplayBookingMenu>()
@@ -68,7 +68,7 @@ public static class DependencyContainer
             .WithAttributeFiltering();
 
         //Sup guest menu
-        containerBuilder.RegisterType<DeletedGuestMenu>()
+        containerBuilder.RegisterType<DeleteGuestMenu>()
             .Named<IMenu>("DeletedGuestMenu")
             .WithAttributeFiltering();
         containerBuilder.RegisterType<DisplayGuestMenu>()
@@ -79,7 +79,7 @@ public static class DependencyContainer
             .WithAttributeFiltering();
 
         //Sup room menu
-        containerBuilder.RegisterType<DeletedRoomMenu>()
+        containerBuilder.RegisterType<DeleteRoomMenu>()
             .Named<IMenu>("DeletedRoomMenu")
             .WithAttributeFiltering();
         containerBuilder.RegisterType<DisplayRoomMenu>()

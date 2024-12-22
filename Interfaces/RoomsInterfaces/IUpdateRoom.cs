@@ -1,7 +1,6 @@
-﻿namespace HavenHotel.Interfaces.RoomsInterfaces
+﻿namespace HavenHotel.Interfaces.RoomsInterfaces;
+
+public interface IUpdateRoom
 {
-    public interface IUpdateRoom
-    {
-        void UpdateRoom();
-    }
+    void UpdateRoom();
 }

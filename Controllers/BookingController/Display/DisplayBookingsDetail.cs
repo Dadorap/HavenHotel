@@ -2,8 +2,6 @@
 using HavenHotel.Interfaces.DisplayInterfaces;
 using HavenHotel.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
 
 namespace HavenHotel.Controllers.BookingController.Display
 {

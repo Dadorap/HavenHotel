@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace HavenHotel.Interfaces;
 
-namespace HavenHotel.Interfaces
+public interface IMenu
 {
-    public interface IMenu
-    {
-        void DisplayMenu();
-    }
+    void DisplayMenu();
 }

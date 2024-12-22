@@ -1,7 +1,6 @@
-﻿namespace HavenHotel.Interfaces.GuestInterfaces
+﻿namespace HavenHotel.Interfaces.GuestInterfaces;
+
+public interface IPhoneNumberUpdate
 {
-    public interface IPhoneNumberUpdate
-    {
-        void PhoneNumberUpdater();
-    }
+    void PhoneNumberUpdater();
 }

@@ -1,5 +1,4 @@
 ﻿using HavenHotel.Interfaces;
-using System.Net.Mail;
 using System.Text.RegularExpressions;
 
 namespace HavenHotel.Utilities;

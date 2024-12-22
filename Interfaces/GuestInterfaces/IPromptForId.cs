@@ -1,7 +1,6 @@
-﻿namespace HavenHotel.Interfaces.GuestInterfaces
+﻿namespace HavenHotel.Interfaces.GuestInterfaces;
+
+public interface IPromptForId
 {
-    public interface IPromptForId
-    {
-        int GetValidId(string headerText, string identifier);
-    }
+    int GetValidId(string headerText, string identifier);
 }

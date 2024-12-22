@@ -1,7 +1,6 @@
 ﻿using Autofac.Features.AttributeFilters;
 using HavenHotel.Interfaces;
 using HavenHotel.Interfaces.BookingInterfaces;
-using HavenHotel.Models;
 
 namespace HavenHotel.Utilities.BookingsMenus;
 

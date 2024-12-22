@@ -1,12 +1,4 @@
-﻿using HavenHotel.Data;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HavenHotel.Data.Repositories;
+﻿namespace HavenHotel.Data.Repositories;
 
 public class Repository<T> : IRepository<T> where T : class
 {

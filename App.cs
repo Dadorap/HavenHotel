@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using HavenHotel.Configuration;
+using HavenHotel.Autofac;
 using HavenHotel.Data;
 using HavenHotel.Data.SeedingData;
 using HavenHotel.Interfaces;

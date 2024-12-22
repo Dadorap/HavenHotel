@@ -1,7 +1,6 @@
-﻿namespace HavenHotel.Interfaces.BookingInterfaces
+﻿namespace HavenHotel.Interfaces.BookingInterfaces;
+
+public interface IBookingSidebarDisplay
 {
-    public interface IBookingSidebarDisplay
-    {
-        void DisplayRightAligned(string text);
-    }
+    void DisplayRightAligned(string text);
 }

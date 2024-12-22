@@ -1,7 +1,6 @@
-﻿namespace HavenHotel.Interfaces.GuestInterfaces
+﻿namespace HavenHotel.Interfaces.GuestInterfaces;
+
+public interface IUpdateConfirmation
 {
-    public interface IUpdateConfirmation
-    {
-        void Confirmation(string input);
-    }
+    void Confirmation(string input);
 }

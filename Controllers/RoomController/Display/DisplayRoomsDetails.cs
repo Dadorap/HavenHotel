@@ -1,6 +1,5 @@
 ﻿using HavenHotel.Data.Repositories;
 using HavenHotel.Interfaces.DisplayInterfaces;
-using HavenHotel.Interfaces.RoomsInterfaces;
 using HavenHotel.Models;
 
 namespace HavenHotel.Controllers.RoomController.Display;

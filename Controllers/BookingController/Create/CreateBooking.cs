@@ -73,7 +73,7 @@ public class CreateBooking : ICreate
                 string roomNum = Console.ReadLine();
                 _navigationHelper.Value.ReturnToMenu(roomNum);
 
-                
+
                 if (!int.TryParse(roomNum, out int roomNumber) || !IsAppropriateRoom(roomNumber, totalGuests))
                 {
                     _errorHandler.DisplayError("Invalid room number try again...");
@@ -172,7 +172,7 @@ public class CreateBooking : ICreate
     {
         DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
         var roomId = _roomRepo.GetAllItems().FirstOrDefault(r => r.RoomNumber == roomNum).Id;
-        var bookingsEndDate = _bookingRepo.GetAllItems().FirstOrDefault(b=> b.RoomId == roomId).EndDate;
+        var bookingsEndDate = _bookingRepo.GetAllItems().FirstOrDefault(b => b.RoomId == roomId).EndDate;
         var isRoomAvailable = currentDate > bookingsEndDate;
         return isRoomAvailable;
     }

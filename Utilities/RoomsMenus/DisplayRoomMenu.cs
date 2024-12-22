@@ -2,7 +2,7 @@
 using HavenHotel.Interfaces;
 using HavenHotel.Interfaces.DisplayInterfaces;
 
-namespace HavenHotel.Controllers.RoomController.Display;
+namespace HavenHotel.Utilities.RoomsMenus;
 
 public class DisplayRoomMenu : IMenu
 {

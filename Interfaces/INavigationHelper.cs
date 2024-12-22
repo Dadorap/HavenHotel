@@ -1,7 +1,6 @@
-﻿namespace HavenHotel.Interfaces
+﻿namespace HavenHotel.Interfaces;
+
+public interface INavigationHelper
 {
-    public interface INavigationHelper
-    {
-        void ReturnToMenu(string input);
-    }
+    void ReturnToMenu(string input);
 }

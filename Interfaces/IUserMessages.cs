@@ -1,8 +1,7 @@
-﻿namespace HavenHotel.Interfaces
-{
-    public interface IUserMessages
-    {
-         void ShowCancelMessage();
+﻿namespace HavenHotel.Interfaces;
 
-    }
+public interface IUserMessages
+{
+     void ShowCancelMessage();
+
 }

@@ -1,7 +1,6 @@
-﻿namespace HavenHotel.Interfaces
+﻿namespace HavenHotel.Interfaces;
+
+public interface IExit
 {
-    public interface IExit
-    {
-        void ExitConsole();
-    }
+    void ExitConsole();
 }

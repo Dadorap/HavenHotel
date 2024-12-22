@@ -1,5 +1,4 @@
-﻿using Autofac.Features.AttributeFilters;
-using HavenHotel.Data.Repositories;
+﻿using HavenHotel.Data.Repositories;
 using HavenHotel.Interfaces;
 using HavenHotel.Interfaces.DeleteInterfaces;
 using HavenHotel.Interfaces.DisplayInterfaces;

@@ -1,7 +1,6 @@
-﻿namespace HavenHotel.Interfaces.GuestInterfaces
+﻿namespace HavenHotel.Interfaces.GuestInterfaces;
+
+public interface INameUpdate
 {
-    public interface INameUpdate
-    {
-        void NameUpdater();
-    }
+    void NameUpdater();
 }
