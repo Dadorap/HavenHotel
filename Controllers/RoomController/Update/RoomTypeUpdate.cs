@@ -51,7 +51,8 @@ public class RoomTypeUpdate : IUpdateRoom
                 string roomTypeInput = Console.ReadLine().Trim();
                 _navigationHelper.Value.ReturnToMenu(roomTypeInput);
                 if (!Enum.TryParse(roomTypeInput, true, out RoomType roomType)
-                    || !Enum.IsDefined(typeof(RoomType), roomType))
+                    || !Enum.IsDefined(typeof(RoomType), roomType)
+                    || roomTypeInput.Any(char.IsDigit))
                 {
                     _errorHandler.DisplayError($"The input '{roomTypeInput}' is not a valid. " +
                         $"\nPlease try again with a correct room type."); 

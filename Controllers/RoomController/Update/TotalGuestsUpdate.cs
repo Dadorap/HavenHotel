@@ -67,12 +67,12 @@ public class TotalGuestsUpdate : IUpdateRoom
 
 
 
-                //currentRoom.TotalGuests = size;
-                //_roomRepo.Update(currentRoom);
-                //_roomRepo.SaveChanges();
+                currentRoom.TotalGuests = totalGuests;
+                _roomRepo.Update(currentRoom);
+                _roomRepo.SaveChanges();
 
-                //_updateConfirmation.Confirmation($"The new total guests ({size}), " +
-                //                    $"\nhas been successfully set.");
+                _updateConfirmation.Confirmation($"The new total guests ({totalGuests}), " +
+                                    $"\nhas been successfully set.");
 
             }
             catch (FormatException ex)

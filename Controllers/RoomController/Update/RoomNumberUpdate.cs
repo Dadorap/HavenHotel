@@ -55,8 +55,13 @@ public class RoomNumberUpdate : IUpdateRoom
                 _errorHandler.DisplayError("Invalid room number input. Try again...");
                 continue;
             }
+            if (newRoomNum < 100 || newRoomNum > 500)
+            {
+               _errorHandler.DisplayError("Room number must be between 100 and 500. Try again...");
+               continue;
+            }
 
-            if (_roomRepo.GetAllItems().Any(r => r.RoomNumber == newRoomNum))
+                if (_roomRepo.GetAllItems().Any(r => r.RoomNumber == newRoomNum))
             {
                 _errorHandler.DisplayError("Room number already exists. Try again...");
                 continue;
