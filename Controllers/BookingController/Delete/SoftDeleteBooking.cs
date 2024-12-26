@@ -1,5 +1,6 @@
 ﻿using HavenHotel.Data.Repositories;
 using HavenHotel.Interfaces;
+using HavenHotel.Interfaces.BookingInterfaces;
 using HavenHotel.Interfaces.DeleteInterfaces;
 using HavenHotel.Interfaces.GuestInterfaces;
 using HavenHotel.Models;
@@ -39,8 +40,8 @@ public class SoftDeleteBooking : ISoftDelete
                 var id = _promptForId.GetValidId("soft delete", "booking");
                 var currentBooking = _bookingRepo.GetItemById(id);
                 if (currentBooking == null) continue;
-                var isPaid = currentBooking.IsPaid;
-                if (!isPaid)
+                
+                if (currentBooking != null && !currentBooking.IsPaid)
                 {
                     _errorHandler.DisplayError("Invoice not paid." +
                         "\nThe invoice must be paid to proceed with this action.");

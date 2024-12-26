@@ -119,9 +119,9 @@ public class UnDeleteItem : IUnDeleteItem
                     _errorHandler.DisplayError("Invalid ID. Please try again.");
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                _errorHandler.DisplayError($"Error: {ex.Message}");
+                _errorHandler.DisplayError("Invalid ID. Please try again.");
             }
         }
     }

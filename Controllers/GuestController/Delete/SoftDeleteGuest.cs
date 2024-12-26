@@ -38,26 +38,30 @@ public class SoftDeleteGuest : ISoftDelete
             {
                 var id = _promptForId.GetValidId("soft delete", "guest");
                 var currentGuest = _guestRepo.GetItemById(id);
-                if (currentGuest == null) continue;
 
-                var isPaid = _boogkingRepo.GetAllItems().First(b => b.GuestId == id).IsPaid;
-                if (!isPaid)
+                if (currentGuest == null)
                 {
-                    _errorHandler.DisplayError("The guest has  unpaid invoice." +
-                        "\nThe invoice must be paid to proceed with this action.");
+                    _errorHandler.DisplayError($"No guest found with ID: {id}.");
+                    continue;
+                }
+
+                var booking = _boogkingRepo.GetAllItems().FirstOrDefault(b => b.GuestId == id);
+                if (booking != null && !booking.IsPaid)
+                {
+                    _errorHandler.DisplayError("The guest has an unpaid invoice. Please resolve this issue to proceed.");
                     continue;
                 }
 
                 currentGuest.IsActive = false;
                 _guestRepo.SaveChanges();
-                _updateConfirmation.Confirmation($"Guest with ID: {currentGuest.Id}. " +
-                    $"\nHas been deleted successfully.");
-
+                _updateConfirmation.Confirmation($"Guest with ID: {currentGuest.Id} has been soft-deleted successfully.");
+                break;
             }
             catch (Exception)
             {
-                _errorHandler.DisplayError("Invalid input. Try again.");
+                _errorHandler.DisplayError("An error occurred. Please try again.");
             }
         }
     }
+
 }

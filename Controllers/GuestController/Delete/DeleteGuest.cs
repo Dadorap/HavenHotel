@@ -39,8 +39,8 @@ public class DeleteGuest : IDelete
                 var currentGuest = _guestRepo.GetItemById(id);
                 if (currentGuest == null) continue;
 
-                var isPaid = _boogkingRepo.GetAllItems().First(b => b.GuestId == id).IsPaid;
-                if (!isPaid)
+                var booking = _boogkingRepo.GetAllItems().First(b => b.GuestId == id);
+                if (booking != null && !booking.IsPaid)
                 {
                     _errorHandler.DisplayError("The guest has  unpaid invoice." +
                         "\nThe invoice must be paid to proceed with this action.");
