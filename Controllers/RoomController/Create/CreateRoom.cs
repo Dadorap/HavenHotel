@@ -54,7 +54,8 @@ public class CreateRoom : ICreate
                 string roomTypeInput = Console.ReadLine().Trim();
                 _navigationHelper.Value.ReturnToMenu(roomTypeInput);
                 if (!Enum.TryParse(roomTypeInput, true, out RoomType roomType)
-                    || !Enum.IsDefined(typeof(RoomType), roomType))
+                    || !Enum.IsDefined(typeof(RoomType), roomType)
+                    || roomTypeInput.Any(char.IsDigit))
                 {
                     _errorHandler.DisplayError("Invalid input. Please enter a valid room type.");
                     continue;
