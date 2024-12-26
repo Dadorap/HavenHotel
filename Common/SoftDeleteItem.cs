@@ -63,7 +63,7 @@ public class SoftDeleteItem : ISoftDeleteItem
                 _userMessages.ShowCancelMessage();
                 Console.ResetColor();
 
-                Console.Write("Please enter the ID: ");
+                Console.Write("Please enter the ID to 'SoftDelete': ");
                 string idInput = Console.ReadLine();
                 _navigationHelper.ReturnToMenu(idInput);
 

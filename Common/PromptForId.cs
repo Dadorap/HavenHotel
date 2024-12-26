@@ -51,7 +51,7 @@ public class PromptForId : IPromptForId
             try
             {
                 Console.Clear();
-                var headerT = $"===== {headerText} Update Handler =====".ToUpper();
+                var headerT = $"===== {headerText} Handler =====".ToUpper();
                 _displayRight.DisplayRightAligned(identifier, "all");
                 Console.SetCursorPosition(0, 0);
                 Console.ForegroundColor = ConsoleColor.Green;

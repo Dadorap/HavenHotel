@@ -57,34 +57,36 @@ public class HardDeleteItem : IHardDeleteItem
                 string idInput = Console.ReadLine();
                 _navigationHelper.ReturnToMenu(idInput);
 
-                if (int.TryParse(idInput, out int id))
+                if (!int.TryParse(idInput, out int id))
                 {
-
-                    switch (textDisplay)
-                    {
-                        case "BOOKING":
-                            _bookingRepo.RemoveItemById(id);
-                            break;
-                        case "ROOM":
-                            _roomsRepo.RemoveItemById(id);
-                            break;
-                        case "GUEST":
-                            _guestsRepo.RemoveItemById(id);
-                            break;
-                    }
-                    Console.Clear();
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.WriteLine($"Successfully soft-deleted the {textDisplay} with ID {id}.");
-                    Console.ResetColor();
-                    Console.Write("Press any key to return to the menu...");
-                    Console.ReadKey();
-                    return;
-                }
-                else
-                {
-
                     _errorHandler.DisplayError("Invalid ID. Please try again.");
+                    continue;
                 }
+
+
+                switch (textDisplay)
+                {
+                    case "BOOKING":
+                        _bookingRepo.RemoveItemById(id);
+                        break;
+                    case "ROOM":
+                        _roomsRepo.RemoveItemById(id);
+                        break;
+                    case "GUEST":
+                        _guestsRepo.RemoveItemById(id);
+                        break;
+                }
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine($"Successfully soft-deleted the {textDisplay} with ID {id}.");
+                Console.ResetColor();
+                Console.Write("Press any key to return to the menu...");
+                Console.ReadKey();
+                return;
+
+
+
+
             }
             catch (Exception ex)
             {
