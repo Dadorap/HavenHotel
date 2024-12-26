@@ -10,7 +10,6 @@ public class UpdateBookingMenu : IMenu
     private readonly Lazy<IMenu> _mainMenu;
     private readonly IDateRangeUpdate _dateRange;
     private readonly IGuestAssignmentUpdate _guestAssignmentUpdate;
-    private readonly IInvoiceUpdate _invoiceUpdate;
     private readonly IPaymentDetailUpdate _paymentDetailUpdate;
 
 
@@ -21,7 +20,6 @@ public class UpdateBookingMenu : IMenu
        [KeyFilter("MainMenu")] Lazy<IMenu> mainMenu,
        IDateRangeUpdate dateRange,
        IGuestAssignmentUpdate guestAssignmentHandler,
-       IInvoiceUpdate invoiceUpdate,
        IPaymentDetailUpdate paymentDetailUpdate
 
     )
@@ -31,7 +29,6 @@ public class UpdateBookingMenu : IMenu
         _mainMenu = mainMenu;
         _dateRange = dateRange;
         _guestAssignmentUpdate = guestAssignmentHandler;
-        _invoiceUpdate = invoiceUpdate;
         _paymentDetailUpdate = paymentDetailUpdate;
 
     }
@@ -40,7 +37,6 @@ public class UpdateBookingMenu : IMenu
     {
         var updateMenu = new List<string>
         {
-            "Update Invoice",
             "Update Booking Dates",
             "Reassign to New Guest",
             "Recalculate Total Price",
@@ -51,7 +47,6 @@ public class UpdateBookingMenu : IMenu
         _menu.DisplayMenu(
             "Booking View Menu",
             updateMenu,
-            _invoiceUpdate.InvoiceUpdater,
             _dateRange.UpdateDate,
             _guestAssignmentUpdate.UpdateGuestAssignment,
             _paymentDetailUpdate.PaymentDetailUpdater,
