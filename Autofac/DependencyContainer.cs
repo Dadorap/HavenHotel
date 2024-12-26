@@ -279,9 +279,6 @@ public static class DependencyContainer
             .As<ISoftDeleteItem>();
         containerBuilder.RegisterType<UnDeleteItem>()
             .As<IUnDeleteItem>();
-        containerBuilder.RegisterType<HardDeleteItem>()
-            .As<IHardDeleteItem>()
-            .WithAttributeFiltering();
         containerBuilder.RegisterType<DateValidator>()
             .As<IDateValidator>();
         containerBuilder.RegisterType<EmailValidator>()
