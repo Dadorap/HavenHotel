@@ -38,7 +38,6 @@ public class DeleteRoom : IDelete
                 var id = _promptForId.GetValidId("hard delete", "room");
                 var currentGuest = _roomRepo.GetItemById(id);
                 if (currentGuest == null) continue;
-                //var isIdFound =
                 _roomRepo.RemoveItemById(id);
 
                 _updateConfirmation.Confirmation($"Room with ID: {currentGuest.Id}. " +
