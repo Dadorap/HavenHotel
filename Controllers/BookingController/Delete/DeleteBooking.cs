@@ -42,15 +42,16 @@ public class DeleteBooking : IDelete
                 var id = _promptForId.GetValidId("hard delete", "booking");
                 var currentBooking = _bookingRepo.GetItemById(id);
                 if (currentBooking == null) continue;
-                
-                if (currentBooking != null && !currentBooking.IsPaid)
+
+                if (!currentBooking.IsPaid)
                 {
                     _errorHandler.DisplayError("Invoice not paid." +
                         "\nThe invoice must be paid to proceed with this action.");
                     continue;
                 }
-                var roomId = _bookingRepo.GetItemById(id).RoomId;
-                var room = _roomRepo.GetItemById(roomId);
+
+                
+                var room = _roomRepo.GetItemById(currentBooking.RoomId);
                 room.IsActive = true;
                 _roomRepo.Update(room);
                 _bookingRepo.RemoveItemById(id);

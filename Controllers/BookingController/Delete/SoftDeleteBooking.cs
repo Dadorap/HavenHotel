@@ -40,15 +40,16 @@ public class SoftDeleteBooking : ISoftDelete
                 var id = _promptForId.GetValidId("soft delete", "booking", "true");
                 var currentBooking = _bookingRepo.GetItemById(id);
                 if (currentBooking == null) continue;
-                
+
+                var booking = _bookingRepo.GetAllItems().FirstOrDefault(b => b.Id == id);
                 if (currentBooking != null && !currentBooking.IsPaid)
                 {
                     _errorHandler.DisplayError("Invoice not paid." +
                         "\nThe invoice must be paid to proceed with this action.");
                     continue;
                 }
-                var roomId = _bookingRepo.GetItemById(id).RoomId;
-                var room = _roomRepo.GetItemById(roomId);
+                
+                var room = _roomRepo.GetItemById(currentBooking.RoomId);
 
                 if (currentBooking.IsActive)
                 {
