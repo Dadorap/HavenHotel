@@ -49,7 +49,8 @@ public class CreateGuest : ICreate
                 Console.Write("Enter guest's full name: ");
                 var guestName = Console.ReadLine()?.Trim();
                 _navigationHelper.Value.ReturnToMenu(guestName);
-                if (string.IsNullOrWhiteSpace(guestName))
+                if (string.IsNullOrWhiteSpace(guestName) 
+                    || guestName.Any(char.IsDigit))
                 {
                     _errorHandler.DisplayError("Invalid name. Please enter a valid name.");
                     continue;

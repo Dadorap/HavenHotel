@@ -46,7 +46,8 @@ public class NameUpdate : INameUpdate
                 Console.Write("Enter new full name: ");
                 string nameInput = Console.ReadLine().Trim();
                 _navigationHelper.Value.ReturnToMenu(nameInput);
-                if (string.IsNullOrEmpty(nameInput))
+                if (string.IsNullOrEmpty(nameInput)
+                    || nameInput.Any(char.IsDigit))
                 {
                     _errorHandler.DisplayError("Invalid name input. Try again...");
                     continue;
