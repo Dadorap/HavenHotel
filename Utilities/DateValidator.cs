@@ -11,10 +11,5 @@ public class DateValidator : IDateValidator
 
         return isCorrectDate;
     }
-    public bool IsCorrectEndDate(DateOnly startDate, DateOnly endDate)
-    {
-        bool isCorrectDate = endDate >= startDate;
 
-        return isCorrectDate;
-    }
 }

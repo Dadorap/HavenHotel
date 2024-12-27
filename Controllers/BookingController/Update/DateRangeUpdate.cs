@@ -57,40 +57,40 @@ public class DateRangeUpdate : IDateRangeUpdate
                 Console.WriteLine("Enter the new check-in date (yyyy-MM-dd): ");
                 string atDate = Console.ReadLine();
                 _navigationHelper.Value.ReturnToMenu(atDate);
-                if (!DateOnly.TryParse(atDate, out DateOnly startDate) ||
-                    !_dateValidator.IsCorrectStartDate(startDate))
+                if (!DateOnly.TryParse(atDate, out DateOnly checkInDate) ||
+                    !_dateValidator.IsCorrectStartDate(checkInDate))
                 {
                     _errorHandler.DisplayError("Invalid date input try again...");
                     continue;
                 }
+
                 Console.WriteLine($"Current check-out date: {booking.EndDate}");
-                Console.WriteLine("Enter the new checkout date (yyyy-MM-dd)");
-                string lastDate = Console.ReadLine();
-                _navigationHelper.Value.ReturnToMenu(lastDate);
-                if (!DateOnly.TryParse(lastDate, out DateOnly endDate) ||
-                    !_dateValidator.IsCorrectEndDate(startDate, endDate))
+                Console.Write("Enter number of nights: ");
+                string nightsInput = Console.ReadLine();
+                _navigationHelper.Value.ReturnToMenu(nightsInput);
+
+                if (!int.TryParse(nightsInput, out int nights) || nights <= 0)
                 {
-                    _errorHandler.DisplayError("Invalid date input try again...");
-                    continue;
+                    Console.WriteLine("Invalid number of nights. Please enter a positive number.");
+                    return;
                 }
+                DateOnly checkOutDate = checkInDate.AddDays(nights);
+
                 var roomPrice = _roomRepo.GetItemById(booking.RoomId).Price;
-                int totalDays = (endDate.ToDateTime(TimeOnly.MinValue) -
-                                startDate.ToDateTime(TimeOnly.MinValue)).Days;
-                var daysTotal = totalDays == 0 ? 1 : totalDays;
-                var totalPrice = daysTotal * roomPrice;
+                var totalPrice = nights * roomPrice;
                 var bookings = _bookingRepo.GetAllItems()
                     .Where(b => b.Id == id).ToList();
 
                 bookings.ForEach(b =>
                 {
-                    b.StartDate = startDate;
-                    b.EndDate = endDate;
+                    b.StartDate = checkInDate;
+                    b.EndDate = checkOutDate;
                     b.TotalPrice = totalPrice;
                     _bookingRepo.Update(b);
                 });
                 _bookingRepo.Update(booking);
-                _updateConfirmation.Confirmation($"The new check-in {startDate} and check-out date " +
-                    $"{endDate} has been set.\nTotal price: {totalPrice:C}");
+                _updateConfirmation.Confirmation($"The new check-in {checkInDate} and check-out date " +
+                    $"{checkOutDate} has been set.\nTotal price: {totalPrice:C}");
                 break;
             }
             catch (Exception ex)

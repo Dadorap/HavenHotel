@@ -2,6 +2,7 @@
 using HavenHotel.Data.Repositories;
 using HavenHotel.Interfaces;
 using HavenHotel.Interfaces.BookingInterfaces;
+using HavenHotel.Interfaces.GuestInterfaces;
 using HavenHotel.Models;
 
 namespace HavenHotel.Controllers.BookingController.Create;
@@ -16,6 +17,7 @@ public class CreateBooking : ICreate
     private readonly IDateValidator _dateValidator;
     private readonly IErrorHandler _errorHandler;
     private readonly IBookingSidebarDisplay _bookingSidebarDisplay;
+    private readonly IUpdateConfirmation _updateConfirmation;
 
     public CreateBooking(
         IRepository<Guest> guestRepo,
@@ -25,7 +27,9 @@ public class CreateBooking : ICreate
         [KeyFilter("MainMenu")] Lazy<IMenu> mainMenu,
         IDateValidator dateValidator,
         IErrorHandler errorHandler,
-        IBookingSidebarDisplay bookingSidebarDisplay
+        IBookingSidebarDisplay bookingSidebarDisplay,
+        IUpdateConfirmation updateConfirmation
+        
     )
     {
         _guestRepo = guestRepo;
@@ -36,6 +40,7 @@ public class CreateBooking : ICreate
         _bookingSidebarDisplay = bookingSidebarDisplay;
         _mainMenu = mainMenu;
         _dateValidator = dateValidator;
+        _updateConfirmation = updateConfirmation;
     }
 
     public void Create()
@@ -137,14 +142,9 @@ public class CreateBooking : ICreate
                     _bookingRepo.Add(booking);
                     _bookingRepo.SaveChanges();
 
-                    Console.Clear();
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine($"Room number {roomNumber} has been successfully booked.");
-                    Console.WriteLine($"Total price: {totalPrice:C}");
-                    Console.Write("Press any key to return to the menu...");
-                    Console.ReadKey();
-                    _mainMenu.Value.DisplayMenu();
-                    Console.ResetColor();
+                    _updateConfirmation.Confirmation($"Room number {roomNumber} has been successfully booked." +
+                        $"\nTotal price: {totalPrice:C}");
+
                     isDate = false;
                 }
             }
