@@ -2,5 +2,5 @@
 
 public interface IPromptForId
 {
-    int GetValidId(string headerText, string identifier);
+    int GetValidId(string headerText, string identifier, string idDisplayer = "all");
 }

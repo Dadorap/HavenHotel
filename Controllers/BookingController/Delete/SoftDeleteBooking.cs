@@ -37,7 +37,7 @@ public class SoftDeleteBooking : ISoftDelete
         {
             try
             {
-                var id = _promptForId.GetValidId("soft delete", "booking");
+                var id = _promptForId.GetValidId("soft delete", "booking", "true");
                 var currentBooking = _bookingRepo.GetItemById(id);
                 if (currentBooking == null) continue;
                 

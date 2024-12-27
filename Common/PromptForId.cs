@@ -43,7 +43,7 @@ public class PromptForId : IPromptForId
 
     }
 
-    public int GetValidId(string headerText, string identifier)
+    public int GetValidId(string headerText, string identifier, string idDisplayer = "all")
     {
         while (true)
         {
@@ -52,7 +52,7 @@ public class PromptForId : IPromptForId
             {
                 Console.Clear();
                 var headerT = $"===== {headerText} Handler =====".ToUpper();
-                _displayRight.DisplayRightAligned(identifier, "all");
+                _displayRight.DisplayRightAligned(identifier, idDisplayer);
                 Console.SetCursorPosition(0, 0);
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine(headerT);

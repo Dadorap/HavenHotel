@@ -36,7 +36,7 @@ public class SoftDeleteGuest : ISoftDelete
         {
             try
             {
-                var id = _promptForId.GetValidId("soft delete", "guest");
+                var id = _promptForId.GetValidId("soft delete", "guest", "true");
                 var currentGuest = _guestRepo.GetItemById(id);
 
                 if (currentGuest == null)
