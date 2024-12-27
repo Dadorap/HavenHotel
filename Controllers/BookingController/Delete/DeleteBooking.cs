@@ -34,7 +34,6 @@ public class DeleteBooking : IDelete
     }
     public void Delete()
     {
-        bool choice = false;
         while (true)
         {
             try
