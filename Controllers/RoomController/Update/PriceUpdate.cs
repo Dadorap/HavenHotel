@@ -46,7 +46,7 @@ public class PriceUpdate : IUpdateRoom
                 }
 
                 Console.WriteLine($"Current room price/night: {currentRoom.Price:C}");
-                Console.Write($"Enter new room price/night (100 - 5000): ");
+                Console.WriteLine($"Enter new room price/night (100 - 5000): ");
                 string roomPrice = Console.ReadLine().Trim();
                 _navigationHelper.Value.ReturnToMenu(roomPrice);
 

@@ -47,7 +47,7 @@ public class RoomTypeUpdate : IUpdateRoom
                 }
 
                 Console.WriteLine($"Current room type: {currentRoom.RoomType}");
-                Console.Write($"Enter new room type: ");
+                Console.Write($"(Single, Double, Suite, Family)\nEnter new room type: ");
                 string roomTypeInput = Console.ReadLine().Trim();
                 _navigationHelper.Value.ReturnToMenu(roomTypeInput);
                 if (!Enum.TryParse(roomTypeInput, true, out RoomType roomType)

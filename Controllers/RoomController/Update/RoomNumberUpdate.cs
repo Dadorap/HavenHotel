@@ -46,7 +46,7 @@ public class RoomNumberUpdate : IUpdateRoom
             }
 
             Console.WriteLine($"Current room number: {currentRoom.RoomNumber}");
-            Console.Write("Enter new room number: ");
+            Console.Write("Enter new room number(100-500): ");
             string roomNumber = Console.ReadLine().Trim();
             _navigationHelper.Value.ReturnToMenu(roomNumber);
 
