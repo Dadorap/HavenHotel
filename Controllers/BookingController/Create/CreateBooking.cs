@@ -17,7 +17,6 @@ public class CreateBooking : ICreate
     private readonly IErrorHandler _errorHandler;
     private readonly IBookingSidebarDisplay _bookingSidebarDisplay;
 
-
     public CreateBooking(
         IRepository<Guest> guestRepo,
         IRepository<Room> roomRepo,
@@ -27,8 +26,7 @@ public class CreateBooking : ICreate
         IDateValidator dateValidator,
         IErrorHandler errorHandler,
         IBookingSidebarDisplay bookingSidebarDisplay
-
-        )
+    )
     {
         _guestRepo = guestRepo;
         _roomRepo = roomRepo;
@@ -43,6 +41,7 @@ public class CreateBooking : ICreate
     public void Create()
     {
         bool isDate = true;
+
         while (true)
         {
             Console.Clear();
@@ -50,13 +49,13 @@ public class CreateBooking : ICreate
             {
                 _bookingSidebarDisplay.DisplayRightAligned("CREATE NEW BOOKING");
 
-                Console.Write("Enter Guests ID: ");
+                Console.Write("Enter Guest ID: ");
                 string idInput = Console.ReadLine();
                 _navigationHelper.Value.ReturnToMenu(idInput);
 
                 if (!int.TryParse(idInput, out int id) || !IsActiveGuest(id))
                 {
-                    _errorHandler.DisplayError("Invalid ID input try again...");
+                    _errorHandler.DisplayError("Invalid Guest ID. Please try again.");
                     continue;
                 }
 
@@ -64,80 +63,85 @@ public class CreateBooking : ICreate
                 string guestsNum = Console.ReadLine();
                 _navigationHelper.Value.ReturnToMenu(guestsNum);
 
-                if (!int.TryParse(guestsNum, out int totalGuests) || !IsTotalGuests(totalGuests))
+                if (!int.TryParse(guestsNum, out int totalGuests) || !IsTotalGuests(totalGuests) || totalGuests <= 0)
                 {
-                    _errorHandler.DisplayError("Invalid total guest input try again...");
+                    _errorHandler.DisplayError("Invalid number of guests. Please try again.");
                     continue;
                 }
+
                 Console.Write("Enter room number: ");
                 string roomNum = Console.ReadLine();
                 _navigationHelper.Value.ReturnToMenu(roomNum);
 
-
                 if (!int.TryParse(roomNum, out int roomNumber) || !IsAppropriateRoom(roomNumber, totalGuests))
                 {
-                    _errorHandler.DisplayError("Invalid room number try again...");
+                    _errorHandler.DisplayError("Invalid room number. Please try again.");
                     continue;
                 }
-                var roomId = _roomRepo.GetAllItems().FirstOrDefault(r => r.RoomNumber == roomNumber).Id;
-                var bookingsEndDate = _bookingRepo.GetAllItems().FirstOrDefault(b => b.RoomId == roomId).EndDate;
-                if (!isRoomAvailable(roomNumber))
+
+                var room = _roomRepo.GetAllItems().FirstOrDefault(r => r.RoomNumber == roomNumber);
+                if (room == null)
                 {
-                    _errorHandler.DisplayError($"Room is not available. " +
-                        $"\nThe room will be available again after {bookingsEndDate}");
+                    _errorHandler.DisplayError("Room not found. Please try again.");
                     continue;
                 }
+
+                if (!isRoomAvailable(room.Id))
+                {
+                    var nextAvailableDate = GetNextAvailableDate(room.Id);
+                    _errorHandler.DisplayError($"Room is not available. It will be available again after {nextAvailableDate:yyyy-MM-dd}.");
+                    continue;
+                }
+
                 while (isDate)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkCyan;
-                    Console.WriteLine("Enter check-in date (yyyy-MM-dd)");
+                    Console.WriteLine("Enter check-in date (yyyy-MM-dd): ");
                     string atDate = Console.ReadLine();
                     _navigationHelper.Value.ReturnToMenu(atDate);
-                    if (!DateOnly.TryParse(atDate, out DateOnly startDate) || !_dateValidator.IsCorrectStartDate(startDate))
+
+                    if (!DateOnly.TryParse(atDate, out DateOnly checkInDate) || !_dateValidator.IsCorrectStartDate(checkInDate))
                     {
                         Console.ForegroundColor = ConsoleColor.DarkRed;
-                        Console.WriteLine("Invalid date input try again...");
+                        Console.WriteLine("Invalid check-in date. Please try again.");
                         Console.ResetColor();
                         continue;
                     }
 
-                    Console.WriteLine("Enter check-out date (yyyy-MM-dd)");
-                    string lastDate = Console.ReadLine();
-                    _navigationHelper.Value.ReturnToMenu(lastDate);
-                    if (!DateOnly.TryParse(lastDate, out DateOnly endDate) || !_dateValidator.IsCorrectEndDate(startDate, endDate))
+                    Console.Write("Enter number of nights: ");
+                    string nightsInput = Console.ReadLine();
+                    _navigationHelper.Value.ReturnToMenu(nightsInput);
+
+                    if (!int.TryParse(nightsInput, out int nights) || nights <= 0)
                     {
-                        Console.ForegroundColor = ConsoleColor.DarkRed;
-                        Console.WriteLine("Invalid date input try again...");
-                        Console.ResetColor();
-                        continue;
+                        Console.WriteLine("Invalid number of nights. Please enter a positive number.");
+                        return;
                     }
-                    var roomID = _roomRepo.GetAllItems().Where(r => r.RoomNumber == roomNumber).Select(r => r.Id).Single();
-                    var rooms = _roomRepo.GetAllItems().Where(r => r.Id == roomID).ToList();
-                    var roomPrice = _roomRepo.GetItemById(roomID).Price;
-                    int totalDays = (endDate.ToDateTime(TimeOnly.MinValue) -
-                                    startDate.ToDateTime(TimeOnly.MinValue)).Days;
-                    var daysTotal = totalDays == 0 ? 1 : totalDays;
-                    var totalPrice = daysTotal * roomPrice;
+
+                    DateOnly checkOutDate = checkInDate.AddDays(nights);
+                    decimal roomPrice = room.Price;
+                    decimal totalPrice = nights * roomPrice;
 
                     var booking = new Booking
                     {
-                        StartDate = startDate,
-                        EndDate = endDate,
+                        StartDate = checkInDate,
+                        EndDate = checkOutDate,
                         TotalPrice = totalPrice,
                         GuestId = id,
-                        RoomId = roomID
+                        RoomId = room.Id
                     };
-                    rooms.ForEach(r =>
-                    {
-                        r.IsActive = false;
-                        _roomRepo.Update(r);
-                    });
+
+                    room.IsActive = false;
+                    _roomRepo.Update(room);
+
                     _bookingRepo.Add(booking);
                     _bookingRepo.SaveChanges();
+
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine($"Room number {roomNumber} has been successfully booked.\nTotal price: {totalPrice:C}");
-                    Console.Write("Press any key to return to menu...");
+                    Console.WriteLine($"Room number {roomNumber} has been successfully booked.");
+                    Console.WriteLine($"Total price: {totalPrice:C}");
+                    Console.Write("Press any key to return to the menu...");
                     Console.ReadKey();
                     _mainMenu.Value.DisplayMenu();
                     Console.ResetColor();
@@ -146,35 +150,43 @@ public class CreateBooking : ICreate
             }
             catch (Exception ex)
             {
-                _errorHandler.DisplayError($"Somehting went wrong. {ex.Message}");
-                continue;
+                _errorHandler.DisplayError($"Something went wrong: {ex.Message}");
             }
         }
     }
+
     private bool IsActiveGuest(int id)
     {
-        var guest = _guestRepo.GetAllItems().Any(g => g.IsActive && g.Id == id);
-        return guest;
+        return _guestRepo.GetAllItems().Any(g => g.IsActive && g.Id == id);
     }
-    private bool IsTotalGuests(int toatalGuests)
+
+    private bool IsTotalGuests(int totalGuests)
     {
-        var maxG = _roomRepo.GetAllItems().Max(g => g.TotalGuests);
-        bool isTotalGuest = toatalGuests <= maxG;
-        return isTotalGuest;
+        int maxGuests = _roomRepo.GetAllItems().Max(r => r.TotalGuests);
+        return totalGuests <= maxGuests;
     }
+
     private bool IsAppropriateRoom(int roomNum, int totalGuest)
     {
-        var appropriateRoom = _roomRepo.GetAllItems().Any(r => r.RoomNumber == roomNum && r.TotalGuests >= totalGuest);
-        return appropriateRoom;
+        return _roomRepo.GetAllItems().Any(r => r.RoomNumber == roomNum && r.TotalGuests >= totalGuest);
     }
 
-    private bool isRoomAvailable(int roomNum)
+    private bool isRoomAvailable(int roomId)
     {
         DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
-        var roomId = _roomRepo.GetAllItems().FirstOrDefault(r => r.RoomNumber == roomNum).Id;
-        var bookingsEndDate = _bookingRepo.GetAllItems().FirstOrDefault(b => b.RoomId == roomId).EndDate;
-        var isRoomAvailable = currentDate > bookingsEndDate;
-        return isRoomAvailable;
+
+        var booking = _bookingRepo.GetAllItems().FirstOrDefault(b => b.RoomId == roomId);
+        if (booking == null)
+        {
+            return true; 
+        }
+
+        return currentDate > booking.EndDate;
     }
 
+    private DateOnly GetNextAvailableDate(int roomId)
+    {
+        var booking = _bookingRepo.GetAllItems().FirstOrDefault(b => b.RoomId == roomId);
+        return booking?.EndDate ?? DateOnly.MinValue;
+    }
 }
