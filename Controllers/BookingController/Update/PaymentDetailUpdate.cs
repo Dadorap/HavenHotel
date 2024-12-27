@@ -55,7 +55,8 @@ public class PaymentDetailUpdate : IPaymentDetailUpdate
                 string totalP = Console.ReadLine().Trim();
                 _navigationHelper.Value.ReturnToMenu(totalP);
 
-                if (!decimal.TryParse(totalP, out decimal totalPrice) || totalPrice <= 0)
+                if (!decimal.TryParse(totalP, out decimal totalPrice) 
+                    || totalPrice < 0)
                 {
                     _errorHandler.DisplayError("Invalid price input try again...");
                     continue;

@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Features.AttributeFilters;
 using HavenHotel.Common;
+using HavenHotel.Controllers.BookingController;
 using HavenHotel.Controllers.BookingController.Create;
 using HavenHotel.Controllers.BookingController.Delete;
 using HavenHotel.Controllers.BookingController.Display;

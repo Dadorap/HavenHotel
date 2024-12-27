@@ -4,7 +4,7 @@ using HavenHotel.Interfaces;
 using HavenHotel.Interfaces.BookingInterfaces;
 using HavenHotel.Models;
 
-namespace HavenHotel.Controllers.BookingController.Update;
+namespace HavenHotel.Controllers.BookingController;
 
 public class InvoiceUpdate : IInvoiceUpdate
 {
