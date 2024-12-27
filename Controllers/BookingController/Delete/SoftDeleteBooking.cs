@@ -49,12 +49,24 @@ public class SoftDeleteBooking : ISoftDelete
                 }
                 var roomId = _bookingRepo.GetItemById(id).RoomId;
                 var room = _roomRepo.GetItemById(roomId);
-                room.IsActive = true;
-                _roomRepo.Update(room);
-                currentBooking.IsActive = false;
-                _bookingRepo.SaveChanges();
-                _updateConfirmation.Confirmation($"Booking with ID: {currentBooking.Id}. " +
-                    $"\nHas been deleted successfully.");
+
+                if (currentBooking.IsActive)
+                {
+                    room.IsActive = true;
+                    _roomRepo.Update(room);
+                    currentBooking.IsActive = false;
+                    _bookingRepo.SaveChanges();
+                    _updateConfirmation.Confirmation($"Booking with ID: {currentBooking.Id}. " +
+                        $"\nHas been soft-deleted successfully.");
+                    break;
+                }
+                else
+                {
+                    _errorHandler.DisplayError("ID already soft-deleted. " +
+                   "\nPlease try again.");
+                    continue;
+                }
+
 
             }
             catch (Exception)

@@ -52,10 +52,20 @@ public class SoftDeleteGuest : ISoftDelete
                     continue;
                 }
 
-                currentGuest.IsActive = false;
-                _guestRepo.SaveChanges();
-                _updateConfirmation.Confirmation($"Guest with ID: {currentGuest.Id} has been soft-deleted successfully.");
-                break;
+                if (currentGuest.IsActive)
+                {
+                    currentGuest.IsActive = false;
+                    _guestRepo.SaveChanges();
+                    _updateConfirmation.Confirmation($"Guest with ID: {currentGuest.Id} has been soft-deleted successfully.");
+                    break;
+                }
+                else
+                {
+                    _errorHandler.DisplayError("ID already soft deleted. " +
+                   "\nPlease try again.");
+                    continue;
+                }
+
             }
             catch (Exception)
             {
