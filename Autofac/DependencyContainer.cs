@@ -56,7 +56,7 @@ public static class DependencyContainer
             .Named<IMenu>("MainMenu")
             .WithAttributeFiltering();
 
-        //Sup booking menu
+        //Sub-booking menu
         containerBuilder.RegisterType<DeleteBookingMenu>()
             .Named<IMenu>("DeletedBookingMenu")
             .WithAttributeFiltering();
@@ -67,7 +67,7 @@ public static class DependencyContainer
             .Named<IMenu>("UpdateBookingMenu")
             .WithAttributeFiltering();
 
-        //Sup guest menu
+        //Sub-guest menu
         containerBuilder.RegisterType<DeleteGuestMenu>()
             .Named<IMenu>("DeletedGuestMenu")
             .WithAttributeFiltering();
@@ -78,7 +78,7 @@ public static class DependencyContainer
             .Named<IMenu>("UpdateGuestMenu")
             .WithAttributeFiltering();
 
-        //Sup room menu
+        //Sub-room menu
         containerBuilder.RegisterType<DeleteRoomMenu>()
             .Named<IMenu>("DeletedRoomMenu")
             .WithAttributeFiltering();
